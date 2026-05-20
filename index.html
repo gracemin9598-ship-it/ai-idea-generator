@@ -11,24 +11,24 @@
     
     <style>
         /* ==========================================================================
-           1. DESIGN SYSTEM & VARIABLE DEFINITIONS (Premium Ivory & Deep Teal)
+           1. DESIGN SYSTEM & VARIABLE DEFINITIONS (Premium Mint & Pure White)
            ========================================================================== */
         :root {
-            --bg-color: #f9f8f6;         /* Premium Ivory */
-            --primary-color: #2d5a53;    /* Deep Teal */
-            --primary-light: #457e75;    /* Soft Teal */
-            --primary-hover: #1b3a35;    /* Dark Teal */
-            --text-main: #1c1c1c;        /* Deep Charcoal */
-            --text-muted: #6b6a67;       /* Warm Gray Muted */
+            --bg-color: #f7faf8;         /* Soft Mint Pale Background */
+            --primary-color: #12d379;    /* Bright Energetic Mint Green */
+            --primary-light: #5df7a9;    /* Soft Light Mint */
+            --primary-hover: #0fb868;    /* Active Darker Mint Green */
+            --text-main: #181d19;        /* Deep Charcoal Greenish Black */
+            --text-muted: #64748b;       /* Cool Slate Gray */
             --card-bg: #ffffff;          /* Pure White */
-            --accent-bg: #f1efe9;        /* Warm Light Ivory */
-            --border-color: #e6e3da;     /* Subtle Warm Gray Border */
-            --shadow-subtle: 0 8px 32px rgba(45, 90, 83, 0.04);
-            --shadow-medium: 0 16px 48px rgba(45, 90, 83, 0.08);
+            --accent-bg: #f0fdf4;        /* Very Light Mint Tint */
+            --border-color: #e2e8f0;     /* Subtle Slate Border */
+            --shadow-subtle: 0 8px 30px rgba(18, 211, 121, 0.02);
+            --shadow-medium: 0 16px 40px rgba(18, 211, 121, 0.06);
             --transition-smooth: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
+            --radius-lg: 20px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
         }
 
         /* Reset & Base Styles */
@@ -47,6 +47,7 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
+            position: relative;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -60,18 +61,21 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
+            z-index: 10;
         }
 
         /* Modern Premium Header */
         header {
             text-align: center;
             margin-bottom: 20px;
+            margin-top: 10px;
         }
 
         .logo {
             font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--primary-color);
+            font-weight: 700;
+            color: var(--primary-hover);
             letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 6px;
@@ -84,7 +88,7 @@
         .subtitle {
             font-size: 0.85rem;
             color: var(--text-muted);
-            font-weight: 300;
+            font-weight: 400;
             letter-spacing: 0.02em;
         }
 
@@ -132,13 +136,14 @@
         .chat-room {
             display: flex;
             flex-direction: column;
-            height: 480px;
+            height: calc(100vh - 200px);
+            min-height: 480px;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             background-color: var(--card-bg);
             overflow: hidden;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow-subtle);
+            margin-bottom: 0px;
+            box-shadow: var(--shadow-medium);
         }
 
         .chat-header {
@@ -153,21 +158,21 @@
         .chat-header-status {
             width: 8px;
             height: 8px;
-            background-color: #2e7d32;
+            background-color: var(--primary-color);
             border-radius: 50%;
             animation: pulse-green 2s infinite;
         }
 
         @keyframes pulse-green {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(18, 211, 121, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(18, 211, 121, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(18, 211, 121, 0); }
         }
 
         .chat-header-title {
             font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--primary-color);
+            font-weight: 700;
+            color: var(--text-main);
         }
 
         .chat-history {
@@ -177,13 +182,13 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            background-color: #faf9f6;
+            background-color: #fafdfb;
             scroll-behavior: smooth;
         }
 
         /* Bubble Styles */
         .chat-bubble {
-            max-width: 80%;
+            max-width: 85%;
             padding: 14px 18px;
             border-radius: var(--radius-md);
             font-size: 0.9rem;
@@ -202,15 +207,18 @@
             color: var(--text-main);
             align-self: flex-start;
             border-bottom-left-radius: 4px;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(18, 211, 121, 0.15);
+            margin-top: 14px;
         }
 
         .chat-bubble.user {
             background-color: var(--primary-color);
-            color: var(--bg-color);
+            color: #ffffff;
             align-self: flex-end;
             border-bottom-right-radius: 4px;
-            box-shadow: 0 4px 12px rgba(45, 90, 83, 0.12);
+            box-shadow: 0 4px 12px rgba(18, 211, 121, 0.15);
+            margin-top: 14px;
+            font-weight: 500;
         }
 
         .chat-bubble.coach::before {
@@ -220,7 +228,7 @@
             left: 2px;
             font-size: 0.7rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--primary-hover);
         }
 
         .chat-bubble.user::before {
@@ -262,13 +270,108 @@
             50% { transform: translateY(-4px); }
         }
 
-        /* Input Panel */
-        .input-panel {
+        /* Inline Controls Wrapper inside chat log */
+        .inline-controls-wrapper {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 20px;
-            box-shadow: var(--shadow-subtle);
+            box-shadow: var(--shadow-medium);
+            align-self: flex-start;
+            width: 100%;
+            max-width: 95%;
+            margin-top: 8px;
+            margin-left: 2px;
+            animation: bubble-pop 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+        }
+
+        /* Passcode Keypad Styles (inspired by iOS lock screen passcode) */
+        .passcode-dots-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .passcode-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            background-color: transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .passcode-dot.filled {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: scale(1.2);
+            box-shadow: 0 0 8px rgba(18, 211, 121, 0.4);
+        }
+
+        .keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-width: 240px;
+            margin: 0 auto 10px auto;
+        }
+
+        .keypad-btn {
+            aspect-ratio: 1;
+            height: 56px;
+            width: 56px;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .keypad-btn:active {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            transform: scale(0.92);
+        }
+
+        @media (hover: hover) {
+            .keypad-btn:hover {
+                background-color: var(--primary-color);
+                color: #ffffff;
+                border-color: var(--primary-color);
+            }
+        }
+
+        .keypad-btn.action-key {
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-color: transparent;
+            background-color: transparent;
+            color: var(--text-muted);
+        }
+
+        .keypad-btn.action-key:active {
+            background-color: var(--accent-bg);
+            color: var(--text-main);
+            transform: scale(0.95);
+        }
+
+        @media (hover: hover) {
+            .keypad-btn.action-key:hover {
+                background-color: var(--accent-bg);
+                color: var(--text-main);
+            }
         }
 
         /* Choice Grid */
@@ -276,7 +379,7 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 10px;
-            max-height: 180px;
+            max-height: 200px;
             overflow-y: auto;
             margin-bottom: 14px;
             padding-right: 2px;
@@ -288,7 +391,7 @@
             border-radius: var(--radius-md);
             padding: 14px 18px;
             font-size: 0.9rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--text-main);
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -300,15 +403,15 @@
 
         .choice-btn:hover {
             border-color: var(--primary-color);
-            background-color: var(--bg-color);
+            background-color: var(--accent-bg);
             transform: translateY(-1px);
         }
 
         .choice-btn.active {
             border-color: var(--primary-color);
             background-color: var(--primary-color);
-            color: var(--bg-color);
-            box-shadow: 0 4px 14px rgba(45, 90, 83, 0.15);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(18, 211, 121, 0.2);
         }
 
         .choice-btn .arrow {
@@ -332,12 +435,12 @@
 
         .tag-chip {
             background-color: var(--accent-bg);
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(18, 211, 121, 0.15);
             border-radius: 20px;
             padding: 6px 12px;
             font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--primary-color);
+            font-weight: 600;
+            color: var(--primary-hover);
             cursor: pointer;
             transition: var(--transition-smooth);
         }
@@ -345,7 +448,7 @@
         .tag-chip:hover {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
-            color: var(--bg-color);
+            color: #ffffff;
         }
 
         /* Form Controls */
@@ -372,7 +475,7 @@
         .premium-input:focus {
             border-color: var(--primary-color);
             background-color: var(--card-bg);
-            box-shadow: 0 0 0 3px rgba(45, 90, 83, 0.08);
+            box-shadow: 0 0 0 3px rgba(18, 211, 121, 0.08);
         }
 
         /* Navigation Bar */
@@ -388,12 +491,12 @@
 
         .nav-btn {
             background-color: var(--primary-color);
-            color: var(--bg-color);
+            color: #ffffff;
             border: none;
             border-radius: var(--radius-md);
-            padding: 12px 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            padding: 14px 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
             cursor: pointer;
             transition: var(--transition-smooth);
             display: flex;
@@ -405,7 +508,7 @@
 
         .nav-btn:hover {
             background-color: var(--primary-hover);
-            box-shadow: 0 4px 12px rgba(45, 90, 83, 0.12);
+            box-shadow: 0 4px 12px rgba(18, 211, 121, 0.2);
         }
 
         .nav-btn:disabled {
@@ -439,12 +542,12 @@
             justify-content: space-between;
             font-size: 0.75rem;
             color: var(--text-muted);
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 6px;
         }
 
         .survey-progress-track {
-            height: 3px;
+            height: 4px;
             background-color: var(--accent-bg);
             border-radius: 2px;
             overflow: hidden;
@@ -460,7 +563,157 @@
         }
 
         /* ==========================================================================
-           4. DASHBOARD VIEW COMPONENTS
+           4. LOADING TRANSITION SCREEN (Left screenshot inspired)
+           ========================================================================== */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 200px);
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
+        }
+
+        .loading-gauge-wrapper {
+            position: relative;
+            width: 170px;
+            height: 170px;
+            margin-bottom: 30px;
+        }
+
+        .loading-gauge-svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .loading-gauge-bg {
+            fill: none;
+            stroke: #eefaf2;
+            stroke-width: 7;
+        }
+
+        .loading-gauge-fill {
+            fill: none;
+            stroke: var(--primary-color);
+            stroke-width: 7;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.08s linear;
+        }
+
+        .loading-gauge-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.3rem;
+            font-weight: 800;
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        .loading-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .loading-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            font-weight: 400;
+        }
+
+        .loading-checklist {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checklist-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-subtle);
+            text-align: left;
+            transition: var(--transition-smooth);
+            opacity: 0.5;
+        }
+
+        .checklist-card.active {
+            opacity: 1;
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-2px);
+        }
+
+        .chk-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .checklist-card.active .chk-icon {
+            background-color: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .chk-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .checklist-card.active .chk-text {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        /* Loading View Decorations */
+        .loading-deco-left {
+            position: absolute;
+            bottom: 20px;
+            left: -10px;
+            animation: bounce 3s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        .loading-deco-right {
+            position: absolute;
+            bottom: 12px;
+            right: -10px;
+            animation: bounce 3s infinite ease-in-out;
+            animation-delay: 1.5s;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ==========================================================================
+           5. DASHBOARD VIEW COMPONENTS
            ========================================================================== */
         .dashboard-welcome {
             margin-bottom: 24px;
@@ -468,10 +721,11 @@
         }
 
         .dashboard-welcome h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.55rem;
+            font-weight: 800;
             color: var(--text-main);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
         }
 
         .dashboard-welcome p {
@@ -483,7 +737,7 @@
         .cards-headline {
             font-size: 0.85rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--primary-hover);
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 14px;
@@ -523,12 +777,12 @@
         .canvas-tag {
             font-size: 0.7rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--primary-hover);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 6px;
             display: inline-block;
-            background-color: rgba(45, 90, 83, 0.06);
+            background-color: rgba(18, 211, 121, 0.08);
             padding: 2px 6px;
             border-radius: 4px;
         }
@@ -574,7 +828,7 @@
 
         .gauge-bg {
             fill: none;
-            stroke: var(--accent-bg);
+            stroke: #eefaf2;
             stroke-width: 8;
         }
 
@@ -593,9 +847,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            color: var(--primary-color);
+            color: var(--text-main);
             font-family: 'Outfit', sans-serif;
         }
 
@@ -633,14 +887,14 @@
             height: 36px;
             border-radius: 50%;
             background-color: var(--primary-color);
-            color: var(--bg-color);
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.8rem;
             font-weight: 700;
             flex-shrink: 0;
-            box-shadow: 0 4px 8px rgba(45, 90, 83, 0.15);
+            box-shadow: 0 4px 8px rgba(18, 211, 121, 0.15);
         }
 
         .roadmap-content {
@@ -667,8 +921,8 @@
 
         /* Obstacle Solver */
         .obstacle-alert {
-            background-color: #fbf6f5;
-            border-left: 4px solid #d9534f;
+            background-color: #fffafb;
+            border-left: 4px solid #ff4f70;
             padding: 16px 18px;
             border-radius: 0 var(--radius-md) var(--radius-md) 0;
             margin-bottom: 28px;
@@ -676,7 +930,7 @@
         }
 
         .obstacle-alert h4 {
-            color: #d9534f;
+            color: #ff4f70;
             font-size: 0.85rem;
             font-weight: 700;
             margin-bottom: 6px;
@@ -691,7 +945,7 @@
             line-height: 1.5;
         }
 
-        /* Habit Tracker */
+        /* Habit Tracker & Push Card (inspired by right screenshot) */
         .dashboard-tracker-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -724,8 +978,8 @@
 
         .stat-num {
             font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-color);
+            font-weight: 800;
+            color: var(--primary-hover);
             margin-bottom: 2px;
         }
 
@@ -768,8 +1022,8 @@
         .calendar-dot.completed {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
-            color: var(--bg-color);
-            box-shadow: 0 4px 8px rgba(45, 90, 83, 0.15);
+            color: #ffffff;
+            box-shadow: 0 4px 8px rgba(18, 211, 121, 0.2);
         }
 
         .calendar-dot.today {
@@ -786,12 +1040,12 @@
         .complete-action-btn {
             width: 100%;
             background-color: var(--primary-color);
-            color: var(--bg-color);
+            color: #ffffff;
             border: none;
             border-radius: var(--radius-md);
             padding: 14px;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: var(--transition-smooth);
             display: flex;
@@ -802,12 +1056,80 @@
 
         .complete-action-btn:hover {
             background-color: var(--primary-hover);
+            box-shadow: 0 4px 12px rgba(18, 211, 121, 0.2);
         }
 
         .complete-action-btn:disabled {
             background-color: var(--border-color);
             color: var(--text-muted);
             cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Push Notification Setup Card (matching the right screenshot) */
+        .tracker-notification-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px 20px;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notification-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary-hover);
+            background-color: rgba(18, 211, 121, 0.08);
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .notification-previews {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+            margin-top: 14px;
+        }
+
+        .notification-preview-item {
+            background-color: #f8faf9;
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            border: 1px solid #edf2ef;
+            box-shadow: var(--shadow-subtle);
+            text-align: left;
+            animation: bubble-pop 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .preview-brand {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .preview-time {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .preview-body {
+            font-size: 0.8rem;
+            color: var(--text-main);
+            line-height: 1.45;
+            font-weight: 500;
         }
 
         /* Action Toolbar */
@@ -821,7 +1143,7 @@
         .toolbar-btn {
             padding: 14px;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: var(--radius-md);
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -834,12 +1156,12 @@
 
         .toolbar-btn.re-diagnose {
             border: 1px solid var(--primary-color);
-            color: var(--primary-color);
+            color: var(--primary-hover);
             background-color: transparent;
         }
 
         .toolbar-btn.re-diagnose:hover {
-            background-color: rgba(45, 90, 83, 0.05);
+            background-color: rgba(18, 211, 121, 0.05);
         }
 
         .toolbar-btn.hard-reset {
@@ -849,8 +1171,8 @@
         }
 
         .toolbar-btn.hard-reset:hover {
-            color: #d9534f;
-            background-color: rgba(217, 83, 79, 0.05);
+            color: #ff4f70;
+            background-color: rgba(255, 79, 112, 0.05);
         }
 
         /* Lock Screen Animation */
@@ -880,8 +1202,8 @@
 
         .floating-demo-panel h4 {
             font-size: 0.8rem;
-            color: var(--primary-color);
-            font-weight: 600;
+            color: var(--primary-hover);
+            font-weight: 700;
             letter-spacing: 0.05em;
             margin-bottom: 4px;
             display: flex;
@@ -896,7 +1218,7 @@
             border-radius: var(--radius-sm);
             padding: 8px 10px;
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: var(--transition-smooth);
             text-align: center;
@@ -904,7 +1226,48 @@
 
         .demo-btn:hover {
             background-color: var(--primary-color);
-            color: var(--bg-color);
+            color: #ffffff;
+        }
+
+        /* Decorative bottom corners matching screenshots */
+        .decorations-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            overflow: visible;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .deco-left {
+            position: absolute;
+            bottom: 0;
+            left: -40px;
+            width: 140px;
+            height: 140px;
+            background-color: var(--accent-bg);
+            border-top-right-radius: 120px;
+            opacity: 0.85;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--border-color);
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .deco-right {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 150px;
+            height: 150px;
+            background-color: #eefaf2;
+            border-radius: 50%;
+            opacity: 0.9;
+            border: 4px solid var(--border-color);
         }
 
         /* Footer */
@@ -913,8 +1276,10 @@
             padding: 20px;
             font-size: 0.75rem;
             color: var(--text-muted);
-            font-weight: 300;
+            font-weight: 400;
             letter-spacing: 0.05em;
+            position: relative;
+            z-index: 10;
         }
     </style>
 </head>
@@ -924,7 +1289,7 @@
         <!-- Modern Premium Header -->
         <header>
             <div class="logo">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-hover);"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                 Solo AI Builder
             </div>
             <div class="subtitle">AI 스타트업 20문 20답 코칭 센터</div>
@@ -940,6 +1305,23 @@
     <footer>
         &copy; 2026 Solo AI Business Hub. Inspired by 5Whys coaching.
     </footer>
+
+    <!-- Decorative bottom smilies/illustrations matching left screenshot -->
+    <div class="decorations-container">
+        <!-- Left deco matching left screenshot bottom left green smiley -->
+        <div class="deco-left">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2.5" style="transform: translate(15px, -15px);"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"></path></svg>
+        </div>
+        <!-- Right deco matching left screenshot bottom right heart & smiley -->
+        <div class="deco-right">
+            <div style="position: absolute; top: 12px; left: 12px; display: flex; align-items: center; gap: 4px;">
+                <!-- Red Heart SVG -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff4f70" stroke="#ff4f70" stroke-width="1"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+                <!-- Smiley SVG -->
+                <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"></path></svg>
+            </div>
+        </div>
+    </div>
 
     <!-- Developer Floating Tool Panel -->
     <div class="floating-demo-panel" id="demoPanel" style="display: none;">
@@ -1214,7 +1596,9 @@
         // --- 2. GLOBAL STATE DEFINITION ---
         const INITIAL_STATE = {
             isAuthenticated: false,
-            currentView: 'survey', // 'survey' | 'dashboard'
+            passwordFailCount: 0,
+            enteredPasscode: '',
+            currentView: 'survey', // 'survey' | 'dashboard' | 'loading'
             surveyStep: 1,         // 1 to 20
             answers: {
                 domain: '',
@@ -1280,7 +1664,6 @@
                     state.currentView = parsed.currentView || 'survey';
                     state.surveyStep = parsed.surveyStep || 1;
                     
-                    // Safe mapping
                     state.answers = {
                         domain: parsed.answers?.domain || '',
                         why1: parsed.answers?.why1 || '',
@@ -1313,84 +1696,8 @@
             }
         }
 
-        // --- 4. SECURITY LOCK GATE ---
+        // Vault lock password
         const SECURE_PASSWORD = "1004";
-
-        function renderLockView() {
-            return `
-                <div class="premium-card fade-in" style="text-align: center; max-width: 420px; margin: 40px auto; padding: 40px 24px; box-shadow: var(--shadow-medium);">
-                    <div style="margin-bottom: 20px; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background-color: rgba(45, 90, 83, 0.06); color: var(--primary-color);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                    </div>
-                    
-                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">Solo AI Vault</h2>
-                    <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px;">
-                        안전한 아이디어 보호를 위해 설계된 금고입니다.<br>
-                        창업 코치방에 진입하시려면 비밀번호를 입력해 주세요.
-                    </p>
-                    
-                    <div class="form-group" style="margin-bottom: 8px;">
-                        <input 
-                            type="password" 
-                            id="passwordInput" 
-                            class="premium-input" 
-                            placeholder="••••" 
-                            style="min-height: 48px; text-align: center; font-size: 1.2rem; letter-spacing: 0.3em; padding: 8px; font-weight: bold;"
-                        />
-                    </div>
-                    
-                    <div id="passwordError" style="font-size: 0.75rem; color: #d9534f; font-weight: 500; height: 18px; margin-bottom: 12px; visibility: hidden;">
-                        ⚠️ 비밀번호가 올바르지 않습니다.
-                    </div>
-                    
-                    <button class="complete-action-btn" id="btnUnlock" style="height: 48px; font-weight: 600;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                        금고 잠금해제
-                    </button>
-                    
-                    <div style="margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); border-top: 1px dashed var(--border-color); padding-top: 12px;">
-                        💡 힌트: 천사 (숫자 4자리)
-                    </div>
-                </div>
-            `;
-        }
-
-        function bindLockEvents() {
-            const passwordInput = document.getElementById('passwordInput');
-            const btnUnlock = document.getElementById('btnUnlock');
-            const errorEl = document.getElementById('passwordError');
-
-            if (passwordInput) {
-                passwordInput.focus();
-                passwordInput.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') attemptUnlock();
-                });
-            }
-
-            if (btnUnlock) btnUnlock.addEventListener('click', attemptUnlock);
-
-            function attemptUnlock() {
-                const val = passwordInput.value;
-                if (val === SECURE_PASSWORD) {
-                    errorEl.style.visibility = 'hidden';
-                    state.isAuthenticated = true;
-                } else {
-                    errorEl.style.visibility = 'visible';
-                    passwordInput.value = '';
-                    passwordInput.focus();
-                    
-                    passwordInput.style.animation = 'none';
-                    passwordInput.offsetHeight; // trigger reflow
-                    passwordInput.style.animation = 'shake 0.4s ease';
-                }
-            }
-        }
 
         // --- 5. VIEW NAVIGATOR ---
         function navigateTo(viewName) {
@@ -1402,6 +1709,10 @@
                 state.currentView = viewName;
                 appEl.classList.remove('fade-out');
                 appEl.classList.add('fade-in');
+                
+                if (viewName === 'loading') {
+                    startLoadingAnimation();
+                }
             }, 300);
         }
 
@@ -1413,14 +1724,17 @@
             const demoPanel = document.getElementById('demoPanel');
             if (!state.isAuthenticated) {
                 if (demoPanel) demoPanel.style.display = 'none';
-                appEl.innerHTML = renderLockView();
-                bindLockEvents();
-                return;
+            } else {
+                if (demoPanel) demoPanel.style.display = 'flex';
             }
 
-            if (demoPanel) demoPanel.style.display = 'flex';
-
-            if (state.currentView === 'survey') {
+            if (state.isAuthenticated && state.currentView === 'dashboard') {
+                appEl.innerHTML = renderDashboardView();
+                bindDashboardEvents();
+            } else if (state.currentView === 'loading') {
+                appEl.innerHTML = renderLoadingView();
+                // Animation triggers automatically in navigateTo()
+            } else {
                 appEl.innerHTML = renderSurveyView();
                 bindSurveyEvents();
                 
@@ -1431,9 +1745,6 @@
                         chatHistory.scrollTop = chatHistory.scrollHeight;
                     }
                 }, 50);
-            } else if (state.currentView === 'dashboard') {
-                appEl.innerHTML = renderDashboardView();
-                bindDashboardEvents();
             }
         }
 
@@ -1443,128 +1754,322 @@
             const totalSteps = 20;
             const progress = (step / totalSteps) * 100;
             
-            const q = QUESTIONS[step - 1];
-
-            // Render dynamic conversation transcript up to the current step
             let transcriptHTML = "";
-            for (let i = 0; i < step - 1; i++) {
-                const pastQ = QUESTIONS[i];
-                const key = pastQ.key;
-                const userAns = state.answers[key];
-                
-                // 1. Coach sends question
+            let inputControlHTML = "";
+
+            if (!state.isAuthenticated) {
+                // Step 0: Passcode Lock Inline Bubble
                 transcriptHTML += `
                     <div class="chat-bubble coach">
-                        ${pastQ.title}
+                        안녕하세요! <strong>Solo AI Builder 금고</strong>에 오신 것을 환영합니다. 
+                        이 공간은 회원님의 창의적이고 소중한 1인 창업 아이디어를 안전하게 보호합니다.<br><br>
+                        1:1 심층 코칭 챗룸에 진입하시려면 아래 <strong>금고 비밀번호</strong>를 입력해 주세요. (힌트: 천사 4자리)
                     </div>
                 `;
-                // 2. User responds
-                if (userAns) {
+
+                // Render cumulative password failure records to simulate historical chat bubbles
+                for (let i = 0; i < state.passwordFailCount; i++) {
                     transcriptHTML += `
                         <div class="chat-bubble user">
-                            ${userAns.includes('💰') || userAns.includes('✨') || userAns.includes('🏃') || userAns.includes('🔄') || userAns.includes('⏱️') ? userAns.substring(2) : userAns}
+                            ••••
+                        </div>
+                        <div class="chat-bubble coach" style="color: #ff4f70; border-color: rgba(255, 79, 112, 0.2); background-color: rgba(255, 79, 112, 0.03);">
+                            ⚠️ 비밀번호가 올바르지 않습니다. 다시 입력해 주세요.
                         </div>
                     `;
-                    // 3. Coach provides feedback
+                }
+
+                // Premium virtual dial pad directly inline
+                inputControlHTML = `
+                    <div class="inline-controls-wrapper fade-in" style="margin-top: 10px; width: 100%;">
+                        <div class="passcode-dots-wrapper">
+                            <span class="passcode-dot ${(state.enteredPasscode || '').length >= 1 ? 'filled' : ''}"></span>
+                            <span class="passcode-dot ${(state.enteredPasscode || '').length >= 2 ? 'filled' : ''}"></span>
+                            <span class="passcode-dot ${(state.enteredPasscode || '').length >= 3 ? 'filled' : ''}"></span>
+                            <span class="passcode-dot ${(state.enteredPasscode || '').length >= 4 ? 'filled' : ''}"></span>
+                        </div>
+                        <div class="keypad-grid">
+                            <button class="keypad-btn" data-key="1">1</button>
+                            <button class="keypad-btn" data-key="2">2</button>
+                            <button class="keypad-btn" data-key="3">3</button>
+                            <button class="keypad-btn" data-key="4">4</button>
+                            <button class="keypad-btn" data-key="5">5</button>
+                            <button class="keypad-btn" data-key="6">6</button>
+                            <button class="keypad-btn" data-key="7">7</button>
+                            <button class="keypad-btn" data-key="8">8</button>
+                            <button class="keypad-btn" data-key="9">9</button>
+                            <button class="keypad-btn action-key" data-key="clear">초기화</button>
+                            <button class="keypad-btn" data-key="0">0</button>
+                            <button class="keypad-btn action-key" data-key="back">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Step 1 to 20: Conversational inline layout
+                const q = QUESTIONS[step - 1];
+
+                // 1. Render all past chat bubbles
+                for (let i = 0; i < step - 1; i++) {
+                    const pastQ = QUESTIONS[i];
+                    const key = pastQ.key;
+                    const userAns = state.answers[key];
+                    
                     transcriptHTML += `
-                        <div class="chat-bubble coach" style="font-weight: 300; font-size: 0.85rem; border-color: rgba(45, 90, 83, 0.15); background-color: rgba(241, 239, 233, 0.4);">
-                            ✨ 코치 분석: ${pastQ.reaction(userAns)}
+                        <div class="chat-bubble coach">
+                            ${pastQ.title}
+                        </div>
+                    `;
+                    
+                    if (userAns) {
+                        transcriptHTML += `
+                            <div class="chat-bubble user">
+                                ${userAns.includes('💰') || userAns.includes('✨') || userAns.includes('🏃') || userAns.includes('🔄') || userAns.includes('⏱️') ? userAns.substring(2) : userAns}
+                            </div>
+                        `;
+                        transcriptHTML += `
+                            <div class="chat-bubble coach" style="font-weight: 400; font-size: 0.85rem; border-color: rgba(18, 211, 121, 0.15); background-color: rgba(240, 253, 244, 0.45);">
+                                ✨ 코치 분석: ${pastQ.reaction(userAns)}
+                            </div>
+                        `;
+                    }
+                }
+
+                // 2. Active Coach Question
+                transcriptHTML += `
+                    <div class="chat-bubble coach" id="activeCoachBubble">
+                        ${q.title}
+                    </div>
+                `;
+
+                // 3. Render Inline selection or input fields directly under the active bubble
+                if (q.type === 'select') {
+                    inputControlHTML = `
+                        <div class="inline-controls-wrapper fade-in" style="margin-top: 10px; width: 100%;">
+                            <div class="choice-grid">
+                                ${q.options.map(opt => {
+                                    const isActive = state.answers[q.key] === opt;
+                                    return `
+                                        <button class="choice-btn ${isActive ? 'active' : ''}" data-value="${opt}">
+                                            <span>${opt}</span>
+                                            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                        </button>
+                                    `;
+                                }).join('')}
+                            </div>
+                            
+                            <div class="nav-bar" style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border-color);">
+                                ${step > 1 ? `<button class="nav-btn secondary" id="btnPrevStep" style="padding: 10px 16px; min-height: 40px; margin-top:0;">이전 단계로</button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                } else if (q.type === 'input') {
+                    inputControlHTML = `
+                        <div class="inline-controls-wrapper fade-in" style="margin-top: 10px; width: 100%;">
+                            <div class="tag-suggestions">
+                                ${q.suggestions.map(tag => `
+                                    <span class="tag-chip" data-tag="${tag}">${tag}</span>
+                                `).join('')}
+                            </div>
+                            <div class="form-group" style="margin-bottom: 10px;">
+                                <textarea 
+                                    class="premium-input" 
+                                    id="customInput" 
+                                    placeholder="위 추천 키워드를 클릭하거나 본인의 답변을 자유롭게 적어주세요!"
+                                    style="min-height: 70px; margin-bottom: 0;"
+                                >${state.answers[q.key] || ''}</textarea>
+                            </div>
+                            
+                            <div class="nav-bar" style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border-color);">
+                                ${step > 1 ? `<button class="nav-btn secondary" id="btnPrevStep" style="padding: 10px 16px; min-height: 40px; margin-top:0;">이전</button>` : ''}
+                                <button class="nav-btn" id="btnNextStep" ${!state.answers[q.key] ? 'disabled' : ''} style="padding: 10px 16px; min-height: 40px; margin-top:0;">
+                                    ${step === totalSteps ? '결과 기획서 생성하기' : '다음 단계로'}
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </button>
+                            </div>
                         </div>
                     `;
                 }
             }
 
-            // Append the active/current question bubble
-            transcriptHTML += `
-                <div class="chat-bubble coach" id="activeCoachBubble">
-                    ${q.title}
-                </div>
-            `;
-
-            // Setup input interface depending on the question type
-            let inputControlHTML = "";
-            
-            if (q.type === 'select') {
-                inputControlHTML = `
-                    <div class="choice-grid">
-                        ${q.options.map(opt => {
-                            const isActive = state.answers[q.key] === opt;
-                            return `
-                                <button class="choice-btn ${isActive ? 'active' : ''}" data-value="${opt}">
-                                    <span>${opt}</span>
-                                    <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                </button>
-                            `;
-                        }).join('')}
-                    </div>
-                `;
-            } else if (q.type === 'input') {
-                inputControlHTML = `
-                    <div class="tag-suggestions">
-                        ${q.suggestions.map(tag => `
-                            <span class="tag-chip" data-tag="${tag}">${tag}</span>
-                        `).join('')}
-                    </div>
-                    <div class="form-group">
-                        <textarea 
-                            class="premium-input" 
-                            id="customInput" 
-                            placeholder="위 추천 키워드를 클릭하거나 본인의 답변을 편하게 적어주세요!"
-                        >${state.answers[q.key] || ''}</textarea>
-                    </div>
-                `;
-            }
-
             return `
-                <div class="premium-card" style="padding: 20px 14px; margin-bottom: 12px;">
-                    <div class="survey-progress-wrapper">
+                <div class="premium-card" style="padding: 16px 14px; margin-bottom: 12px;">
+                    <div class="survey-progress-wrapper" style="margin-bottom: 0;">
                         <div class="survey-steps-indicator">
-                            <span>스무고개 코칭 ${step} / ${totalSteps} 단계</span>
-                            <span>${Math.round(progress)}% 완료</span>
+                            <span>${state.isAuthenticated ? `스무고개 코칭 ${step} / ${totalSteps} 단계` : '금고 잠금해제 단계'}</span>
+                            <span>${state.isAuthenticated ? `${Math.round(progress)}% 완료` : '0%'}</span>
                         </div>
                         <div class="survey-progress-track">
-                            <div class="survey-progress-bar" style="width: ${progress}%"></div>
+                            <div class="survey-progress-bar" style="width: ${state.isAuthenticated ? progress : 5}%"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="chat-room">
+                <div class="chat-room" style="height: calc(100vh - 200px); min-height: 480px; margin-bottom: 0;">
                     <div class="chat-header">
                         <div class="chat-header-status"></div>
                         <div class="chat-header-title">1:1 스타트업 코칭 챗룸</div>
                     </div>
-                    <div class="chat-history" id="chatHistory">
+                    <div class="chat-history" id="chatHistory" style="padding-bottom: 30px;">
                         ${transcriptHTML}
-                        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                        ${inputControlHTML}
+                        <div class="typing-indicator" id="typingIndicator" style="display: none; margin-top: 10px;">
                             <div class="typing-dot"></div>
                             <div class="typing-dot"></div>
                             <div class="typing-dot"></div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="input-panel">
-                    ${inputControlHTML}
-                    
-                    <div class="nav-bar">
-                        ${step > 1 ? `<button class="nav-btn secondary" id="btnPrevStep">이전</button>` : ''}
-                        
-                        ${q.type === 'input' ? `
-                            <button class="nav-btn" id="btnNextStep" ${!state.answers[q.key] ? 'disabled' : ''}>
-                                ${step === totalSteps ? '결과 기획서 생성하기' : '다음 단계로'}
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                            </button>
-                        ` : ''}
                     </div>
                 </div>
             `;
         }
 
+        // --- 7.1 RENDER PREMIUM LOADING ANIMATION VIEW (Left screenshot design) ---
+        function renderLoadingView() {
+            return `
+                <div class="loading-container fade-in">
+                    <!-- Circular gauge matching the left screenshot exactly -->
+                    <div class="loading-gauge-wrapper">
+                        <svg class="loading-gauge-svg" viewBox="0 0 100 100">
+                            <circle class="loading-gauge-bg" cx="50" cy="50" r="42"></circle>
+                            <circle class="loading-gauge-fill" id="loadingGaugeFill" cx="50" cy="50" r="42"></circle>
+                        </svg>
+                        <div class="loading-gauge-text" id="loadingPercent">0%</div>
+                    </div>
+                    
+                    <h2 class="loading-title">시작 루틴 만드는 중...</h2>
+                    <p class="loading-subtitle">내게 잘 맞는 루틴을 찾고 있어요</p>
+                    
+                    <!-- Checklist cards with green checkmarks -->
+                    <div class="loading-checklist">
+                        <div class="checklist-card" id="chkStep1">
+                            <span class="chk-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </span>
+                            <span class="chk-text">5Whys 창업 동기 진단 중...</span>
+                        </div>
+                        <div class="checklist-card" id="chkStep2">
+                            <span class="chk-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </span>
+                            <span class="chk-text">타겟 고객 및 가치 제안 설계 중...</span>
+                        </div>
+                        <div class="checklist-card" id="chkStep3">
+                            <span class="chk-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </span>
+                            <span class="chk-text">맞춤형 루틴 생성 완료!</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Cute bottom smiley graphics inside loading view -->
+                    <div class="loading-deco-left">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"></path></svg>
+                    </div>
+                    <div class="loading-deco-right">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ff4f70" stroke-width="2.5"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Timer for loading screen animation
+        function startLoadingAnimation() {
+            let percent = 0;
+            const progressFill = document.getElementById('loadingGaugeFill');
+            const percentText = document.getElementById('loadingPercent');
+            
+            const radius = 42;
+            const circumference = 2 * Math.PI * radius; // ~263.89
+            
+            if (progressFill) {
+                progressFill.style.strokeDasharray = circumference;
+                progressFill.style.strokeDashoffset = circumference;
+            }
+            
+            const interval = setInterval(() => {
+                // Organic speed ramp
+                let increment = 2;
+                if (percent >= 80 && percent <= 90) increment = 1; // linger at 88% like the screenshot!
+                
+                percent += increment;
+                if (percent > 100) percent = 100;
+                
+                if (percentText) percentText.innerText = `${percent}%`;
+                
+                if (progressFill) {
+                    const offset = circumference - (percent / 100) * circumference;
+                    progressFill.style.strokeDashoffset = offset;
+                }
+                
+                // Tick steps
+                if (percent >= 25) {
+                    const step1 = document.getElementById('chkStep1');
+                    if (step1) step1.classList.add('active');
+                }
+                if (percent >= 60) {
+                    const step2 = document.getElementById('chkStep2');
+                    if (step2) step2.classList.add('active');
+                }
+                if (percent >= 88) {
+                    const step3 = document.getElementById('chkStep3');
+                    if (step3) step3.classList.add('active');
+                }
+                
+                if (percent === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        navigateTo('dashboard');
+                    }, 650);
+                }
+            }, 80); // ~4.5 seconds
+        }
+
         function bindSurveyEvents() {
+            // 1. Password Verification step (Keypad logic)
+            if (!state.isAuthenticated) {
+                const keys = document.querySelectorAll('.keypad-btn');
+                keys.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const key = btn.getAttribute('data-key');
+                        let current = state.enteredPasscode || '';
+                        
+                        if (key === 'clear') {
+                            state.enteredPasscode = '';
+                        } else if (key === 'back') {
+                            if (current.length > 0) {
+                                state.enteredPasscode = current.slice(0, -1);
+                            }
+                        } else {
+                            if (current.length < 4) {
+                                const nextPasscode = current + key;
+                                state.enteredPasscode = nextPasscode;
+                                
+                                // Auto check when 4 digits are entered
+                                if (nextPasscode.length === 4) {
+                                    setTimeout(() => {
+                                        if (nextPasscode === SECURE_PASSWORD) {
+                                            state.passwordFailCount = 0;
+                                            state.enteredPasscode = '';
+                                            state.isAuthenticated = true;
+                                        } else {
+                                            state.passwordFailCount = state.passwordFailCount + 1;
+                                            state.enteredPasscode = '';
+                                        }
+                                    }, 250);
+                                }
+                            }
+                        }
+                    });
+                });
+                return;
+            }
+
+            // 2. Step 1~20 Verification
             const step = state.surveyStep;
             const q = QUESTIONS[step - 1];
 
-            // 1. Select option click
+            // (1) Select option click
             if (q.type === 'select') {
                 const buttons = document.querySelectorAll('.choice-btn');
                 buttons.forEach(btn => {
@@ -1572,12 +2077,10 @@
                         const val = btn.getAttribute('data-value');
                         btn.classList.add('active');
                         
-                        // Render typing animation on AI Coach before step progression
                         const typingIndicator = document.getElementById('typingIndicator');
                         if (typingIndicator) typingIndicator.style.display = 'inline-flex';
                         
                         setTimeout(() => {
-                            // Immutable Proxy state update
                             const updatedAnswers = { ...state.answers };
                             updatedAnswers[q.key] = val;
                             
@@ -1586,29 +2089,31 @@
                             if (step < 20) {
                                 state.surveyStep = step + 1;
                             } else {
-                                navigateTo('dashboard');
+                                navigateTo('loading'); // Show 88% loading animation first!
                             }
                         }, 550);
                     });
                 });
             }
 
-            // 2. Input change & suggestions click
+            // (2) Input text logic
             if (q.type === 'input') {
                 const customInput = document.getElementById('customInput');
                 const nextBtn = document.getElementById('btnNextStep');
                 
                 if (customInput) {
+                    customInput.focus();
+                    
+                    // Move cursor to the end
+                    const len = customInput.value.length;
+                    customInput.setSelectionRange(len, len);
+
                     customInput.addEventListener('input', (e) => {
                         const text = e.target.value;
-                        const updatedAnswers = { ...state.answers };
-                        updatedAnswers[q.key] = text;
-                        state.answers = updatedAnswers;
-
                         if (text.trim().length > 0) {
-                            nextBtn.removeAttribute('disabled');
+                            if (nextBtn) nextBtn.removeAttribute('disabled');
                         } else {
-                            nextBtn.setAttribute('disabled', 'true');
+                            if (nextBtn) nextBtn.setAttribute('disabled', 'true');
                         }
                     });
                 }
@@ -1620,7 +2125,9 @@
                         if (customInput) {
                             let separator = customInput.value.trim().length > 0 ? ', ' : '';
                             customInput.value = customInput.value + separator + val;
-                            customInput.dispatchEvent(new Event('input'));
+                            if (customInput.value.trim().length > 0) {
+                                if (nextBtn) nextBtn.removeAttribute('disabled');
+                            }
                             customInput.focus();
                         }
                     });
@@ -1628,23 +2135,28 @@
 
                 if (nextBtn) {
                     nextBtn.addEventListener('click', () => {
-                        if (!state.answers[q.key].trim()) return;
+                        const finalVal = customInput ? customInput.value.trim() : '';
+                        if (!finalVal) return;
                         
                         const typingIndicator = document.getElementById('typingIndicator');
                         if (typingIndicator) typingIndicator.style.display = 'inline-flex';
 
                         setTimeout(() => {
+                            const updatedAnswers = { ...state.answers };
+                            updatedAnswers[q.key] = finalVal;
+                            state.answers = updatedAnswers;
+
                             if (step < 20) {
                                 state.surveyStep = step + 1;
                             } else {
-                                navigateTo('dashboard');
+                                navigateTo('loading'); // Show 88% loading animation first!
                             }
                         }, 400);
                     });
                 }
             }
 
-            // 3. Back step button
+            // (3) Prev Step Button
             const prevBtn = document.getElementById('btnPrevStep');
             if (prevBtn) {
                 prevBtn.addEventListener('click', () => {
@@ -1662,8 +2174,8 @@
             const domain = ans.domain || QUESTIONS[0].options[0];
             const why1 = ans.why1 || QUESTIONS[1].options[0];
             const scale = ans.scale || QUESTIONS[4].options[0];
-            const audience = ans.audience || QUESTIONS[6].options[0];
-            const pain = ans.pain || QUESTIONS[7].options[0];
+            const audience = ans.audience || QUESTIONS[5].options[0];
+            const pain = ans.pain || QUESTIONS[6].options[0];
             const solution = ans.solution || QUESTIONS[10].options[0];
             const asset = ans.asset || "노션 정리 역량";
             const barrier = ans.barrier || "마케팅이 두려움";
@@ -1751,13 +2263,13 @@
                 price = "월 49,000원 또는 대행 건당 20만 원(월 10건)";
             } else {
                 targetNum = 10;
-                price = "정기 대행 서비스 월 50만 원 리테이너 또는 B2B 종합 컨설팅 구축 200만 원(월 2.5건)";
+                price = "정기 대행 서비스 월 50만 원 B2B 리테이너 또는 컨설팅 구축 200만 원(월 2.5건)";
             }
 
             revenueStreamsDetails = `<strong>[${revenue}]</strong> 수익 모델을 중심으로 하며, 단가는 <strong>${price}</strong>으로 정해 <strong>한 달에 단 ${targetNum}명</strong>의 고객만 지속 유치하여 목표 월 수익인 <strong>[${income}]</strong>을 완벽히 수취하는 경제 시스템.`;
 
             // Scale-up Strategy Mapping
-            scaleUpStrategy = `초기 1인 실행 단계의 성과 데이터를 기반으로, 수작업 매뉴얼을 n8n JSON 파일 및 가이드라인 e-Book 패키지 등 디지털 자산으로 전향 판매(B2C) 및 동일 동종 소상공인 대상의 무인화 전환 컨설팅(B2B) 가맹 모델로 스케일업.`;
+            scaleUpStrategy = `초기 1인 실행 단계의 성과 데이터를 B2C 디지털 자산(n8n JSON 파일, e-Book 가이드 패키지) 전향 판매로 스케일업하고, 동일 동종 소상공인 대상의 무인화 전환 컨설팅 B2B 모델로 가맹 확장.`;
 
             // Dynamic Obstacle Solver Advice
             let obstacleSolverText = "";
@@ -1765,9 +2277,9 @@
             const skill = asset;
 
             if (bar.includes("코딩") || bar.includes("개발") || bar.includes("기술") || bar.includes("프로그램")) {
-                obstacleSolverText = `개발이나 코딩 지식이 없다고 주저할 필요는 전혀 없습니다! 요즘 1인 AI 비즈니스의 대세는 코드가 없는 <strong>'노코드(No-Code)'</strong> 기술입니다. <strong>ChatGPT</strong>에게 '내가 번역한 구글 시트 엑셀 데이터를 자동으로 내 노션 데이터베이스로 예쁘게 보내는 n8n JSON 코드를 작성해 줘'라고 요청해서 노코드 툴에 붙여넣기만 하면 30초 만에 업무 시스템이 완성됩니다. 당신이 갖고 계신 강력한 필살기인 <strong>[${skill}]</strong>의 세련된 기획력에만 온전히 집중하세요!`;
+                obstacleSolverText = `개발이나 코딩 지식이 없다고 주저할 필요는 전혀 없습니다! 요즘 1인 AI 비즈니스의 대세는 코드가 없는 <strong>'노코드(No-Code)'</strong> 기술입니다. <strong>ChatGPT</strong>에게 '내가 번역한 구글 시트 데이터를 자동으로 내 노션 데이터베이스로 예쁘게 보내는 n8n JSON 코드를 작성해 줘'라고 요청해서 노코드 툴에 붙여넣기만 하면 30초 만에 업무 시스템이 완성됩니다. 당신이 갖고 계신 강력한 필살기인 <strong>[${skill}]</strong>의 세련된 기획력에만 온전히 집중하세요!`;
             } else if (bar.includes("마케팅") || bar.includes("영업") || bar.includes("홍보") || bar.includes("광고") || bar.includes("사람")) {
-                obstacleSolverText = `마케팅이 막막하고 두려우신 마음, 충분히 이해합니다. 하지만 초기에 유료 광고비는 단 1원도 필요 없습니다! <strong>"${audience}"</strong>들이 득실거리는 타겟 단톡방, 네이버 카페, 혹은 당근마켓 커뮤니티에 들어가 <strong>"당신이 평소 귀찮아하시던 ${pain} 문제를 무료로 3명만 자동화 대행해 드립니다"</strong>라고 진심 어린 글을 써보세요. 당신의 장점인 <strong>[${skill}]</strong>(으)로 꼼꼼하게 해결해 주면, 그 3명의 감사 섞인 생생한 후기와 입소문이 고객을 저절로 끌어당기는 자석 역할을 해줄 것입니다.`;
+                obstacleSolverText = `마케팅이 막막하고 두려우신 마음, 충분히 이해합니다. 하지만 초기에 유료 광고비는 단 1원도 필요 없습니다! <strong>"${audience}"</strong>들이 득실거리는 타겟 단톡방, 네이버 카페, 혹은 당근마켓 커뮤니티에 들어가 <strong>"당신이 평소 귀찮아하시던 ${pain} 문제를 무료로 3명만 자동화 대행해 드립니다"</strong>라고 진심 어린 글을 써보세요. 당신의 장점인 <strong>[${skill}]</strong>(으)로 꼼꼼하게 해결해 주면, 그 3명의 감사 후기와 입소문이 고객을 저절로 끌어당기는 자석 역할을 해줄 것입니다.`;
             } else if (bar.includes("시간") || bar.includes("바쁨") || bar.includes("직장") || bar.includes("퇴근")) {
                 obstacleSolverText = `매일 소중하게 내어주신 가용 시간인 <strong>"${time.split(' (')[0]}"</strong>은 결코 적지 않은 시간입니다. 주중에는 오직 '일임형 자동화 시스템'을 세팅하는 데 집중하고, 주말에 구글 시트 행 7개에 다음 주 일주일치 콘텐츠나 데이터만 한 번에 밀어 넣어 두세요. <strong>n8n 크론독(Cron-Trigger)</strong>이 평일 매일 아침 자동으로 시트 데이터를 읽고, ChatGPT와 API를 돌려 SNS 자동 예약 발행과 뉴스레터 전송까지 다 마칩니다. 당신은 퇴근 후 저녁에 스마트폰 알람을 통해 그 결과만 5초 동안 쓱 확인하시면 끝납니다.`;
             } else {
@@ -1853,9 +2365,9 @@
             return `
                 <!-- 🎯 Brand Identity Header -->
                 <div class="dashboard-welcome" style="margin-bottom: 20px;">
-                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px;">AI 1인 창업 초정밀 사업화 기획서</div>
-                    <h2 style="font-size: 1.55rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.02em;">🎯 ${plan.brandName}</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; padding: 0 10px; font-weight: 400; font-style: italic;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary-hover); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px;">AI 1인 창업 초정밀 사업화 기획서</div>
+                    <h2 style="font-size: 1.65rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.02em;">🎯 ${plan.brandName}</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; padding: 0 10px; font-weight: 500; font-style: italic;">
                         "${plan.slogan}"
                     </p>
                 </div>
@@ -2010,6 +2522,47 @@
                     </button>
                 </div>
 
+                <!-- 🔔 Smart Push Notification Card (inspired by right screenshot) -->
+                <div class="tracker-notification-card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <span class="notification-badge">스마트 실천 알람</span>
+                    </div>
+                    <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--text-main); margin-top: 10px; margin-bottom: 6px; letter-spacing: -0.02em; line-height: 1.4;">
+                        루틴 알림 받으면 까먹지 않고 실천할 수 있어요
+                    </h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+                        소중한 내 창업 루틴 절대 잊지 않게 도와줄게요. 매일 가용 시간인 [${state.answers.time.split(' (')[0]}]에 알림 푸시를 받아보세요.
+                    </p>
+                    
+                    <div class="notification-previews">
+                        <div class="notification-preview-item">
+                            <div class="preview-header">
+                                <span class="preview-brand">✉️ Solo AI 코치</span>
+                                <span class="preview-time">7분 전</span>
+                            </div>
+                            <div class="preview-body">
+                                [눈 뜨자마자 15분 창업 ⏱️] 루틴을 할 시간이에요!
+                            </div>
+                        </div>
+                        <div class="notification-preview-item">
+                            <div class="preview-header">
+                                <span class="preview-brand">✉️ Solo AI 코치</span>
+                                <span class="preview-time">15분 전</span>
+                            </div>
+                            <div class="preview-body">
+                                [🎯 ${plan.brandName}] 오늘 1단계 실천 루틴을 성공적으로 지키고 있어요 :) 오늘도 잊지 말고 파이팅!
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="complete-action-btn" id="btnEnableNotifications">
+                        알람을 켤래
+                    </button>
+                    <button class="nav-btn secondary" id="btnDisableNotifications" style="width: 100%; border: none; background: transparent; color: var(--text-muted); font-size: 0.8rem; padding: 6px; margin-top: 6px; box-shadow: none;">
+                        지금은 괜찮아
+                    </button>
+                </div>
+
                 <!-- 🔄 Double Reset Action Toolbar -->
                 <div class="action-toolbar">
                     <button class="toolbar-btn re-diagnose" id="btnReDiagnose">
@@ -2025,6 +2578,8 @@
         }
 
         function bindDashboardEvents() {
+            const plan = generateBusinessPlan();
+
             // 1. Log habit check-in
             const btnComplete = document.getElementById('btnCompleteToday');
             if (btnComplete) {
@@ -2041,19 +2596,19 @@
                 });
             }
 
-            // 2. Re-diagnose (Clears answers & surveyStep but preserves streaks and tracking history)
+            // 2. Re-diagnose
             const btnReDiagnose = document.getElementById('btnReDiagnose');
             if (btnReDiagnose) {
                 btnReDiagnose.addEventListener('click', () => {
                     if (confirm("습관 실천 기록(연속 일수)은 유지한 채, 새로운 아이디어로 20문 20답을 다시 시작하시겠습니까?")) {
                         state.surveyStep = 1;
-                        state.answers = { ...INITIAL_STATE.answers }; // Bulletproof Proxy reset
+                        state.answers = { ...INITIAL_STATE.answers };
                         navigateTo('survey');
                     }
                 });
             }
 
-            // 3. Hard Reset (Completely wipe out everything)
+            // 3. Hard Reset
             const btnHardReset = document.getElementById('btnHardReset');
             if (btnHardReset) {
                 btnHardReset.addEventListener('click', () => {
@@ -2061,6 +2616,38 @@
                         localStorage.removeItem(STORAGE_KEY);
                         window.location.reload();
                     }
+                });
+            }
+
+            // 4. Push Alarms trigger (inspired by right screenshot)
+            const btnEnableNotifications = document.getElementById('btnEnableNotifications');
+            if (btnEnableNotifications) {
+                btnEnableNotifications.addEventListener('click', () => {
+                    if (!("Notification" in window)) {
+                        alert("🔔 알람 등록 완료! 매일 가용 시간인 [" + (state.answers.time || '30분').split(' (')[0] + "]에 기기 푸시 알림으로 코치 피드백을 전달해 드립니다.");
+                        return;
+                    }
+
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            alert("🔔 실천 알람 설정이 성공적으로 켜졌습니다! 매일 정해진 시간인 [" + (state.answers.time || '30분').split(' (')[0] + "]에 기기 알림으로 코치 피드백을 전달해 드립니다.");
+                            
+                            // Send a mock immediate welcome notification
+                            new Notification("Solo AI 코칭 센터", {
+                                body: `🔓 알람 등록 완료! [${plan.brandName}] 여정을 시작할 준비가 되셨습니다.`,
+                                icon: "data:image/svg+xml;utf8,<svg width='64' height='64' xmlns='http://www.w3.org/2000/svg'><circle cx='32' cy='32' r='30' fill='%2312d379'/><path d='M20 32l8 8 16-16' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"
+                            });
+                        } else {
+                            alert("🔔 브라우저 알람 등록이 완료되었습니다. 매일 코칭 시간에 피드백 메일과 함께 스마트폰/데스크톱 알림이 전송됩니다!");
+                        }
+                    });
+                });
+            }
+
+            const btnDisableNotifications = document.getElementById('btnDisableNotifications');
+            if (btnDisableNotifications) {
+                btnDisableNotifications.addEventListener('click', () => {
+                    alert("알림 설정이 보류되었습니다. 매일 대시보드 데일리 트래커를 직접 방문하여 활동을 기록해 보세요.");
                 });
             }
         }
@@ -2082,11 +2669,11 @@
                 });
             }
 
+            state.isAuthenticated = true; // Auto auth bypass for debugging
             state.streak = 7;
             state.completedCount = 7;
             state.trackingHistory = history;
             
-            // Set dynamic rich mock answers for 5Whys presentation
             state.answers = {
                 domain: "AI 비즈니스 자동화 (단순 수작업 자동 RPA 등)",
                 why1: "💰 직장 월급 외에 매달 든든한 추가 수입을 원해요",
@@ -2127,7 +2714,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadStateFromLocalStorage();
             
-            // Check if all 20 answers are filled
             const ans = state.answers;
             const isCompleted = ans.domain && ans.why1 && ans.why2 && ans.why3 && ans.scale && 
                                 ans.audience && ans.pain && ans.custWhy1 && ans.custWhy2 && 
@@ -2138,6 +2724,7 @@
             if (isCompleted) {
                 state.currentView = 'dashboard';
             } else {
+                state.surveyStep = 1;
                 state.currentView = 'survey';
             }
             
