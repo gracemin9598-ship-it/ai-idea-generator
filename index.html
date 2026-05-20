@@ -711,6 +711,13 @@
             font-weight: 300;
             letter-spacing: 0.05em;
         }
+
+        /* 🔒 Shake animation for incorrect password entry */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
     </style>
 </head>
 <body>
@@ -737,7 +744,7 @@
     </footer>
 
     <!-- Floating Demo / Debug Tool Panel -->
-    <div class="floating-demo-panel" id="demoPanel">
+    <div class="floating-demo-panel" id="demoPanel" style="display: none;">
         <h4>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             개발 테스트 도구
@@ -752,6 +759,7 @@
     <script>
         // --- (1) GLOBAL STATE DEFINITION ---
         const INITIAL_STATE = {
+            isAuthenticated: false, // 🔒 Security authentication gate
             currentView: 'survey', // 'survey' | 'dashboard'
             surveyStep: 1,         // 1 | 2 | 3 | 4 (Expanded from 3)
             answers: {
@@ -811,7 +819,89 @@
             }
         }
 
-        // --- (3) ROUTING & VIEW TRANSITION ---
+        // --- (3) SECURITY & VAULT AUTHENTICATION GATE ---
+        const SECURE_PASSWORD = "1004";
+
+        function renderLockView() {
+            return `
+                <div class="premium-card fade-in" style="text-align: center; max-width: 440px; margin: 40px auto; padding: 48px 32px; box-shadow: var(--shadow-medium);">
+                    <div style="margin-bottom: 24px; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background-color: rgba(45, 90, 83, 0.08); color: var(--primary-color);">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    
+                    <h2 style="font-size: 1.35rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.02em;">Solo AI Vault</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 28px;">
+                        이 프로젝트는 비밀번호로 안전하게 보호되어 있습니다.<br>
+                        창업 아이디어를 보시려면 비밀번호를 입력해 주세요.
+                    </p>
+                    
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <input 
+                            type="password" 
+                            id="passwordInput" 
+                            class="premium-input" 
+                            placeholder="••••" 
+                            style="min-height: 52px; text-align: center; font-size: 1.25rem; letter-spacing: 0.3em; padding: 12px; font-weight: bold;"
+                        />
+                    </div>
+                    
+                    <div id="passwordError" style="font-size: 0.8rem; color: #d9534f; font-weight: 500; height: 18px; margin-bottom: 16px; visibility: hidden;">
+                        ⚠️ 비밀번호가 올바르지 않습니다.
+                    </div>
+                    
+                    <button class="complete-action-btn" id="btnUnlock" style="height: 52px; font-weight: 600;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        금고 잠금해제
+                    </button>
+                    
+                    <div style="margin-top: 24px; font-size: 0.75rem; color: var(--text-muted); border-top: 1px dashed var(--border-color); padding-top: 16px;">
+                        💡 초기 암호 힌트: 천사 (숫자 4자리)
+                    </div>
+                </div>
+            `;
+        }
+
+        function bindLockEvents() {
+            const passwordInput = document.getElementById('passwordInput');
+            const btnUnlock = document.getElementById('btnUnlock');
+            const errorEl = document.getElementById('passwordError');
+
+            if (passwordInput) {
+                passwordInput.focus();
+                passwordInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') attemptUnlock();
+                });
+            }
+
+            if (btnUnlock) {
+                btnUnlock.addEventListener('click', attemptUnlock);
+            }
+
+            function attemptUnlock() {
+                const val = passwordInput.value;
+                if (val === SECURE_PASSWORD) {
+                    errorEl.style.visibility = 'hidden';
+                    state.isAuthenticated = true;
+                } else {
+                    errorEl.style.visibility = 'visible';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                    
+                    // Shake animation for premium micro-interaction
+                    passwordInput.style.animation = 'none';
+                    passwordInput.offsetHeight; // trigger reflow
+                    passwordInput.style.animation = 'shake 0.4s ease';
+                }
+            }
+        }
+
+        // --- (4) ROUTING & VIEW TRANSITION ---
         function navigateTo(viewName) {
             const appEl = document.getElementById('app');
             appEl.classList.remove('fade-in');
@@ -824,10 +914,21 @@
             }, 300);
         }
 
-        // --- (4) CORE RENDER CONTROLLER ---
+        // --- (5) CORE RENDER CONTROLLER ---
         function render() {
             const appEl = document.getElementById('app');
             if (!appEl) return;
+
+            // 🔒 Security Gate Check
+            const demoPanel = document.getElementById('demoPanel');
+            if (!state.isAuthenticated) {
+                if (demoPanel) demoPanel.style.display = 'none';
+                appEl.innerHTML = renderLockView();
+                bindLockEvents();
+                return;
+            }
+
+            if (demoPanel) demoPanel.style.display = 'flex';
 
             if (state.currentView === 'survey') {
                 appEl.innerHTML = renderSurveyView();
