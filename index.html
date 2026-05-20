@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 1인 창업 아이디어 생성기 | Solo AI Business Hub</title>
+    <title>AI 스타트업 20문 20답 코칭 센터 | Solo AI Builder</title>
     <!-- Google Fonts: Outfit & Noto Sans KR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,7 +55,7 @@
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 24px 16px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -65,7 +65,7 @@
         /* Modern Premium Header */
         header {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
         }
 
         .logo {
@@ -92,18 +92,12 @@
            2. ANIMATIONS & TRANSITIONS
            ========================================================================== */
         .fade-in {
-            animation: fadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+            animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .fade-out {
@@ -111,14 +105,8 @@
         }
 
         @keyframes fadeOut {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-8px); }
         }
 
         /* Common Premium Card Styles */
@@ -126,12 +114,12 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 40px 32px;
+            padding: 28px 20px;
             box-shadow: var(--shadow-subtle);
             transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .premium-card:hover {
@@ -139,172 +127,241 @@
         }
 
         /* ==========================================================================
-           3. SURVEY VIEW COMPONENTS
+           3. CONVERSATIONAL CHAT COMPONENTS
            ========================================================================== */
-        .survey-progress-wrapper {
-            margin-bottom: 36px;
-        }
-        
-        .survey-steps-indicator {
+        .chat-room {
             display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 8px;
+            flex-direction: column;
+            height: 480px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            background-color: var(--card-bg);
+            overflow: hidden;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-subtle);
         }
 
-        .survey-progress-track {
-            height: 3px;
+        .chat-header {
             background-color: var(--accent-bg);
-            border-radius: 2px;
-            overflow: hidden;
+            border-bottom: 1px solid var(--border-color);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-header-status {
+            width: 8px;
+            height: 8px;
+            background-color: #2e7d32;
+            border-radius: 50%;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+        }
+
+        .chat-header-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .chat-history {
+            flex: 1;
+            padding: 20px 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background-color: #faf9f6;
+            scroll-behavior: smooth;
+        }
+
+        /* Bubble Styles */
+        .chat-bubble {
+            max-width: 80%;
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            animation: bubble-pop 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
             position: relative;
         }
 
-        .survey-progress-bar {
-            height: 100%;
-            background-color: var(--primary-color);
-            width: 25%;
-            border-radius: 2px;
-            transition: var(--transition-smooth);
+        @keyframes bubble-pop {
+            from { opacity: 0; transform: scale(0.9) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        .question-title {
-            font-size: 1.35rem;
-            font-weight: 600;
+        .chat-bubble.coach {
+            background-color: var(--accent-bg);
             color: var(--text-main);
-            line-height: 1.45;
-            margin-bottom: 28px;
-            text-align: center;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            border: 1px solid var(--border-color);
         }
 
-        .question-title span {
-            display: block;
-            font-size: 0.85rem;
+        .chat-bubble.user {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 12px rgba(45, 90, 83, 0.12);
+        }
+
+        .chat-bubble.coach::before {
+            content: "AI 코치";
+            position: absolute;
+            top: -16px;
+            left: 2px;
+            font-size: 0.7rem;
+            font-weight: 700;
             color: var(--primary-color);
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-            text-transform: uppercase;
         }
 
-        .illustration-box {
-            display: flex;
-            flex-direction: column;
+        .chat-bubble.user::before {
+            content: "나";
+            position: absolute;
+            top: -16px;
+            right: 2px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        /* Typing Indicator animation */
+        .typing-indicator {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            margin: 12px 0 24px;
+            gap: 4px;
+            padding: 8px 12px;
+            background-color: var(--accent-bg);
+            border-radius: var(--radius-md);
+            align-self: flex-start;
+            border: 1px solid var(--border-color);
+            margin-top: 8px;
         }
 
-        .sprout-svg {
-            animation: waveSprout 3s ease-in-out infinite alternate;
-            transform-origin: bottom center;
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            animation: typing-bounce 1s infinite ease-in-out;
         }
 
-        @keyframes waveSprout {
-            0% { transform: rotate(-2deg) scale(1); }
-            100% { transform: rotate(4deg) scale(1.02); }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
 
-        .emotional-quote {
-            font-size: 0.95rem;
-            color: var(--primary-color);
-            font-weight: 500;
-            margin-top: 12px;
-            letter-spacing: -0.01em;
+        /* Input Panel */
+        .input-panel {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-subtle);
         }
 
-        .chip-grid {
+        /* Choice Grid */
+        .choice-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 10px;
+            max-height: 180px;
+            overflow-y: auto;
+            margin-bottom: 14px;
+            padding-right: 2px;
         }
 
-        .chip-btn {
+        .choice-btn {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 18px 24px;
-            font-size: 0.95rem;
+            padding: 14px 18px;
+            font-size: 0.9rem;
             font-weight: 500;
             color: var(--text-main);
             cursor: pointer;
             transition: var(--transition-smooth);
+            text-align: left;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            text-align: left;
         }
 
-        .chip-btn-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .chip-btn-desc {
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: var(--text-muted);
-            line-height: 1.35;
-        }
-
-        .chip-btn:hover .chip-btn-desc {
-            color: var(--primary-light);
-        }
-
-        .chip-btn.active .chip-btn-desc {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .chip-btn:hover {
+        .choice-btn:hover {
             border-color: var(--primary-color);
             background-color: var(--bg-color);
             transform: translateY(-1px);
         }
 
-        .chip-btn.active {
+        .choice-btn.active {
             border-color: var(--primary-color);
             background-color: var(--primary-color);
             color: var(--bg-color);
-            box-shadow: 0 6px 20px rgba(45, 90, 83, 0.15);
+            box-shadow: 0 4px 14px rgba(45, 90, 83, 0.15);
         }
 
-        .chip-btn .arrow-icon {
+        .choice-btn .arrow {
             opacity: 0;
             transform: translateX(-4px);
             transition: var(--transition-smooth);
-            stroke: currentColor;
-            flex-shrink: 0;
-            margin-left: 12px;
         }
 
-        .chip-btn:hover .arrow-icon, .chip-btn.active .arrow-icon {
+        .choice-btn:hover .arrow, .choice-btn.active .arrow {
             opacity: 1;
             transform: translateX(0);
         }
 
-        .chip-row-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+        /* Smart Tag Suggestions */
+        .tag-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
+        .tag-chip {
+            background-color: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .tag-chip:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--bg-color);
+        }
+
+        /* Form Controls */
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 14px;
             width: 100%;
         }
 
         .premium-input {
             width: 100%;
-            min-height: 100px;
+            min-height: 80px;
             background-color: var(--bg-color);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 16px;
-            font-size: 0.95rem;
+            padding: 12px 14px;
+            font-size: 0.9rem;
             color: var(--text-main);
             font-family: inherit;
             resize: none;
@@ -318,12 +375,15 @@
             box-shadow: 0 0 0 3px rgba(45, 90, 83, 0.08);
         }
 
-        .btn-row {
+        /* Navigation Bar */
+        .nav-bar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 28px;
             gap: 12px;
+            margin-top: 14px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 14px;
         }
 
         .nav-btn {
@@ -331,21 +391,21 @@
             color: var(--bg-color);
             border: none;
             border-radius: var(--radius-md);
-            padding: 16px 28px;
-            font-size: 0.95rem;
+            padding: 12px 20px;
+            font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition-smooth);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             flex: 1;
             justify-content: center;
         }
 
         .nav-btn:hover {
             background-color: var(--primary-hover);
-            box-shadow: 0 4px 16px rgba(45, 90, 83, 0.15);
+            box-shadow: 0 4px 12px rgba(45, 90, 83, 0.12);
         }
 
         .nav-btn:disabled {
@@ -355,30 +415,60 @@
             box-shadow: none;
         }
 
-        .nav-btn.secondary-link {
+        .nav-btn.secondary {
             background-color: transparent;
             color: var(--text-muted);
-            border: 1px solid transparent;
+            border: 1px solid var(--border-color);
             flex: 0 0 auto;
-            padding: 16px 20px;
+            padding: 12px 16px;
         }
 
-        .nav-btn.secondary-link:hover {
+        .nav-btn.secondary:hover {
             color: var(--text-main);
-            background-color: rgba(0, 0, 0, 0.03);
+            background-color: rgba(0, 0, 0, 0.02);
             box-shadow: none;
+        }
+
+        /* Progress Bar */
+        .survey-progress-wrapper {
+            margin-bottom: 12px;
+        }
+        
+        .survey-steps-indicator {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .survey-progress-track {
+            height: 3px;
+            background-color: var(--accent-bg);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .survey-progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 5%;
+            border-radius: 2px;
+            transition: var(--transition-smooth);
         }
 
         /* ==========================================================================
            4. DASHBOARD VIEW COMPONENTS
            ========================================================================== */
         .dashboard-welcome {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             text-align: center;
         }
 
         .dashboard-welcome h2 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-main);
             margin-bottom: 6px;
@@ -387,138 +477,235 @@
         .dashboard-welcome p {
             font-size: 0.85rem;
             color: var(--text-muted);
-            line-height: 1.45;
+            line-height: 1.5;
         }
 
         .cards-headline {
-            font-size: 0.9rem;
-            font-weight: 600;
+            font-size: 0.85rem;
+            font-weight: 700;
             color: var(--primary-color);
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .cards-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 32px;
+        .business-canvas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 24px;
         }
 
-        .idea-card {
+        @media (max-width: 576px) {
+            .business-canvas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .canvas-block {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            position: relative;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .canvas-block:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .canvas-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+            display: inline-block;
+            background-color: rgba(45, 90, 83, 0.06);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .canvas-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .canvas-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* Circular Feasibility Score Gauge */
+        .feasibility-score-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 28px 24px;
+            padding: 20px;
+            margin-bottom: 24px;
             box-shadow: var(--shadow-subtle);
-            transition: var(--transition-smooth);
+        }
+
+        .circular-gauge {
+            position: relative;
+            width: 76px;
+            height: 76px;
+            flex-shrink: 0;
+        }
+
+        .gauge-svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .gauge-bg {
+            fill: none;
+            stroke: var(--accent-bg);
+            stroke-width: 8;
+        }
+
+        .gauge-fill {
+            fill: none;
+            stroke: var(--primary-color);
+            stroke-width: 8;
+            stroke-dasharray: 226.2;
+            stroke-dashoffset: 226.2;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1.2s ease-out;
+        }
+
+        .gauge-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Roadmap Timeline */
+        .roadmap-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 12px;
+            margin-bottom: 24px;
+        }
+
+        .roadmap-step {
+            display: flex;
+            gap: 12px;
             position: relative;
         }
 
-        .idea-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-            border-color: var(--primary-light);
+        .roadmap-step::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 36px;
+            bottom: -16px;
+            width: 1px;
+            background-color: var(--border-color);
         }
 
-        .idea-card-badge {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            background-color: rgba(45, 90, 83, 0.08);
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin-bottom: 14px;
-            letter-spacing: 0.02em;
+        .roadmap-step:last-child::before {
+            display: none;
         }
 
-        .idea-card.freelance .idea-card-badge {
-            color: #8c6a2d;
-            background-color: rgba(140, 106, 45, 0.08);
-        }
-
-        .idea-card h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            line-height: 1.35;
-        }
-
-        .idea-card p.description {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.55;
-            margin-bottom: 18px;
-        }
-
-        .idea-card-steps {
-            background-color: var(--bg-color);
-            border-radius: var(--radius-md);
-            padding: 16px 20px;
-            border: 1px dashed var(--border-color);
-        }
-
-        .idea-card-steps h4 {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .step-item {
-            font-size: 0.85rem;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            line-height: 1.45;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-        }
-
-        .step-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .step-item span.bullet {
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        .stats-headline {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-top: 12px;
-            margin-bottom: 16px;
+        .roadmap-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(45, 90, 83, 0.15);
         }
 
+        .roadmap-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 18px;
+            flex: 1;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .roadmap-content h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .roadmap-content p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* Obstacle Solver */
+        .obstacle-alert {
+            background-color: #fbf6f5;
+            border-left: 4px solid #d9534f;
+            padding: 16px 18px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .obstacle-alert h4 {
+            color: #d9534f;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .obstacle-alert p {
+            font-size: 0.8rem;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* Habit Tracker */
         .dashboard-tracker-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 32px;
+            padding: 24px 20px;
             box-shadow: var(--shadow-subtle);
-            margin-bottom: 32px;
+            margin-bottom: 24px;
         }
 
         .tracker-stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 28px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .tracker-stat-box {
@@ -526,7 +713,7 @@
             background-color: var(--bg-color);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 20px 12px;
+            padding: 16px 10px;
             transition: var(--transition-smooth);
         }
 
@@ -536,34 +723,24 @@
         }
 
         .stat-num {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary-color);
-            font-family: 'Outfit', sans-serif;
-            margin-bottom: 4px;
-            line-height: 1;
+            margin-bottom: 2px;
         }
 
         .stat-lbl {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             font-weight: 500;
-        }
-
-        .weekly-calendar-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 12px;
-            text-align: center;
         }
 
         .weekly-dots-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 28px;
+            gap: 6px;
+            margin-bottom: 20px;
         }
 
         .calendar-dot-box {
@@ -574,41 +751,36 @@
         }
 
         .calendar-dot {
-            width: 38px;
-            height: 38px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: 1px solid var(--border-color);
             background-color: var(--bg-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 6px;
-            transition: var(--transition-smooth);
+            margin-bottom: 4px;
+            font-size: 0.7rem;
             color: var(--text-muted);
+            transition: var(--transition-smooth);
         }
 
         .calendar-dot.completed {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
             color: var(--bg-color);
-            box-shadow: 0 4px 12px rgba(45, 90, 83, 0.2);
+            box-shadow: 0 4px 8px rgba(45, 90, 83, 0.15);
         }
 
         .calendar-dot.today {
             border-color: var(--primary-color);
             border-width: 2px;
-        }
-
-        .calendar-dot svg {
-            width: 16px;
-            height: 16px;
-            stroke-width: 2.5;
+            font-weight: bold;
         }
 
         .calendar-day-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            font-weight: 500;
         }
 
         .complete-action-btn {
@@ -617,8 +789,8 @@
             color: var(--bg-color);
             border: none;
             border-radius: var(--radius-md);
-            padding: 16px;
-            font-size: 0.95rem;
+            padding: 14px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -626,24 +798,69 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 14px rgba(45, 90, 83, 0.1);
         }
 
         .complete-action-btn:hover {
             background-color: var(--primary-hover);
-            box-shadow: 0 6px 20px rgba(45, 90, 83, 0.2);
         }
 
         .complete-action-btn:disabled {
             background-color: var(--border-color);
             color: var(--text-muted);
             cursor: not-allowed;
-            box-shadow: none;
         }
 
-        /* ==========================================================================
-           5. FLOATING DEMO PANEL (TEST TOOL)
-           ========================================================================== */
+        /* Action Toolbar */
+        .action-toolbar {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .toolbar-btn {
+            padding: 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .toolbar-btn.re-diagnose {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            background-color: transparent;
+        }
+
+        .toolbar-btn.re-diagnose:hover {
+            background-color: rgba(45, 90, 83, 0.05);
+        }
+
+        .toolbar-btn.hard-reset {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+        }
+
+        .toolbar-btn.hard-reset:hover {
+            color: #d9534f;
+            background-color: rgba(217, 83, 79, 0.05);
+        }
+
+        /* Lock Screen Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        /* Floating Demo Panel */
         .floating-demo-panel {
             position: fixed;
             bottom: 24px;
@@ -657,12 +874,12 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            width: 200px;
+            width: 180px;
             transition: var(--transition-smooth);
         }
 
         .floating-demo-panel h4 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--primary-color);
             font-weight: 600;
             letter-spacing: 0.05em;
@@ -677,8 +894,8 @@
             color: var(--text-main);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-sm);
-            padding: 8px 12px;
-            font-size: 0.8rem;
+            padding: 8px 10px;
+            font-size: 0.75rem;
             font-weight: 500;
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -688,35 +905,16 @@
         .demo-btn:hover {
             background-color: var(--primary-color);
             color: var(--bg-color);
-            border-color: var(--primary-color);
-        }
-
-        .demo-btn.secondary {
-            background-color: transparent;
-            color: var(--text-muted);
-            border-color: transparent;
-        }
-
-        .demo-btn.secondary:hover {
-            background-color: rgba(0, 0, 0, 0.04);
-            color: var(--text-main);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 24px;
-            font-size: 0.8rem;
+            padding: 20px;
+            font-size: 0.75rem;
             color: var(--text-muted);
             font-weight: 300;
             letter-spacing: 0.05em;
-        }
-
-        /* 🔒 Shake animation for incorrect password entry */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-6px); }
-            75% { transform: translateX(6px); }
         }
     </style>
 </head>
@@ -729,44 +927,316 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                 Solo AI Builder
             </div>
-            <div class="subtitle">1인 창업 및 프리랜서 맞춤형 AI 아이디어 생성기</div>
+            <div class="subtitle">AI 스타트업 20문 20답 코칭 센터</div>
         </header>
 
         <!-- Main Dynamic View Container -->
         <main id="app" class="fade-in">
-            <!-- Dynamic view content will be injected here by the Reactive JS engine -->
+            <!-- Content will be dynamically injected by JS -->
         </main>
     </div>
 
     <!-- Footer -->
     <footer>
-        &copy; 2026 Solo AI Business Hub. Made with minimalist aesthetics.
+        &copy; 2026 Solo AI Business Hub. Inspired by 5Whys coaching.
     </footer>
 
-    <!-- Floating Demo / Debug Tool Panel -->
+    <!-- Developer Floating Tool Panel -->
     <div class="floating-demo-panel" id="demoPanel" style="display: none;">
         <h4>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             개발 테스트 도구
         </h4>
-        <button class="demo-btn" id="btnInjectDemo">7일 데모 데이터 주입</button>
-        <button class="demo-btn secondary" id="btnResetDemo">데이터 초기화</button>
+        <button class="demo-btn" id="btnInjectDemo">7일 데모 주입</button>
+        <button class="demo-btn" id="btnResetDemo" style="background-color: transparent; border-color: transparent; color: var(--text-muted);">전체 리셋</button>
     </div>
 
-    <!-- ==========================================================================
-       6. REACTIVE STATE ENGINE & CORE LOGIC
-       ========================================================================== -->
+    <!-- Core App Logic Script -->
     <script>
-        // --- (1) GLOBAL STATE DEFINITION ---
+        // --- 1. QUESTION SCENARIO DEFINITION (20 questions using 5Whys) ---
+        const QUESTIONS = [
+            {
+                id: 1,
+                title: "반가워요! 당신의 머릿속에 품고 있는 아주 작고 막연한 창업 아이디어 씨앗은 어떤 분야인가요? 편안하게 하나 골라보세요!",
+                key: "domain",
+                type: "select",
+                options: [
+                    "AI 콘텐츠 제작 (블로그, 숏폼 자동제작 등)",
+                    "AI 비즈니스 자동화 (단순 수작업 자동 RPA 등)",
+                    "AI 챗봇 및 지식 서비스 (전문 상담봇 등)",
+                    "AI 디자인 & 크리에이티브 (에셋, 상세페이지 제작 등)",
+                    "일반 무인 매장 비즈니스 (스터디룸, 공유 오피스 등)"
+                ],
+                reaction: (val) => `<strong>[${val}]</strong> 분야는 정말 트렌디하고 강력하군요! 인공지능 도구를 융합해 리소스 대비 최대의 매출을 올릴 수 있는 기막힌 영역입니다.`
+            },
+            {
+                id: 2,
+                title: "그렇다면 당신은 **왜** 이 창업을 시작하려 하시는지, 당신 마음 가장 깊은 곳의 첫 번째 개인적인 동기가 무엇인가요?",
+                key: "why1",
+                type: "select",
+                options: [
+                    "💰 직장 월급 외에 매달 든든한 추가 수입을 원해요",
+                    "✨ 회사 타이틀 없이 나만의 실력과 가치를 증명하고 싶어요",
+                    "🏃 누군가에게 지시받지 않는 독립적인 1인 창업가로 살래요",
+                    "🔄 일상의 지루한 반복에서 벗어나 새로운 성취감을 갖고 싶어요"
+                ],
+                reaction: (val) => `목표가 정말 뚜렷하시네요! <strong>"${val}"</strong>(이)라는 개인적인 갈망은 앞으로 창업의 지난한 과정에서 가장 든든한 등대 불빛이 될 것입니다.`
+            },
+            {
+                id: 3,
+                title: "한 단계만 깊이 가볼게요. 방금 선택하신 그 개인적인 동기가 당신의 인생과 미래에서 **왜** 그토록 중요한 가치인가요? (2nd Why)",
+                key: "why2",
+                type: "select",
+                options: [
+                    "가족의 평화와 금전적인 불안감에서 완전한 해방",
+                    "누군가의 눈치 보지 않고 내 시간의 통제권을 완전히 획득",
+                    "내 지식과 노하우로 더 많은 세상을 이롭게 하는 보람",
+                    "끊임없이 성장하며 더 뛰어난 자신을 조우하려는 본능"
+                ],
+                reaction: (val) => `참 와 닿는 말씀입니다. 인생의 핵심 가치로 <strong>[${val}]</strong>(을)를 중요히 생각하시는군요. 이 가치는 비즈니스의 영혼이 될 것입니다.`
+            },
+            {
+                id: 4,
+                title: "그렇다면 당신이 꿈꾸는 미래에 이 비즈니스가 성공했을 때, 그것이 **왜** 당신에게 완벽한 해방감과 기쁨을 가져다주나요? (3rd Why)",
+                key: "why3",
+                type: "select",
+                options: [
+                    "하루 종일 일하지 않아도 알아서 돈을 버는 자동화 파이프라인 형성",
+                    "디지털 노마드처럼 방구석이나 여행지에서 노트북 하나로 일하는 자유",
+                    "직장 동료나 타인에게 의존하지 않고 오롯이 내 힘으로 세상을 주도하는 쾌감",
+                    "불필요한 리스크를 최소화하고 내가 좋아하는 일에만 에너지를 쏟는 평온"
+                ],
+                reaction: (val) => `<strong>"${val.substring(0, 30)}..."</strong>(이)라는 라이프스타일은 이미 당신을 기다리고 있습니다. AI 코치가 그 밑그림을 현실로 빚어드릴게요.`
+            },
+            {
+                id: 5,
+                title: "창업의 스케일은 어떻게 생각하시나요? AI와 함께 가벼운 1인 비즈니스로 가실 건가요, 아니면 함께할 파트너를 구해 크게 확장하고 싶으신가요?",
+                key: "scale",
+                type: "select",
+                options: [
+                    "인건비 없이 AI 비서들과 완전 자동화하는 초경량 1인 기업",
+                    "뜻이 맞고 부족한 점을 보완할 팀원을 모아 확장 지향적 기업"
+                ],
+                reaction: (val) => `<strong>[${val}]</strong> 성장 전략을 채택하셨군요. 전략에 맞는 인프라 구성 및 비용 설계를 적용해 보겠습니다.`
+            },
+            {
+                id: 6,
+                title: "이제 고객을 정의해 봅시다! 당신의 가치 있는 해결책을 결제하고 도움을 받게 될 대상은 세상의 어떤 분들인가요?",
+                key: "audience",
+                type: "select",
+                options: [
+                    "바쁘고 마케팅 인력이 부족한 소상공인/1인 자영업자 사장님",
+                    "퇴근 후 1시간 틈새 부업으로 자립을 꿈꾸는 직장인",
+                    "SNS 채널을 더 폭발적으로 키우고 싶은 유망한 크리에이터",
+                    "시간 낭비를 극도로 줄이고 학업/취업에 몰두하고픈 청년층",
+                    "개별적이고 꼼꼼한 관리 서비스가 간절한 실버/시니어 계층"
+                ],
+                reaction: (val) => `확실한 고객층입니다. <strong>[${val}]</strong> 타겟 오디언스는 자신들의 가려운 부분을 긁어줄 누군가에게 지갑을 열 준비가 항상 되어 있습니다.`
+            },
+            {
+                id: 7,
+                title: "그분들이 일상 업무나 생업을 영위할 때 느끼는 가장 뼈아픈 불편(Pain Point)은 무엇인가요?",
+                key: "pain",
+                type: "select",
+                options: [
+                    "단순하고 무의식적인 수작업이 너무 많아 몸이 묶여 있음",
+                    "고객을 데려올 수 있는 홍보나 마케팅 방법을 전혀 모름",
+                    "최신 정보와 트렌드를 수집하고 정리할 시간이 극도로 부족함",
+                    "오프라인 실물 매장을 임대하거나 운영하는 비용이 너무 아까움"
+                ],
+                reaction: (val) => `핵심 가려움증을 찾았습니다! 바로 <strong>"${val}"</strong>(이)라는 심각한 불편을 시원하게 긁어주는 해결책이 곧 훌륭한 비즈니스 아이템입니다.`
+            },
+            {
+                id: 8,
+                title: "고객 입장에서 생각해 보죠. 그 고객들은 **왜** 그런 귀찮음과 고통을 매일 겪으며 살아갈까요? (Customer 1st Why)",
+                key: "custWhy1",
+                type: "select",
+                options: [
+                    "인건비 부담으로 유료 직원이나 전문가를 고용할 자금이 없어서",
+                    "복잡한 코딩이나 최신 AI 도구를 혼자서 학습할 여유가 없어서",
+                    "생업 본업만으로도 하루 24시간이 꽉 차서 틈새를 낼 수 없어서",
+                    "너무 산발적으로 흩어진 인터넷 정보 속에서 신뢰할 가이드를 못 찾아서"
+                ],
+                reaction: (val) => `정확한 원인 분석입니다! 고객은 <strong>"${val}"</strong>의 한계로 인해 해결책을 외면해 왔습니다.`
+            },
+            {
+                id: 9,
+                title: "더 집요하게 물어봅시다. 고객들이 그런 난관을 겪게 된 **진짜 근본적인 속사정**은 무엇이라고 보시나요? (Customer 2nd Why)",
+                key: "custWhy2",
+                type: "select",
+                options: [
+                    "하루 종일 쉴 틈 없이 돌아가는 과중한 생업 환경 탓에",
+                    "인터넷의 모든 자동화나 툴 사용법의 장벽이 생각보다 너무 높아서",
+                    "자신들이 겪는 작은 귀찮음을 맞춤형으로 챙겨줄 마이크로 서비스의 부재 탓에"
+                ],
+                reaction: (val) => `근본적인 구멍을 발견했네요! <strong>[${val}]</strong>(이)라는 빈틈을 우리가 해결하면 경쟁자가 아예 없는 블루오션을 장악하게 됩니다.`
+            },
+            {
+                id: 10,
+                title: "만약 이 아픔을 우리가 시원하게 박멸해 준다면, 고객이 도달할 **가장 이상적인 기쁨과 가치**는 무엇이 될까요? (Customer 3rd Why)",
+                key: "custJoy",
+                type: "select",
+                options: [
+                    "하루 평균 1~2시간의 완전한 휴식 및 본질 연구 시간 획득",
+                    "돈 한 푼 들이지 않는 오가닉 트래픽으로 매출 상승 실현",
+                    "지루하고 귀찮은 잡일에서 해방되어 핵심 창의 업무에만 집중"
+                ],
+                reaction: (val) => `듣기만 해도 짜릿하네요. <strong>"${val}"</strong>(을)를 제공하는 순간 고객은 단골이자 열렬한 팬이 됩니다.`
+            },
+            {
+                id: 11,
+                title: "자, 그렇다면 우리가 만들 수 있는 '가장 심플하고 빠르게 검증 가능한 최소 해결책(MVP)'의 형태는 어떤 모습일까요?",
+                key: "solution",
+                type: "select",
+                options: [
+                    "카카오톡/슬랙으로 1:1 자동 맞춤 상담 및 진단을 내려주는 AI 챗봇",
+                    "구글 시트에 정보만 채워넣으면 자동으로 릴스 숏폼 에셋이 쏟아지는 자동화 템플릿",
+                    "고객이 해결하려는 귀찮은 업무를 건당 소액으로 단숨에 대신 다 짜주는 대행 서비스",
+                    "인건비 없이 모바일 QR 코드로 공간 예약부터 결제까지 알아서 굴러가는 무인 대여 공간"
+                ],
+                reaction: (val) => `강력하고 단순한 해결책입니다. <strong>"${val}"</strong>(은)는 하루 만에 세팅해 곧바로 검증할 수 있는 탁월한 실속형 무기입니다.`
+            },
+            {
+                id: 12,
+                title: "이제 당신의 자원을 평가해 볼게요. 이 아이디어를 시작할 때 활용할 수 있는 당신의 작지만 강력한 필살기(핵심 장점)는 무엇인가요?",
+                key: "asset",
+                type: "input",
+                suggestions: [
+                    "영어 기사/문서 초고속 번역 능력",
+                    "노션 및 엑셀 시트 꼼꼼한 정리 정돈",
+                    "트렌디한 카드뉴스 및 기획 글쓰기 실력",
+                    "파이썬 기초 코딩 및 데이터 수집 지식",
+                    "고객의 말을 주의 깊게 경청하고 공감하는 소통력",
+                    "작은 일도 끝까지 밀어붙이는 성실성과 끈기"
+                ],
+                reaction: (val) => `대단합니다! <strong>[${val}]</strong>(이)라는 당신의 필살기는 1인 비즈니스의 단단한 주춧돌이 되어 비약적인 완성도를 선물할 것입니다.`
+            },
+            {
+                id: 13,
+                title: "비즈니스를 시작하려고 결심할 때, 당신의 마음을 주저앉게 만드는 가장 큰 현실 장벽이나 두려움은 무엇인가요?",
+                key: "barrier",
+                type: "input",
+                suggestions: [
+                    "코딩이나 프로그램 개발 지식이 전무해요",
+                    "초보자라 마케팅이나 영업 홍보가 막막해요",
+                    "본업(직장/학업)이 너무 바빠서 절대 시간이 부족해요",
+                    "시작할 때 투자할 수 있는 자금이 거의 없어요"
+                ],
+                reaction: (val) => `솔직한 고백 감사합니다. <strong>"${val}"</strong>(이)라는 마음속 장벽은 초보 창업가 99%가 겪는 통과의례입니다. 그 진실의 꼬리를 밟아봅시다.`
+            },
+            {
+                id: 14,
+                title: "그 현실적인 두려움이나 장벽이 당신에게 마음의 짐으로 남은 **근본적인 배경 이유**는 무엇이라고 생각하나요? (Barrier Why)",
+                key: "barrierWhy",
+                type: "select",
+                options: [
+                    "한 번도 내 사업으로 돈을 직접 벌어본 성공 경험의 부재 때문에",
+                    "실패했을 때 시간이나 소액의 돈이 낭비될지 모른다는 막연한 무서움 때문에",
+                    "어디서부터 어떻게 1보를 딛어야 할지 명쾌하게 알려주는 멘토의 부재 때문에"
+                ],
+                reaction: (val) => `그렇습니다. 원인은 <strong>"${val}"</strong>에 있었군요. AI 코치가 리스크 0원짜리 초미세 행동으로 두려움을 박살내 드릴게요.`
+            },
+            {
+                id: 15,
+                title: "이 장벽을 돌파하고 행동으로 옮기기 위해, 하루 24시간 중 온전히 이 창업에 투여할 수 있는 내 시간은 얼마나 되나요?",
+                key: "time",
+                type: "select",
+                options: [
+                    "⏱️ 하루 딱 15분 (부담 제로, 초경량 데일리 연계 세팅)",
+                    "⏱️ 하루 30분 (효율적인 저녁 집중 루틴 가동)",
+                    "⏱️ 하루 1시간 이상 (본격적인 성장 궤도 진입용 딥워크)"
+                ],
+                reaction: (val) => `<strong>[${val.split(' (')[0]}]</strong>의 소중한 가용 시간을 결정하셨군요. 이 틈새 시간을 파괴적으로 효율화하는 7일 로드맵을 맞춰 짜드리겠습니다.`
+            },
+            {
+                id: 16,
+                title: "비즈니스의 꽃, 수익 모델을 결정할 시간입니다! 고객에게 어떤 형태로 매출을 올리고 싶으신가요?",
+                key: "revenue",
+                type: "select",
+                options: [
+                    "매월 고정 수입이 누적되어 안정을 주는 '정기 구독제 멤버십'",
+                    "고객의 핵심 고민을 단발성으로 깔끔히 해결해주는 '대행/용역 수수료'",
+                    "직접 일하지 않아도 다운로드 시 입금되는 '1회 디지털 템플릿/패키지 판매'",
+                    "24시간 공간이 알아서 결제되고 일하는 '무인 공간 임대 매출'"
+                ],
+                reaction: (val) => `<strong>[${val.substring(0, 15)}]</strong> 수익 모델은 현재 1인 기업가들이 가장 빠르게 첫 결제 맛을 보는 강력한 구조입니다.`
+            },
+            {
+                id: 17,
+                title: "고객이 한 치의 의심이나 망설임 없이 기꺼이 첫 지갑을 열게 만들려면, 초기에 어떤 '강력한 신뢰 장치'를 걸어줄까요?",
+                key: "trust",
+                type: "select",
+                options: [
+                    "100% 만족 실패 시 아무 질문 없이 전액 환불제 운영",
+                    "핵심 가치의 30%를 맛보기로 체험하는 '무료 선체험판' 배포",
+                    "초기 런칭 기념 선착순 5명 고객 대상 '50% 파격 얼리버드 할인 제안'",
+                    "작업 시작 전 무료 1:1 모바일 간편 진단 컨설팅 사전 제공"
+                ],
+                reaction: (val) => `영리한 역발상 전략입니다! <strong>[${val}]</strong> 장치는 고객의 진입 허들을 0에 가깝게 깎아주어 빠른 고객 확보를 도울 것입니다.`
+            },
+            {
+                id: 18,
+                title: "실패 없는 비즈니스를 만들기 위해, 초기에 쓸 수 있는 현실적인 투자금(초기 예산)은 얼마로 상정할까요?",
+                key: "budget",
+                type: "select",
+                options: [
+                    "0원 (오직 완전 무료 AI 툴과 무료 호스팅으로만 시작)",
+                    "월 5만 원 미만 (업무 효율을 200% 늘릴 유료 챗GPT나 일부 API 결제)",
+                    "월 20만 원 내외 (필요한 장비 렌탈 및 핵심 실물 무인 인프라 보조)"
+                ],
+                reaction: (val) => `현실적인 예산입니다. <strong>"${val}"</strong> 한도 내에서 마법처럼 고정비를 극강으로 쥐어짜내는 비용 구조 플랜을 산출하겠습니다.`
+            },
+            {
+                id: 19,
+                title: "이 아이템이 완전히 안착하여 작동할 때, 당신이 매달 거두고 싶은 '목표 꿈의 월 수익'은 얼마인가요?",
+                key: "income",
+                type: "select",
+                options: [
+                    "월 50만 원 (안정적인 가사/용돈 보탬 및 통신비 해결)",
+                    "월 200만 원 (든든한 제2의 월급이자 본업 의존도 하향)",
+                    "월 500만 원 이상 (직장 해방 및 오롯한 독립 기업가로 출범)"
+                ],
+                reaction: (val) => `가슴 뛰는 목표입니다! <strong>"${val}"</strong>(을)를 달성하기 위해 고객당 세부 결제 단가와 한 달 유입 목표를 정확하게 계산해 대시보드에 매핑하겠습니다.`
+            },
+            {
+                id: 20,
+                title: "마지막 스무 번째 질문입니다! 이 위대한 여정을 포기하지 않고, 7일 동안 매일 당신의 결정 시간만큼 진정성 있게 시도할 준비가 되셨나요?",
+                key: "commitment",
+                type: "select",
+                options: [
+                    "🔥 네! 나만의 비즈니스를 위해 7일간 무조건 실행하겠습니다!",
+                    "🌱 걱정은 뒤로 하고 AI 코치와 함께 즐겁게 첫 발을 떼겠습니다!"
+                ],
+                reaction: (val) => `진심 어린 다짐에 큰 박수를 보냅니다! 20문 20답(5Whys)의 모든 질문이 드디어 완료되었습니다.`
+            }
+        ];
+
+        // --- 2. GLOBAL STATE DEFINITION ---
         const INITIAL_STATE = {
-            isAuthenticated: false, // 🔒 Security authentication gate
+            isAuthenticated: false,
             currentView: 'survey', // 'survey' | 'dashboard'
-            surveyStep: 1,         // 1 | 2 | 3 | 4 (Expanded from 3)
+            surveyStep: 1,         // 1 to 20
             answers: {
-                interest: '',      // AI 콘텐츠 제작...
-                time: '',          // 15분...
-                platform: '',      // 오프라인 피지컬 자동화, 온라인 디지털 자동화, 온오프라인 하이브리드
-                skill: ''          // 주관식 무기 (기술/특기)
+                domain: '',
+                why1: '',
+                why2: '',
+                why3: '',
+                scale: '',
+                audience: '',
+                pain: '',
+                custWhy1: '',
+                custWhy2: '',
+                custJoy: '',
+                solution: '',
+                asset: '',
+                barrier: '',
+                barrierWhy: '',
+                time: '',
+                revenue: '',
+                trust: '',
+                budget: '',
+                income: '',
+                commitment: ''
             },
             streak: 0,
             completedCount: 0,
@@ -783,8 +1253,8 @@
             }
         });
 
-        // --- (2) LOCALSTORAGE UTILITIES ---
-        const STORAGE_KEY = 'SOLO_AI_BUILDER_STATE';
+        // --- 3. LOCALSTORAGE UTILITIES ---
+        const STORAGE_KEY = 'SOLO_AI_BUILDER_5WHYS_STATE_V3';
 
         function saveStateToLocalStorage() {
             try {
@@ -798,7 +1268,7 @@
                 };
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(rawState));
             } catch (e) {
-                console.error("Failed to save state to localStorage", e);
+                console.error("Failed to save state", e);
             }
         }
 
@@ -809,59 +1279,83 @@
                     const parsed = JSON.parse(saved);
                     state.currentView = parsed.currentView || 'survey';
                     state.surveyStep = parsed.surveyStep || 1;
-                    state.answers = parsed.answers || { interest: '', time: '', platform: '', skill: '' };
+                    
+                    // Safe mapping
+                    state.answers = {
+                        domain: parsed.answers?.domain || '',
+                        why1: parsed.answers?.why1 || '',
+                        why2: parsed.answers?.why2 || '',
+                        why3: parsed.answers?.why3 || '',
+                        scale: parsed.answers?.scale || '',
+                        audience: parsed.answers?.audience || '',
+                        pain: parsed.answers?.pain || '',
+                        custWhy1: parsed.answers?.custWhy1 || '',
+                        custWhy2: parsed.answers?.custWhy2 || '',
+                        custJoy: parsed.answers?.custJoy || '',
+                        solution: parsed.answers?.solution || '',
+                        asset: parsed.answers?.asset || '',
+                        barrier: parsed.answers?.barrier || '',
+                        barrierWhy: parsed.answers?.barrierWhy || '',
+                        time: parsed.answers?.time || '',
+                        revenue: parsed.answers?.revenue || '',
+                        trust: parsed.answers?.trust || '',
+                        budget: parsed.answers?.budget || '',
+                        income: parsed.answers?.income || '',
+                        commitment: parsed.answers?.commitment || ''
+                    };
+                    
                     state.streak = parsed.streak || 0;
                     state.completedCount = parsed.completedCount || 0;
                     state.trackingHistory = parsed.trackingHistory || [];
                 }
             } catch (e) {
-                console.error("Failed to load state from localStorage, using initial state", e);
+                console.error("Failed to load state", e);
             }
         }
 
-        // --- (3) SECURITY & VAULT AUTHENTICATION GATE ---
+        // --- 4. SECURITY LOCK GATE ---
         const SECURE_PASSWORD = "1004";
 
         function renderLockView() {
             return `
-                <div class="premium-card fade-in" style="text-align: center; max-width: 440px; margin: 40px auto; padding: 48px 32px; box-shadow: var(--shadow-medium);">
-                    <div style="margin-bottom: 24px; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background-color: rgba(45, 90, 83, 0.08); color: var(--primary-color);">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <div class="premium-card fade-in" style="text-align: center; max-width: 420px; margin: 40px auto; padding: 40px 24px; box-shadow: var(--shadow-medium);">
+                    <div style="margin-bottom: 20px; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background-color: rgba(45, 90, 83, 0.06); color: var(--primary-color);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                         </svg>
                     </div>
                     
-                    <h2 style="font-size: 1.35rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.02em;">Solo AI Vault</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 28px;">
-                        이 프로젝트는 비밀번호로 안전하게 보호되어 있습니다.<br>
-                        창업 아이디어를 보시려면 비밀번호를 입력해 주세요.
+                    <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">Solo AI Vault</h2>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px;">
+                        안전한 아이디어 보호를 위해 설계된 금고입니다.<br>
+                        창업 코치방에 진입하시려면 비밀번호를 입력해 주세요.
                     </p>
                     
-                    <div class="form-group" style="margin-bottom: 12px;">
+                    <div class="form-group" style="margin-bottom: 8px;">
                         <input 
                             type="password" 
                             id="passwordInput" 
                             class="premium-input" 
                             placeholder="••••" 
-                            style="min-height: 52px; text-align: center; font-size: 1.25rem; letter-spacing: 0.3em; padding: 12px; font-weight: bold;"
+                            style="min-height: 48px; text-align: center; font-size: 1.2rem; letter-spacing: 0.3em; padding: 8px; font-weight: bold;"
                         />
                     </div>
                     
-                    <div id="passwordError" style="font-size: 0.8rem; color: #d9534f; font-weight: 500; height: 18px; margin-bottom: 16px; visibility: hidden;">
+                    <div id="passwordError" style="font-size: 0.75rem; color: #d9534f; font-weight: 500; height: 18px; margin-bottom: 12px; visibility: hidden;">
                         ⚠️ 비밀번호가 올바르지 않습니다.
                     </div>
                     
-                    <button class="complete-action-btn" id="btnUnlock" style="height: 52px; font-weight: 600;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+                    <button class="complete-action-btn" id="btnUnlock" style="height: 48px; font-weight: 600;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 4px;">
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                         </svg>
                         금고 잠금해제
                     </button>
                     
-                    <div style="margin-top: 24px; font-size: 0.75rem; color: var(--text-muted); border-top: 1px dashed var(--border-color); padding-top: 16px;">
-                        💡 초기 암호 힌트: 천사 (숫자 4자리)
+                    <div style="margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); border-top: 1px dashed var(--border-color); padding-top: 12px;">
+                        💡 힌트: 천사 (숫자 4자리)
                     </div>
                 </div>
             `;
@@ -879,9 +1373,7 @@
                 });
             }
 
-            if (btnUnlock) {
-                btnUnlock.addEventListener('click', attemptUnlock);
-            }
+            if (btnUnlock) btnUnlock.addEventListener('click', attemptUnlock);
 
             function attemptUnlock() {
                 const val = passwordInput.value;
@@ -893,7 +1385,6 @@
                     passwordInput.value = '';
                     passwordInput.focus();
                     
-                    // Shake animation for premium micro-interaction
                     passwordInput.style.animation = 'none';
                     passwordInput.offsetHeight; // trigger reflow
                     passwordInput.style.animation = 'shake 0.4s ease';
@@ -901,7 +1392,7 @@
             }
         }
 
-        // --- (4) ROUTING & VIEW TRANSITION ---
+        // --- 5. VIEW NAVIGATOR ---
         function navigateTo(viewName) {
             const appEl = document.getElementById('app');
             appEl.classList.remove('fade-in');
@@ -914,12 +1405,11 @@
             }, 300);
         }
 
-        // --- (5) CORE RENDER CONTROLLER ---
+        // --- 6. CORE RENDER FUNCTION ---
         function render() {
             const appEl = document.getElementById('app');
             if (!appEl) return;
 
-            // 🔒 Security Gate Check
             const demoPanel = document.getElementById('demoPanel');
             if (!state.isAuthenticated) {
                 if (demoPanel) demoPanel.style.display = 'none';
@@ -933,316 +1423,398 @@
             if (state.currentView === 'survey') {
                 appEl.innerHTML = renderSurveyView();
                 bindSurveyEvents();
+                
+                // Scroll chat to the very bottom automatically
+                setTimeout(() => {
+                    const chatHistory = document.getElementById('chatHistory');
+                    if (chatHistory) {
+                        chatHistory.scrollTop = chatHistory.scrollHeight;
+                    }
+                }, 50);
             } else if (state.currentView === 'dashboard') {
                 appEl.innerHTML = renderDashboardView();
                 bindDashboardEvents();
             }
         }
 
-        // ==========================================================================
-        // 5. SURVEY COMPONENT VIEW & EVENTS (Updated for Platform Step & Step 4)
-        // ==========================================================================
-        const INTEREST_OPTIONS = [
-            "AI 콘텐츠 제작 (블로그, 숏폼 등)",
-            "AI 비즈니스 자동화 (RPA, 업무 자동화 등)",
-            "AI 챗봇 및 고객센터 (상담봇 구축 등)",
-            "AI 디자인 & 창작 (이미지, 디자인 에셋 등)",
-            "AI 교육 및 지식 창업 (전자책, 온라인 강의 등)"
-        ];
-
-        const TIME_OPTIONS = ["15분", "30분", "45분", "60분"];
-
-        const PLATFORM_OPTIONS = [
-            {
-                title: "오프라인 피지컬 자동화",
-                desc: "로봇, 스마트팜, 무인 공간이 스스로 일하는 오프라인 매장",
-                value: "오프라인 피지컬 자동화"
-            },
-            {
-                title: "온라인 디지털 자동화",
-                desc: "방구석에서 AI 비서들과 함께 자동 유통/구독 온라인 쇼핑몰 운영",
-                value: "온라인 디지털 자동화"
-            },
-            {
-                title: "온오프라인 하이브리드",
-                desc: "오프라인 무인 매장과 온라인 자동화 몰을 매끄럽게 연동 및 통합 관리",
-                value: "온오프라인 하이브리드"
-            }
-        ];
-
+        // --- 7. CONVERSATIONAL SURVEY CONTROLLER & RENDERING ---
         function renderSurveyView() {
             const step = state.surveyStep;
-            const progress = (step / 4) * 100; // Expanded to 4 steps
+            const totalSteps = 20;
+            const progress = (step / totalSteps) * 100;
             
-            let questionContent = '';
-            
-            if (step === 1) {
-                questionContent = `
-                    <div class="question-title">
-                        <span>Step 01</span>
-                        현재 어떤 분야에 가장 관심이 있으신가요?
-                    </div>
-                    <div class="chip-grid">
-                        ${INTEREST_OPTIONS.map(opt => `
-                            <button class="chip-btn ${state.answers.interest === opt ? 'active' : ''}" data-value="${opt}">
-                                ${opt}
-                                <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </button>
-                        `).join('')}
-                    </div>
-                `;
-            } else if (step === 2) {
-                questionContent = `
-                    <div class="question-title">
-                        <span>Step 02</span>
-                        하루 중 온전히 집중할 수 있는 시간은?
-                    </div>
-                    <div class="chip-grid chip-row-grid">
-                        ${TIME_OPTIONS.map(opt => `
-                            <button class="chip-btn ${state.answers.time === opt ? 'active' : ''}" data-value="${opt}" style="justify-content: center; text-align: center;">
-                                ${opt}
-                            </button>
-                        `).join('')}
-                    </div>
-                    <div class="btn-row">
-                        <button class="nav-btn secondary-link" id="btnPrevStep">이전 단계</button>
-                    </div>
-                `;
-            } else if (step === 3) {
-                // New Question: Platform choice
-                questionContent = `
-                    <div class="question-title">
-                        <span>Step 03</span>
-                        당신이 꿈꾸는 비즈니스의 메인 무대는 어디인가요?
-                    </div>
-                    <div class="chip-grid">
-                        ${PLATFORM_OPTIONS.map(opt => `
-                            <button class="chip-btn ${state.answers.platform === opt.value ? 'active' : ''}" data-value="${opt.value}" style="flex-direction: column; align-items: flex-start; padding: 20px 24px;">
-                                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                                    <span class="chip-btn-title">${opt.title}</span>
-                                    <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                        <polyline points="12 5 19 12 12 19"></polyline>
-                                    </svg>
-                                </div>
-                                <span class="chip-btn-desc">${opt.desc}</span>
-                            </button>
-                        `).join('')}
-                    </div>
-                    <div class="btn-row">
-                        <button class="nav-btn secondary-link" id="btnPrevStep">이전 단계</button>
-                    </div>
-                `;
-            } else if (step === 4) {
-                // Previously step 3, now step 4
-                questionContent = `
-                    <div class="question-title">
-                        <span>Step 04</span>
-                        나의 가장 강력한 무기(기술)는 무엇인가요?
-                    </div>
-                    
-                    <div class="illustration-box">
-                        <svg class="sprout-svg" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M32 58V32" stroke="#2d5a53" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M32 36C32 36 44 26 48 30C52 34 40 42 32 40" fill="#457e75" stroke="#2d5a53" stroke-width="3" stroke-linejoin="round"/>
-                            <path d="M32 44C32 44 20 36 16 40C12 44 24 50 32 48" fill="#457e75" stroke="#2d5a53" stroke-width="3" stroke-linejoin="round"/>
-                            <path d="M32 32C32 32 36 14 46 16C56 18 42 32 32 32Z" fill="#2d5a53"/>
-                            <circle cx="32" cy="58" r="4" fill="#2d5a53"/>
-                        </svg>
-                        <div class="emotional-quote">"오늘 하루, 한 걸음 걸었어?"</div>
-                    </div>
+            const q = QUESTIONS[step - 1];
 
+            // Render dynamic conversation transcript up to the current step
+            let transcriptHTML = "";
+            for (let i = 0; i < step - 1; i++) {
+                const pastQ = QUESTIONS[i];
+                const key = pastQ.key;
+                const userAns = state.answers[key];
+                
+                // 1. Coach sends question
+                transcriptHTML += `
+                    <div class="chat-bubble coach">
+                        ${pastQ.title}
+                    </div>
+                `;
+                // 2. User responds
+                if (userAns) {
+                    transcriptHTML += `
+                        <div class="chat-bubble user">
+                            ${userAns.includes('💰') || userAns.includes('✨') || userAns.includes('🏃') || userAns.includes('🔄') || userAns.includes('⏱️') ? userAns.substring(2) : userAns}
+                        </div>
+                    `;
+                    // 3. Coach provides feedback
+                    transcriptHTML += `
+                        <div class="chat-bubble coach" style="font-weight: 300; font-size: 0.85rem; border-color: rgba(45, 90, 83, 0.15); background-color: rgba(241, 239, 233, 0.4);">
+                            ✨ 코치 분석: ${pastQ.reaction(userAns)}
+                        </div>
+                    `;
+                }
+            }
+
+            // Append the active/current question bubble
+            transcriptHTML += `
+                <div class="chat-bubble coach" id="activeCoachBubble">
+                    ${q.title}
+                </div>
+            `;
+
+            // Setup input interface depending on the question type
+            let inputControlHTML = "";
+            
+            if (q.type === 'select') {
+                inputControlHTML = `
+                    <div class="choice-grid">
+                        ${q.options.map(opt => {
+                            const isActive = state.answers[q.key] === opt;
+                            return `
+                                <button class="choice-btn ${isActive ? 'active' : ''}" data-value="${opt}">
+                                    <span>${opt}</span>
+                                    <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            } else if (q.type === 'input') {
+                inputControlHTML = `
+                    <div class="tag-suggestions">
+                        ${q.suggestions.map(tag => `
+                            <span class="tag-chip" data-tag="${tag}">${tag}</span>
+                        `).join('')}
+                    </div>
                     <div class="form-group">
                         <textarea 
                             class="premium-input" 
-                            id="skillInput" 
-                            placeholder="예: 기획력, 영어 번역, 파이썬 코딩, 디자인 감각, 소셜 마케팅 등 당신의 엣지 있는 특기를 적어주세요."
-                        >${state.answers.skill}</textarea>
-                    </div>
-                    
-                    <div class="btn-row">
-                        <button class="nav-btn secondary-link" id="btnPrevStep">이전</button>
-                        <button class="nav-btn" id="btnSubmitSurvey" ${!state.answers.skill.trim() ? 'disabled' : ''}>
-                            아이디어 생성
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                        </button>
+                            id="customInput" 
+                            placeholder="위 추천 키워드를 클릭하거나 본인의 답변을 편하게 적어주세요!"
+                        >${state.answers[q.key] || ''}</textarea>
                     </div>
                 `;
             }
 
             return `
-                <div class="premium-card">
+                <div class="premium-card" style="padding: 20px 14px; margin-bottom: 12px;">
                     <div class="survey-progress-wrapper">
                         <div class="survey-steps-indicator">
-                            <span>Step ${step} of 4</span>
+                            <span>스무고개 코칭 ${step} / ${totalSteps} 단계</span>
                             <span>${Math.round(progress)}% 완료</span>
                         </div>
                         <div class="survey-progress-track">
                             <div class="survey-progress-bar" style="width: ${progress}%"></div>
                         </div>
                     </div>
-                    ${questionContent}
+                </div>
+
+                <div class="chat-room">
+                    <div class="chat-header">
+                        <div class="chat-header-status"></div>
+                        <div class="chat-header-title">1:1 스타트업 코칭 챗룸</div>
+                    </div>
+                    <div class="chat-history" id="chatHistory">
+                        ${transcriptHTML}
+                        <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-panel">
+                    ${inputControlHTML}
+                    
+                    <div class="nav-bar">
+                        ${step > 1 ? `<button class="nav-btn secondary" id="btnPrevStep">이전</button>` : ''}
+                        
+                        ${q.type === 'input' ? `
+                            <button class="nav-btn" id="btnNextStep" ${!state.answers[q.key] ? 'disabled' : ''}>
+                                ${step === totalSteps ? '결과 기획서 생성하기' : '다음 단계로'}
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </button>
+                        ` : ''}
+                    </div>
                 </div>
             `;
         }
 
         function bindSurveyEvents() {
             const step = state.surveyStep;
+            const q = QUESTIONS[step - 1];
 
-            if (step === 1) {
-                const buttons = document.querySelectorAll('.chip-btn');
+            // 1. Select option click
+            if (q.type === 'select') {
+                const buttons = document.querySelectorAll('.choice-btn');
                 buttons.forEach(btn => {
                     btn.addEventListener('click', () => {
                         const val = btn.getAttribute('data-value');
                         btn.classList.add('active');
                         
-                        setTimeout(() => {
-                            state.answers = { ...state.answers, interest: val };
-                            state.surveyStep = 2;
-                        }, 250);
-                    });
-                });
-            }
-
-            if (step === 2) {
-                const buttons = document.querySelectorAll('.chip-btn');
-                buttons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const val = btn.getAttribute('data-value');
-                        btn.classList.add('active');
+                        // Render typing animation on AI Coach before step progression
+                        const typingIndicator = document.getElementById('typingIndicator');
+                        if (typingIndicator) typingIndicator.style.display = 'inline-flex';
                         
                         setTimeout(() => {
-                            state.answers = { ...state.answers, time: val };
-                            state.surveyStep = 3; // Navigate to new platform question
-                        }, 250);
-                    });
-                });
+                            // Immutable Proxy state update
+                            const updatedAnswers = { ...state.answers };
+                            updatedAnswers[q.key] = val;
+                            
+                            state.answers = updatedAnswers;
 
-                document.getElementById('btnPrevStep').addEventListener('click', () => {
-                    state.surveyStep = 1;
+                            if (step < 20) {
+                                state.surveyStep = step + 1;
+                            } else {
+                                navigateTo('dashboard');
+                            }
+                        }, 550);
+                    });
                 });
             }
 
-            if (step === 3) {
-                // Bind new Platform selection events
-                const buttons = document.querySelectorAll('.chip-btn');
-                buttons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const val = btn.getAttribute('data-value');
-                        btn.classList.add('active');
+            // 2. Input change & suggestions click
+            if (q.type === 'input') {
+                const customInput = document.getElementById('customInput');
+                const nextBtn = document.getElementById('btnNextStep');
+                
+                if (customInput) {
+                    customInput.addEventListener('input', (e) => {
+                        const text = e.target.value;
+                        const updatedAnswers = { ...state.answers };
+                        updatedAnswers[q.key] = text;
+                        state.answers = updatedAnswers;
+
+                        if (text.trim().length > 0) {
+                            nextBtn.removeAttribute('disabled');
+                        } else {
+                            nextBtn.setAttribute('disabled', 'true');
+                        }
+                    });
+                }
+
+                const tags = document.querySelectorAll('.tag-chip');
+                tags.forEach(tag => {
+                    tag.addEventListener('click', () => {
+                        const val = tag.getAttribute('data-tag');
+                        if (customInput) {
+                            let separator = customInput.value.trim().length > 0 ? ', ' : '';
+                            customInput.value = customInput.value + separator + val;
+                            customInput.dispatchEvent(new Event('input'));
+                            customInput.focus();
+                        }
+                    });
+                });
+
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        if (!state.answers[q.key].trim()) return;
                         
-                        setTimeout(() => {
-                            state.answers = { ...state.answers, platform: val };
-                            state.surveyStep = 4; // Navigate to subjective skill input
-                        }, 250);
-                    });
-                });
+                        const typingIndicator = document.getElementById('typingIndicator');
+                        if (typingIndicator) typingIndicator.style.display = 'inline-flex';
 
-                document.getElementById('btnPrevStep').addEventListener('click', () => {
-                    state.surveyStep = 2;
-                });
+                        setTimeout(() => {
+                            if (step < 20) {
+                                state.surveyStep = step + 1;
+                            } else {
+                                navigateTo('dashboard');
+                            }
+                        }, 400);
+                    });
+                }
             }
 
-            if (step === 4) {
-                const skillInput = document.getElementById('skillInput');
-                const submitBtn = document.getElementById('btnSubmitSurvey');
-
-                skillInput.addEventListener('input', (e) => {
-                    const text = e.target.value;
-                    state.answers.skill = text;
-                    if (text.trim().length > 0) {
-                        submitBtn.removeAttribute('disabled');
-                    } else {
-                        submitBtn.setAttribute('disabled', 'true');
+            // 3. Back step button
+            const prevBtn = document.getElementById('btnPrevStep');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    if (step > 1) {
+                        state.surveyStep = step - 1;
                     }
                 });
-
-                document.getElementById('btnPrevStep').addEventListener('click', () => {
-                    state.surveyStep = 3;
-                });
-
-                submitBtn.addEventListener('click', () => {
-                    if (!state.answers.skill.trim()) return;
-                    navigateTo('dashboard');
-                });
             }
         }
 
-        // ==========================================================================
-        // 6. DASHBOARD COMPONENT VIEW & EVENTS (With Platform Mapping Engine)
-        // ==========================================================================
-        
-        // Intelligent Dynamic Mapping Engine based on platform choice
-        function getMappedBusinessIdeas() {
-            const interest = state.answers.interest || "AI 콘텐츠 제작 (블로그, 숏폼 등)";
-            const time = state.answers.time || "30분";
-            const skill = state.answers.skill || "기획력";
-            const platform = state.answers.platform || "온라인 디지털 자동화";
+        // --- 8. BUSINESS GENERATOR ENGINE ---
+        function generateBusinessPlan() {
+            const ans = state.answers;
 
-            let startup = { title: "", desc: "", steps: [] };
-            let freelance = { title: "", desc: "", steps: [] };
+            const domain = ans.domain || QUESTIONS[0].options[0];
+            const why1 = ans.why1 || QUESTIONS[1].options[0];
+            const scale = ans.scale || QUESTIONS[4].options[0];
+            const audience = ans.audience || QUESTIONS[6].options[0];
+            const pain = ans.pain || QUESTIONS[7].options[0];
+            const solution = ans.solution || QUESTIONS[10].options[0];
+            const asset = ans.asset || "노션 정리 역량";
+            const barrier = ans.barrier || "마케팅이 두려움";
+            const time = ans.time || QUESTIONS[14].options[0];
+            const revenue = ans.revenue || QUESTIONS[15].options[0];
+            const trust = ans.trust || QUESTIONS[16].options[0];
+            const budget = ans.budget || QUESTIONS[17].options[0];
+            const income = ans.income || QUESTIONS[18].options[0];
 
-            if (platform.includes("오프라인")) {
-                // Offline Path: 스마트팜 카페 & 무인 피티룸
-                startup.title = "도심형 로봇 스마트팜 카페 (Smart Sprout Cafe)";
-                startup.desc = `도심형 초소형 스마트팜 재배기와 로봇 바리스타 인프라를 결합하여 공간 효율과 마진율을 극대화한 미래형 자동화 F&B 매장 모델입니다. 당신의 독보적인 [${skill}] 역량을 투입해 시그니처 오프라인 디자인과 공간 감성을 엣지있게 조율합니다.`;
-                startup.steps = [
-                    `AI 재배기 컨트롤러를 연동하여 매일 딱 ${time} 동안 수경재배 신선 야채 수확 및 스마트 모니터링을 완료합니다.`,
-                    `당신의 강력한 무기 [${skill}] 기술을 적극 접목해 차별화된 F&B 공간 브랜딩 마케팅과 특화 메뉴 레시피를 점검합니다.`,
-                    `로봇 바리스타 드립 머신과 스마트 식물 재배를 패키징하여, 상주 노동력 제로의 혁신적 오프라인 매장을 자동 운영합니다.`
-                ];
+            // Core Keyword extraction
+            const skillKeyword = asset.replace(/역량|기술|실력|능력|기본|수준|경험|공부|작성|력|번역/g, '').trim().substring(0, 3) || "스마트";
+            
+            // Brand Name & Tagline customization
+            let brandName = "";
+            let slogan = "";
+            let feasibilityScore = 78;
 
-                freelance.title = "AI 3D 체형분석 프리미엄 무인 피티룸 (AI Physical Care Room)";
-                freelance.desc = `3D 관절 추적 캡처 카메라와 실시간 AI 퍼스널 운동 처방 시스템을 공간 대여 피티룸에 통합한 프리미엄 테크 헬스케어 모델입니다. 당신의 독보적인 [${skill}] 능력을 운동 피드백 리포팅 설계 및 자동 처방 로직 세팅에 얹어 초고단가 Retainer 이익을 수취합니다.`;
-                freelance.steps = [
-                    `방문 회원이 3D 스캐너와 카메라 앞에 서면 AI가 단 1분 만에 체형 불균형과 골격 변형 데이터를 자동 판독합니다.`,
-                    `본인의 강점 [${skill}] 기술을 전력 결합하여 고객만을 위한 맞춤형 비주얼 리포트 디자인과 AI 처방 문구를 정밀 튜닝합니다.`,
-                    `하루 단 ${time} 동안 시스템 예약 현황을 원격 정밀 확인하고 지능형 고객 관리 툴을 안정적으로 가동합니다.`
-                ];
-            } else if (platform.includes("하이브리드")) {
-                // Hybrid Path: 무인 굿즈 샵 & n8n 하이브리드 패키지
-                startup.title = "로봇 무인 굿즈 & 컬처 샵 (Robo Culture Express)";
-                startup.desc = `오프라인 스마트 위탁 키오스크 쇼룸과 온라인 몰을 지능적으로 바인딩하여, 독창적인 창작 굿즈 및 예술 소품들을 무인 판매하는 옴니채널 유통 모델입니다. 당신의 [${skill}] 역량으로 위탁 아티스트 얼라이언스와 프리미엄 오프라인 공간 큐레이션을 견인합니다.`;
-                startup.steps = [
-                    `매대 및 스마트 보관함의 오프라인 결제 로그 데이터를 실시간 클라우드로 집계하여 가장 인기 있는 굿즈를 분별합니다.`,
-                    `당신의 핵심 강점인 [${skill}] 기술을 접목해 온오프라인을 넘나드는 힙한 브랜드 디자인과 아티스트 콜라보 프로모션을 전개합니다.`,
-                    `매일 딱 ${time}씩 키오스크의 위탁/판매 재고 정산 프로세스를 가동하고 온라인 배송 연동망을 세련되게 모니터링합니다.`
-                ];
+            // Feasibility score calculations
+            if (time.includes("15분")) feasibilityScore = 70;
+            else if (time.includes("30분")) feasibilityScore = 85;
+            else feasibilityScore = 95;
 
-                freelance.title = "n8n 온오프 하이브리드 상세페이지 자동화 시스템 패키지";
-                freelance.desc = `오프라인 매장에서 발생하는 매일/매주 판매 데이터와 제품 사진을 수집하여 n8n 워크플로우를 통해 자동으로 고화질 상세페이지를 제작하고, 온라인 스토어 업로드 및 소셜 피드 송출까지 원스톱으로 해결해 주는 극강의 B2B 솔루션 프리랜서 서비스입니다. 당신의 [${skill}] 능력을 패키지 구조 기획과 컨설팅에 융합합니다.`;
-                freelance.steps = [
-                    `오프라인 매장용 원시 제품 정보(CSV/구글 시트)가 업데이트되면 n8n 시나리오와 연동형 LLM이 작동해 초안을 10초 만에 제작하게 자동화 세팅합니다.`,
-                    `본인의 탁월한 [${skill}] 역량을 녹여내어 매장의 실제 힙한 감성과 생생함을 상세페이지 결과물 레이아웃에 완벽하게 내재화합니다.`,
-                    `매일 딱 ${time} 동안 인근 로컬 소상공인 무인 매장들을 대상으로 자동화 패키지 도입 Retention 마케팅 컨설팅을 전개합니다.`
-                ];
+            if (budget.includes("0원")) feasibilityScore -= 5;
+            else if (budget.includes("20만 원")) feasibilityScore += 4;
+
+            if (asset.length > 8) feasibilityScore += 5;
+            if (feasibilityScore > 98) feasibilityScore = 98;
+            if (feasibilityScore < 60) feasibilityScore = 60;
+
+            if (domain.includes("콘텐츠")) {
+                brandName = `${skillKeyword}플릭스 (Flicks-${skillKeyword})`;
+                slogan = `당신의 독창적인 [${skillKeyword}] 지식을 AI 비디오 및 숏폼 큐레이션으로 결합하여 타겟고객을 100% 무인 확보하는 미디어 파이프라인.`;
+            } else if (domain.includes("자동화")) {
+                brandName = `오토${skillKeyword} (Auto-${skillKeyword})`;
+                slogan = `수작업 노고를 제로화하는 n8n 무인 연동 매뉴얼 및 스마트 업무 최적화 솔루션.`;
+            } else if (domain.includes("챗봇")) {
+                brandName = `${skillKeyword}톡 (Talk-${skillKeyword})`;
+                slogan = `상담 리소스를 자동화해 고객과 24시간 실시간 지능 소통하는 맞춤 RAG 챗봇 허브.`;
+            } else if (domain.includes("디자인")) {
+                brandName = `비주얼 ${skillKeyword} (Visual-${skillKeyword})`;
+                slogan = `브랜드 이미지, 상세페이지 에셋 및 SNS 배너용 AI 크리에이티브 지능 디자인 패키지.`;
             } else {
-                // Online Path (Default): 구매대행 몰 & 정기 구독 몰
-                startup.title = "해외 트렌드 자동 소싱 AI 구매대행 몰 (Global 소싱 Express)";
-                startup.desc = `글로벌 소셜 트렌드를 AI 크롤러 봇이 실시간 감지하여 하루 50개의 급부상 상품을 자동 발굴하고 번역, 썸네일 합성, 스토어 등록까지 원스톱 완수하는 1인 테크 유통 모델입니다. 당신의 독보적인 [${skill}] 능력을 상품 마케팅 타겟팅과 카피라이팅 튜닝에 투자해 구매 전환율을 파괴적으로 끌어올립니다.`;
-                startup.steps = [
-                    `AI 크롤러 소싱 봇을 돌려 글로벌 쇼핑 트렌드를 감지하고, 매일 [${time}] 동안 잠재적 대박 상품 50개를 소싱 파이프라인에 주입합니다.`,
-                    `당신의 강력한 무기인 [${skill}] 기술을 더하여, 단순 직역 수준을 초월한 마음을 흔드는 카피라이팅과 썸네일 핵심 문구를 최종 보완합니다.
-                    (당신의 특화 기술인 [${skill}]이 유입 고객의 구매를 직접적으로 설득합니다.)`,
-                    `이커머스 연동 API 프로그램을 가동하여 네이버 스마트스토어 및 쿠팡 등에 클릭 한 번으로 일괄 배포합니다.`
-                ];
-
-                freelance.title = "1:1 AI 초밀착 맞춤형 웰니스 정기 구독 몰 (Personal AI Subscription)";
-                freelance.desc = `사용자의 정밀 건강 설문 및 성향 데이터를 AI 엔진이 읽어내어 매월 가장 적합한 1:1 맞춤 영양제 또는 케어 라이프 상품 패키지를 자동 매칭 선별하여 배송하는 마이크로 정기 구독 모델입니다. 당신의 [${skill}] 노하우를 초개인화 맞춤형 고객 소통 채널 설계에 쏟아부어 단단한 마니아층을 형성합니다.`;
-                freelance.steps = [
-                    `신규 고객 유입 설문 데이터를 추천 AI 엔진에 로드하여 단 10초 만에 1:1 커스텀 건강 솔루션 브로셔와 추천 웰니스 조합을 선별합니다.`,
-                    `당신의 [${skill}] 역량에 입각하여 일반 정기 구독 몰에서 도저히 경험해 볼 수 없는 밀도 높은 위로와 감사의 마이크로 편지 및 브랜드 터치를 마감합니다.`,
-                    `매일 딱 ${time} 동안 물류 배송 API와 월 반복 매출(MRR) 지표 대시보드를 검수하며 안정적인 재구매 루틴을 유도합니다.`
-                ];
+                brandName = `${skillKeyword}라운지 (${skillKeyword}-Lounge)`;
+                slogan = `인건비와 공간 낭비를 제로화하는 모바일 결제 중심의 테크 기반 무인 공유 인프라.`;
             }
 
-            return { startup, freelance };
+            // Dynamic BMC Variables
+            let valueProp = "";
+            let targetAudience = "";
+            let marketingChannels = "";
+            let costStructure = "";
+            let revenueStreamsDetails = "";
+            let scaleUpStrategy = "";
+
+            // Value Prop Mapping
+            valueProp = `고객이 겪는 <strong>"${pain}"</strong>의 불편을 당신의 강력한 필살기인 <strong>[${asset}]</strong>와 AI 융합 기술로 해결하고, <strong>[${trust}]</strong>를 신뢰 안전장치로 제공해 결제 전환을 단숨에 확보하는 혁신 대안.`;
+
+            // Target Audience mapping
+            targetAudience = `<strong>[${audience}]</strong> 계층으로, 평소 <strong>"${pain}"</strong> 때문에 고통받고 있으며 <strong>"${ans.custWhy1 || '자금/시간 부족'}"</strong>으로 직접 해결하지 못했던 초밀착 타겟층.`;
+
+            // Marketing Channels Mapping
+            if (domain.includes("무인 매장")) {
+                marketingChannels = `당근마켓 지역 비즈광고, 네이버지도 플레이스 최적화 등록, 출입문에 스마트폰 스캔용 QR 할인 코드 배치.`;
+            } else {
+                marketingChannels = `유료 광고비 0원 오가닉 마케팅 (인스타그램 릴스 템플릿, 틱톡 숏폼), 타겟 오디언스 온라인 카페(네이버/다음)에 정보성 솔루션 무료 제공을 통한 유치.`;
+            }
+
+            // Cost Structure Mapping based on Q18 budget
+            if (budget.includes("0원")) {
+                costStructure = `고정비 월 0원 실현 플랜: Notion 무료 홈페이지 + n8n 클라우드 무료 요금제 + ChatGPT 무료 버전 조합. 마케팅비는 순수 유기적 SNS 숏폼 노출로 대체.`;
+            } else if (budget.includes("5만 원")) {
+                costStructure = `월 고정비 48,000원 최적화 플랜: ChatGPT Plus 구독(월 2.7만원) + Make/n8n 스타터 플랜(월 1.2만원) + 노션 유료 도메인 연동(월 9천원). 고효율 1인 무인 시스템.`;
+            } else {
+                costStructure = `월 약 180,000원 투자 플랜: AI 코어 API 및 챗봇 구독(5만원) + 간편결제 시스템 수수료(월 2만원) + 로컬 매장 옥외형 스마트 간판/디바이스 관리 보조비(10만원).`;
+            }
+
+            // Revenue Streams calculations based on Target Dream Income
+            let targetNum = 0;
+            let price = "월 29,000원";
+            if (income.includes("50만 원")) {
+                targetNum = 17;
+                price = "월 29,000원";
+            } else if (income.includes("200만 원")) {
+                targetNum = 40;
+                price = "월 49,000원 또는 대행 건당 20만 원(월 10건)";
+            } else {
+                targetNum = 10;
+                price = "정기 대행 서비스 월 50만 원 리테이너 또는 B2B 종합 컨설팅 구축 200만 원(월 2.5건)";
+            }
+
+            revenueStreamsDetails = `<strong>[${revenue}]</strong> 수익 모델을 중심으로 하며, 단가는 <strong>${price}</strong>으로 정해 <strong>한 달에 단 ${targetNum}명</strong>의 고객만 지속 유치하여 목표 월 수익인 <strong>[${income}]</strong>을 완벽히 수취하는 경제 시스템.`;
+
+            // Scale-up Strategy Mapping
+            scaleUpStrategy = `초기 1인 실행 단계의 성과 데이터를 기반으로, 수작업 매뉴얼을 n8n JSON 파일 및 가이드라인 e-Book 패키지 등 디지털 자산으로 전향 판매(B2C) 및 동일 동종 소상공인 대상의 무인화 전환 컨설팅(B2B) 가맹 모델로 스케일업.`;
+
+            // Dynamic Obstacle Solver Advice
+            let obstacleSolverText = "";
+            const bar = barrier.toLowerCase();
+            const skill = asset;
+
+            if (bar.includes("코딩") || bar.includes("개발") || bar.includes("기술") || bar.includes("프로그램")) {
+                obstacleSolverText = `개발이나 코딩 지식이 없다고 주저할 필요는 전혀 없습니다! 요즘 1인 AI 비즈니스의 대세는 코드가 없는 <strong>'노코드(No-Code)'</strong> 기술입니다. <strong>ChatGPT</strong>에게 '내가 번역한 구글 시트 엑셀 데이터를 자동으로 내 노션 데이터베이스로 예쁘게 보내는 n8n JSON 코드를 작성해 줘'라고 요청해서 노코드 툴에 붙여넣기만 하면 30초 만에 업무 시스템이 완성됩니다. 당신이 갖고 계신 강력한 필살기인 <strong>[${skill}]</strong>의 세련된 기획력에만 온전히 집중하세요!`;
+            } else if (bar.includes("마케팅") || bar.includes("영업") || bar.includes("홍보") || bar.includes("광고") || bar.includes("사람")) {
+                obstacleSolverText = `마케팅이 막막하고 두려우신 마음, 충분히 이해합니다. 하지만 초기에 유료 광고비는 단 1원도 필요 없습니다! <strong>"${audience}"</strong>들이 득실거리는 타겟 단톡방, 네이버 카페, 혹은 당근마켓 커뮤니티에 들어가 <strong>"당신이 평소 귀찮아하시던 ${pain} 문제를 무료로 3명만 자동화 대행해 드립니다"</strong>라고 진심 어린 글을 써보세요. 당신의 장점인 <strong>[${skill}]</strong>(으)로 꼼꼼하게 해결해 주면, 그 3명의 감사 섞인 생생한 후기와 입소문이 고객을 저절로 끌어당기는 자석 역할을 해줄 것입니다.`;
+            } else if (bar.includes("시간") || bar.includes("바쁨") || bar.includes("직장") || bar.includes("퇴근")) {
+                obstacleSolverText = `매일 소중하게 내어주신 가용 시간인 <strong>"${time.split(' (')[0]}"</strong>은 결코 적지 않은 시간입니다. 주중에는 오직 '일임형 자동화 시스템'을 세팅하는 데 집중하고, 주말에 구글 시트 행 7개에 다음 주 일주일치 콘텐츠나 데이터만 한 번에 밀어 넣어 두세요. <strong>n8n 크론독(Cron-Trigger)</strong>이 평일 매일 아침 자동으로 시트 데이터를 읽고, ChatGPT와 API를 돌려 SNS 자동 예약 발행과 뉴스레터 전송까지 다 마칩니다. 당신은 퇴근 후 저녁에 스마트폰 알람을 통해 그 결과만 5초 동안 쓱 확인하시면 끝납니다.`;
+            } else {
+                obstacleSolverText = `초기 자금이 부족해도 AI 시대의 창업은 리스크 제로입니다! 구글 시트, Canva, Notion, n8n 클라우드 무료 요금제만 영리하게 이어 붙여도 고정비 0원짜리 자동화 매장을 방구석에 세팅할 수 있습니다. 자본이 아니라 당신이 가진 소중한 필살기인 <strong>[${skill}]</strong>(이)야말로 가장 큰 황금이자 독보적인 자산입니다. 한 단계씩 딛다 보면 <strong>"${barrier}"</strong>의 장벽은 눈 녹듯 사라질 것입니다.`;
+            }
+
+            // Dynamic Action Timeline details based on Domain
+            let day1Action = "";
+            let day3Action = "";
+            let day7Action = "";
+
+            if (domain.includes("콘텐츠")) {
+                day1Action = `Notion 무료 버전을 개설하고, ChatGPT와 캔바(Canva) 일괄 제작 기능을 융합해 숏폼 및 릴스 제작용 카드뉴스 템플릿 20개를 15분 만에 자동 셋업합니다.`;
+                day3Action = `모바일 전용 링크트리 랜딩페이지를 제작해 프로필 링크에 걸고, 인스타그램/유튜브 쇼츠 채널에 요일별로 예약 발행 스케줄러(Meta Business Suite 무료)를 걸어 가동시킵니다.`;
+                day7Action = `구독료 수취를 위한 아임포트/토스페이먼츠 간편 1회성 결제 링크를 걸거나 e-메일 데이터 수집 폼(Stibee 등)을 연동하여 첫 머니 파이프라인 상용화를 완성합니다.`;
+            } else if (domain.includes("자동화") || domain.includes("챗봇")) {
+                day1Action = `n8n.io 클라우드 무료 계정을 파고, 구글 시트와 챗GPT 및 슬랙을 API로 엮어 상담 내역이 자동으로 데이터베이스화되는 초간단 RAG 시나리오를 30분 만에 조립합니다.`;
+                day3Action = `소상공인 오픈채팅방이나 네이버 카페에 '1인 자영업 업무를 매일 1시간 줄여주는 AI 자동화 비서 프로토타입 체험단(3명 한정)'을 모집해 피드백을 모읍니다.`;
+                day7Action = `정식 대행 솔루션 플랜 요금표(월 유지 보수 및 건당 구축비)를 명시한 Notion 제안서를 발행하고 첫 결제 의뢰 계약을 안전하게 성사시킵니다.`;
+            } else if (domain.includes("디자인")) {
+                day1Action = `Recraft.ai 또는 Midjourney 툴로 고품질 브랜드 시그니처 템플릿 세트를 기획하고, Notion 포트폴리오 1페이지를 구축합니다.`;
+                day3Action = `크몽(Kmong) 또는 숨고(Soomgo)에 서비스 카테고리를 등록하고, 첫 선착순 5명에게 '50% 반값 특별 프로모션 기획전' 제안 글을 발송 배포합니다.`;
+                day7Action = `결제가 완료된 즉시 구글 드라이브 폴더로 이미지가 자동 양도 전송되는 간편 전송 자동화 링크를 개설해 상용 런칭합니다.`;
+            } else {
+                day1Action = `무인 공유 룸/매장 전용 공간의 사진을 찍고, 네이버 플레이스 비즈니스 및 스페이스클라우드에 무료 매장 입점 신청을 올립니다.`;
+                day3Action = `매장 유리문 전면에 부착할 예약 전용 스마트 QR 코드 스티커 디자인을 출력해 붙이고, 당근마켓 지역 광고를 소액 등록(5천원) 가동합니다.`;
+                day7Action = `실시간 예약 완료 알림이 문자로 자동 송출되는 네이버 페이/카카오페이 모바일 결제 망 연동을 마치고, 첫 100% 무인 공간 대여 수익을 창출합니다.`;
+            }
+
+            return {
+                brandName,
+                slogan,
+                feasibilityScore,
+                valueProp,
+                targetAudience,
+                marketingChannels,
+                costStructure,
+                revenueStreamsDetails,
+                scaleUpStrategy,
+                obstacleSolverText,
+                day1Action,
+                day3Action,
+                day7Action
+            };
         }
 
-        // Generate weekly array based on tracking history
+        // Generate weekly habits array
         function getWeeklyTrackerData() {
             const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
             const today = new Date();
@@ -1267,65 +1839,146 @@
             return result;
         }
 
+        // --- 9. RENDER DASHBOARD VIEW ---
         function renderDashboardView() {
-            const ideas = getMappedBusinessIdeas();
+            const plan = generateBusinessPlan();
             const weeklyData = getWeeklyTrackerData();
             const todayStr = new Date().toISOString().split('T')[0];
             const isTodayCompleted = state.trackingHistory.some(log => log.date === todayStr && log.completed);
 
+            const radius = 36;
+            const circumference = 2 * Math.PI * radius; // 226.19
+            const dashoffset = circumference - (plan.feasibilityScore / 100) * circumference;
+
             return `
-                <div class="dashboard-welcome">
-                    <h2>🎯 당신만의 AI 비즈니스 로드맵</h2>
-                    <p style="margin-top: 4px;">
-                        ${state.answers.interest.split(' (')[0]} 
-                        × <strong>${state.answers.platform.split(' (')[0]}</strong> 
-                        × 하루 ${state.answers.time} 
-                        × 강력한 무기 [${state.answers.skill}]
+                <!-- 🎯 Brand Identity Header -->
+                <div class="dashboard-welcome" style="margin-bottom: 20px;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px;">AI 1인 창업 초정밀 사업화 기획서</div>
+                    <h2 style="font-size: 1.55rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.02em;">🎯 ${plan.brandName}</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; padding: 0 10px; font-weight: 400; font-style: italic;">
+                        "${plan.slogan}"
                     </p>
                 </div>
 
+                <!-- 📊 Feasibility Score Card -->
+                <div class="feasibility-score-card">
+                    <div class="circular-gauge">
+                        <svg class="gauge-svg" viewBox="0 0 80 80">
+                            <circle class="gauge-bg" cx="40" cy="40" r="${radius}"></circle>
+                            <circle class="gauge-fill" id="dashboardGaugeFill" cx="40" cy="40" r="${radius}" style="stroke-dashoffset: ${dashoffset};"></circle>
+                        </svg>
+                        <div class="gauge-text">${plan.feasibilityScore}%</div>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">비즈니스 실현 가능성 점수</h4>
+                        <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.45;">
+                            당신의 강력한 필살기 <strong>[${state.answers.asset.substring(0, 10)}]</strong>와 소중한 가용 시간 <strong>[${state.answers.time.split(' (')[0]}]</strong> 자원을 5Whys 심층 분석해 도출한 무결한 합격 점수입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 📋 Business Model Canvas Section -->
+                <div class="cards-headline" style="margin-bottom: 12px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
+                    초밀착 6-블록 비즈니스 모델 캔버스 (BMC)
+                </div>
+
+                <div class="business-canvas-grid">
+                    <!-- Value Proposition -->
+                    <div class="canvas-block">
+                        <span class="canvas-tag">가치 제안</span>
+                        <h4 class="canvas-title">핵심 해결 가치</h4>
+                        <p class="canvas-desc">${plan.valueProp}</p>
+                    </div>
+
+                    <!-- Target Customers -->
+                    <div class="canvas-block">
+                        <span class="canvas-tag">핵심 고객</span>
+                        <h4 class="canvas-title">타겟 오디언스</h4>
+                        <p class="canvas-desc">${plan.targetAudience}</p>
+                    </div>
+
+                    <!-- Revenue Stream -->
+                    <div class="canvas-block">
+                        <span class="canvas-tag">수익 구조</span>
+                        <h4 class="canvas-title">매출 단가 설계</h4>
+                        <p class="canvas-desc">${plan.revenueStreamsDetails}</p>
+                    </div>
+
+                    <!-- Channels -->
+                    <div class="canvas-block">
+                        <span class="canvas-tag">마케팅 채널</span>
+                        <h4 class="canvas-title">0원 고객 확보 채널</h4>
+                        <p class="canvas-desc">${plan.marketingChannels}</p>
+                    </div>
+
+                    <!-- Cost Structure -->
+                    <div class="canvas-block">
+                        <span class="canvas-tag">비용 구조</span>
+                        <h4 class="canvas-title">월 예상 고정비</h4>
+                        <p class="canvas-desc">${plan.costStructure}</p>
+                    </div>
+
+                    <!-- Scale-up -->
+                    <div class="canvas-block">
+                        <span class="canvas-tag">성장 전략</span>
+                        <h4 class="canvas-title">B2B 스케일업 확장</h4>
+                        <p class="canvas-desc">${plan.scaleUpStrategy}</p>
+                    </div>
+                </div>
+
+                <!-- 🚀 3-Step Implementation Roadmap Section -->
+                <div class="cards-headline" style="margin-bottom: 12px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    실전 3단계 초고속 사업화 실행 계획서
+                </div>
+
+                <div class="roadmap-timeline">
+                    <!-- Day 1 -->
+                    <div class="roadmap-step">
+                        <div class="roadmap-badge">1일</div>
+                        <div class="roadmap-content">
+                            <h4>[1단계] MVP 구축 (최소 기능 제품 세팅)</h4>
+                            <p>${plan.day1Action}</p>
+                        </div>
+                    </div>
+
+                    <!-- Day 3 -->
+                    <div class="roadmap-step">
+                        <div class="roadmap-badge" style="background-color: var(--primary-light);">3일</div>
+                        <div class="roadmap-content">
+                            <h4>[2단계] 첫 타겟 고객 유치 마케팅 가동</h4>
+                            <p>${plan.day3Action}</p>
+                        </div>
+                    </div>
+
+                    <!-- Day 7 -->
+                    <div class="roadmap-step">
+                        <div class="roadmap-badge">7일</div>
+                        <div class="roadmap-content">
+                            <h4>[3단계] 결제 연동 및 본격 상용 자동화</h4>
+                            <p>${plan.day7Action}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🛡️ Personalized Obstacle Solver -->
                 <div class="cards-headline">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    나를 위한 맞춤형 창업 모델 추천
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    1:1 코치 처방전: 두려움 돌파 가이드
+                </div>
+                <div class="obstacle-alert">
+                    <h4>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        장벽인 "${state.answers.barrier.substring(0, 15)}" 해결 처방전
+                    </h4>
+                    <p>${plan.obstacleSolverText}</p>
                 </div>
 
-                <div class="cards-grid">
-                    <!-- Card 1: Startup Model -->
-                    <div class="idea-card">
-                        <div class="idea-card-badge">AI 1인 창업 비즈니스</div>
-                        <h3>${ideas.startup.title}</h3>
-                        <p class="description">${ideas.startup.desc}</p>
-                        <div class="idea-card-steps">
-                            <h4>실천 액션 플랜</h4>
-                            ${ideas.startup.steps.map((step, idx) => `
-                                <div class="step-item">
-                                    <span class="bullet">0${idx+1}.</span>
-                                    <div>${step}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-
-                    <!-- Card 2: Freelancing Model -->
-                    <div class="idea-card freelance">
-                        <div class="idea-card-badge">AI 초고속 프리랜서 / 대행</div>
-                        <h3>${ideas.freelance.title}</h3>
-                        <p class="description">${ideas.freelance.desc}</p>
-                        <div class="idea-card-steps">
-                            <h4>실천 액션 플랜</h4>
-                            ${ideas.freelance.steps.map((step, idx) => `
-                                <div class="step-item">
-                                    <span class="bullet">0${idx+1}.</span>
-                                    <div>${step}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="stats-headline">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    일일 창업 습관 트래커
+                <!-- 🗓️ Habit Tracker -->
+                <div class="cards-headline">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    창업 실천 데일리 트래커
                 </div>
 
                 <div class="dashboard-tracker-card">
@@ -1340,16 +1993,11 @@
                         </div>
                     </div>
 
-                    <div class="weekly-calendar-title">최근 7일 실천 기록</div>
                     <div class="weekly-dots-container">
                         ${weeklyData.map(day => `
                             <div class="calendar-dot-box">
                                 <div class="calendar-dot ${day.completed ? 'completed' : ''} ${day.isToday ? 'today' : ''}">
-                                    ${day.completed ? `
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    ` : day.isToday ? '오늘' : ''}
+                                    ${day.completed ? `✓` : day.isToday ? '오늘' : ''}
                                 </div>
                                 <span class="calendar-day-label">${day.dayLabel}</span>
                             </div>
@@ -1357,14 +2005,27 @@
                     </div>
 
                     <button class="complete-action-btn" id="btnCompleteToday" ${isTodayCompleted ? 'disabled' : ''}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                         ${isTodayCompleted ? '오늘의 창업 활동 완료됨' : '오늘 하루, 한 걸음 걷기 완료'}
+                    </button>
+                </div>
+
+                <!-- 🔄 Double Reset Action Toolbar -->
+                <div class="action-toolbar">
+                    <button class="toolbar-btn re-diagnose" id="btnReDiagnose">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                        다른 아이디어로 다시 설계하기
+                    </button>
+                    <button class="toolbar-btn hard-reset" id="btnHardReset">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        모든 데이터 초기화
                     </button>
                 </div>
             `;
         }
 
         function bindDashboardEvents() {
+            // 1. Log habit check-in
             const btnComplete = document.getElementById('btnCompleteToday');
             if (btnComplete) {
                 btnComplete.addEventListener('click', () => {
@@ -1374,14 +2035,39 @@
 
                     const updatedHistory = [...state.trackingHistory, { date: todayStr, completed: true }];
                     
-                    state.trackingHistory = updatedHistory;
-                    state.completedCount = state.completedCount + 1;
                     state.streak = state.streak + 1;
+                    state.completedCount = state.completedCount + 1;
+                    state.trackingHistory = updatedHistory; // Proxy triggers save and render
+                });
+            }
+
+            // 2. Re-diagnose (Clears answers & surveyStep but preserves streaks and tracking history)
+            const btnReDiagnose = document.getElementById('btnReDiagnose');
+            if (btnReDiagnose) {
+                btnReDiagnose.addEventListener('click', () => {
+                    if (confirm("습관 실천 기록(연속 일수)은 유지한 채, 새로운 아이디어로 20문 20답을 다시 시작하시겠습니까?")) {
+                        state.surveyStep = 1;
+                        state.answers = { ...INITIAL_STATE.answers }; // Bulletproof Proxy reset
+                        navigateTo('survey');
+                    }
+                });
+            }
+
+            // 3. Hard Reset (Completely wipe out everything)
+            const btnHardReset = document.getElementById('btnHardReset');
+            if (btnHardReset) {
+                btnHardReset.addEventListener('click', () => {
+                    if (confirm("⚠️ 경고: 연속 실천 기록을 포함한 모든 데이터가 완전히 삭제됩니다. 진행하시겠습니까?")) {
+                        localStorage.removeItem(STORAGE_KEY);
+                        window.location.reload();
+                    }
                 });
             }
         }
 
-        // --- (7) DEMO DATA INJECTION TOOL (Task 3 Advanced Feature Complete) ---
+        // --- 10. DEVELOPER / DEBUG TOOLS EVENTS ---
+        
+        // Mock 7-day data injection
         document.getElementById('btnInjectDemo').addEventListener('click', () => {
             const history = [];
             const today = new Date();
@@ -1400,12 +2086,28 @@
             state.completedCount = 7;
             state.trackingHistory = history;
             
-            // Set dynamic testing variables to make sure dashboard maps beautiful data immediately
+            // Set dynamic rich mock answers for 5Whys presentation
             state.answers = {
-                interest: "AI 비즈니스 자동화 (RPA, 업무 자동화 등)",
-                time: "45분",
-                platform: "온라인 디지털 자동화",
-                skill: "파이썬 코딩 실력"
+                domain: "AI 비즈니스 자동화 (단순 수작업 자동 RPA 등)",
+                why1: "💰 직장 월급 외에 매달 든든한 추가 수입을 원해요",
+                why2: "나만의 자유시간 확보 및 경제적 불안 완전 해방",
+                why3: "하루 종일 일하지 않아도 알아서 돈을 버는 자동화 파이프라인 형성",
+                scale: "인건비 없이 AI 비서들과 완전 자동화하는 초경량 1인 기업",
+                audience: "바쁘고 마케팅 인력이 부족한 소상공인/1인 자영업자 사장님",
+                pain: "단순하고 무의식적인 수작업이 너무 많아 몸이 묶여 있음",
+                custWhy1: "인건비 부담으로 유료 직원이나 전문가를 고용할 자금이 없어서",
+                custWhy2: "하루 종일 쉴 틈 없이 돌아가는 과중한 생업 환경 탓에",
+                custJoy: "하루 평균 1~2시간의 완전한 휴식 및 본질 연구 시간 획득",
+                solution: "구글 시트에 정보만 채워넣으면 자동으로 릴스 숏폼 에셋이 쏟아지는 자동화 템플릿",
+                asset: "꼼꼼한 엑셀 데이터 분석 및 기획력",
+                barrier: "코딩이나 프로그램 개발 지식이 전무해요",
+                barrierWhy: "실패했을 때 시간이나 소액의 돈이 낭비될지 모른다는 막연한 무서움 때문에",
+                time: "⏱️ 하루 30분 (효율적인 저녁 집중 루틴 가동)",
+                revenue: "매월 고정 수입이 누적되어 안정을 주는 '정기 구독제 멤버십'",
+                trust: "핵심 가치의 30%를 맛보기로 체험하는 '무료 선체험판' 배포",
+                budget: "월 5만 원 미만 (업무 효율을 200% 늘릴 유료 챗GPT나 일부 API 결제)",
+                income: "월 200만 원 (든든한 제2의 월급이자 본업 의존도 하향)",
+                commitment: "🔥 네! 나만의 비즈니스를 위해 7일간 무조건 실행하겠습니다!"
             };
 
             if (state.currentView !== 'dashboard') {
@@ -1415,24 +2117,25 @@
             }
         });
 
+        // Debug reset demo button
         document.getElementById('btnResetDemo').addEventListener('click', () => {
             localStorage.removeItem(STORAGE_KEY);
-            state.currentView = 'survey';
-            state.surveyStep = 1;
-            state.answers = { interest: '', time: '', platform: '', skill: '' };
-            state.streak = 0;
-            state.completedCount = 0;
-            state.trackingHistory = [];
-            
-            render();
+            window.location.reload();
         });
 
-        // --- (8) APPLICATION INITIALIZATION ---
+        // --- 11. APPLICATION INITIALIZATION ---
         window.addEventListener('DOMContentLoaded', () => {
             loadStateFromLocalStorage();
             
-            // If the user already finished the survey previously, go straight to dashboard
-            if (state.answers.interest && state.answers.time && state.answers.platform && state.answers.skill) {
+            // Check if all 20 answers are filled
+            const ans = state.answers;
+            const isCompleted = ans.domain && ans.why1 && ans.why2 && ans.why3 && ans.scale && 
+                                ans.audience && ans.pain && ans.custWhy1 && ans.custWhy2 && 
+                                ans.custJoy && ans.solution && ans.asset && ans.barrier && 
+                                ans.barrierWhy && ans.time && ans.revenue && ans.trust && 
+                                ans.budget && ans.income && ans.commitment;
+
+            if (isCompleted) {
                 state.currentView = 'dashboard';
             } else {
                 state.currentView = 'survey';
