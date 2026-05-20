@@ -2,8 +2,19 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>AI 스타트업 20문 20답 코칭 센터 | Solo AI Builder</title>
+    
+    <!-- PWA Settings -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#12d379">
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Solo AI">
+    <link rel="apple-touch-icon" href="images/success_clover_bear.png">
+
     <!-- Google Fonts: Outfit & Noto Sans KR -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +42,7 @@
             --radius-sm: 10px;
         }
 
-        /* Reset & Base Styles */
+        /* Reset & Base Styles for Mobile Apps */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -42,13 +53,15 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Outfit', 'Noto Sans KR', sans-serif;
-            min-height: 100vh;
+            min-height: 100dvh; /* dynamic viewport height to prevent mobile keyboard layout bug */
             display: flex;
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
             position: relative;
             -webkit-font-smoothing: antialiased;
+            overscroll-behavior-y: contain; /* Prevents iOS rubber-banding scroll pull down */
+            padding-bottom: env(safe-area-inset-bottom); /* iOS notch safe area margin */
         }
 
         /* Container & Grid Layout */
@@ -56,11 +69,11 @@
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            padding: 24px 16px;
+            padding: 16px 16px;
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             position: relative;
             z-index: 10;
         }
@@ -68,7 +81,7 @@
         /* Modern Premium Header */
         header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             margin-top: 10px;
         }
 
@@ -78,7 +91,7 @@
             color: var(--primary-hover);
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -118,7 +131,7 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 28px 20px;
+            padding: 24px 20px;
             box-shadow: var(--shadow-subtle);
             transition: var(--transition-smooth);
             position: relative;
@@ -136,8 +149,8 @@
         .chat-room {
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 200px);
-            min-height: 480px;
+            height: calc(100dvh - 190px);
+            min-height: 420px;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             background-color: var(--card-bg);
@@ -367,13 +380,6 @@
             transform: scale(0.95);
         }
 
-        @media (hover: hover) {
-            .keypad-btn.action-key:hover {
-                background-color: var(--accent-bg);
-                color: var(--text-main);
-            }
-        }
-
         /* Choice Grid */
         .choice-grid {
             display: grid;
@@ -526,12 +532,6 @@
             padding: 12px 16px;
         }
 
-        .nav-btn.secondary:hover {
-            color: var(--text-main);
-            background-color: rgba(0, 0, 0, 0.02);
-            box-shadow: none;
-        }
-
         /* Progress Bar */
         .survey-progress-wrapper {
             margin-bottom: 12px;
@@ -570,7 +570,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: calc(100vh - 200px);
+            min-height: calc(100dvh - 160px);
             padding: 24px 16px;
             text-align: center;
             position: relative;
@@ -689,7 +689,6 @@
             font-weight: 700;
         }
 
-        /* Loading View Decorations */
         .loading-deco-left {
             position: absolute;
             bottom: 20px;
@@ -945,7 +944,7 @@
             line-height: 1.5;
         }
 
-        /* Habit Tracker & Push Card (inspired by right screenshot) */
+        /* Habit Tracker & Push Card */
         .dashboard-tracker-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -1066,7 +1065,7 @@
             box-shadow: none;
         }
 
-        /* Push Notification Setup Card (matching the right screenshot) */
+        /* Push Notification Setup Card */
         .tracker-notification-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -1175,7 +1174,7 @@
             background-color: rgba(255, 79, 112, 0.05);
         }
 
-        /* Lock Screen Animation */
+        /* Shake animation */
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-6px); }
@@ -1286,6 +1285,9 @@
 <body>
 
     <div class="app-container">
+        <!-- PWA Smart Installation Guideline Banner -->
+        <div id="pwaBannerContainer"></div>
+
         <!-- Modern Premium Header -->
         <header>
             <div class="logo">
@@ -1699,6 +1701,9 @@
         // Vault lock password
         const SECURE_PASSWORD = "1004";
 
+        // Detect if standalone PWA mode
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
         // --- 5. VIEW NAVIGATOR ---
         function navigateTo(viewName) {
             const appEl = document.getElementById('app');
@@ -1728,6 +1733,12 @@
                 if (demoPanel) demoPanel.style.display = 'flex';
             }
 
+            // Render PWA top banner if not in standalone mode
+            const pwaContainer = document.getElementById('pwaBannerContainer');
+            if (pwaContainer) {
+                pwaContainer.innerHTML = renderPwaBanner();
+            }
+
             if (state.isAuthenticated && state.currentView === 'dashboard') {
                 appEl.innerHTML = renderDashboardView();
                 bindDashboardEvents();
@@ -1745,6 +1756,38 @@
                         chatHistory.scrollTop = chatHistory.scrollHeight;
                     }
                 }, 50);
+            }
+        }
+
+        // Render PWA Installation Guideline
+        function renderPwaBanner() {
+            if (isStandalone) return '';
+            
+            const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            
+            if (isiOS) {
+                return `
+                    <div class="premium-card fade-in" style="padding: 12px 16px; margin-bottom: 12px; background-color: #f0fdf4; border-color: var(--primary-light); text-align: left; display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.5rem; flex-shrink: 0;">📱</span>
+                        <div style="flex: 1;">
+                            <h5 style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px;">스마트폰 홈 화면에 앱으로 추가하기 🍀</h5>
+                            <p style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.35;">사파리(Safari) 브라우저 하단 <strong>[공유 📤]</strong> 버튼을 누르고 <strong>'홈 화면에 추가'</strong>를 선택하시면 진짜 모바일 앱처럼 쾌적하게 쓸 수 있어요!</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="premium-card fade-in" id="pwaAndroidInstallCard" style="padding: 12px 16px; margin-bottom: 12px; background-color: #f0fdf4; border-color: var(--primary-light); text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.5rem; flex-shrink: 0;">📱</span>
+                            <div>
+                                <h5 style="font-size: 0.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px;">스마트폰 홈 화면에 앱으로 추가하기 🍀</h5>
+                                <p style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.35;">가벼운 1초 설치로 웹 주소창 없이 네이티브 앱처럼 실행해 보세요!</p>
+                            </div>
+                        </div>
+                        <button class="nav-btn" id="btnInstallPwaAndroid" style="flex: 0 0 auto; padding: 6px 12px; font-size: 0.75rem; min-height: 30px; border-radius: 8px; max-width: 80px;">앱 설치</button>
+                    </div>
+                `;
             }
         }
 
@@ -1767,7 +1810,7 @@
                     </div>
                 `;
 
-                // Render cumulative password failure records to simulate historical chat bubbles
+                // Render cumulative password failure records
                 for (let i = 0; i < state.passwordFailCount; i++) {
                     transcriptHTML += `
                         <div class="chat-bubble user">
@@ -1906,7 +1949,7 @@
                     </div>
                 </div>
 
-                <div class="chat-room" style="height: calc(100vh - 200px); min-height: 480px; margin-bottom: 0;">
+                <div class="chat-room" style="margin-bottom: 0;">
                     <div class="chat-header">
                         <div class="chat-header-status"></div>
                         <div class="chat-header-title">1:1 스타트업 코칭 챗룸</div>
@@ -1924,11 +1967,10 @@
             `;
         }
 
-        // --- 7.1 RENDER PREMIUM LOADING ANIMATION VIEW (Left screenshot design) ---
+        // --- 7.1 RENDER PREMIUM LOADING ANIMATION VIEW ---
         function renderLoadingView() {
             return `
                 <div class="loading-container fade-in">
-                    <!-- Circular gauge matching the left screenshot exactly -->
                     <div class="loading-gauge-wrapper">
                         <svg class="loading-gauge-svg" viewBox="0 0 100 100">
                             <circle class="loading-gauge-bg" cx="50" cy="50" r="42"></circle>
@@ -1940,7 +1982,6 @@
                     <h2 class="loading-title">시작 루틴 만드는 중...</h2>
                     <p class="loading-subtitle">내게 잘 맞는 루틴을 찾고 있어요</p>
                     
-                    <!-- Checklist cards with green checkmarks -->
                     <div class="loading-checklist">
                         <div class="checklist-card" id="chkStep1">
                             <span class="chk-icon">
@@ -1962,7 +2003,6 @@
                         </div>
                     </div>
                     
-                    <!-- Cute bottom smiley graphics inside loading view -->
                     <div class="loading-deco-left">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"></path></svg>
                     </div>
@@ -1988,9 +2028,8 @@
             }
             
             const interval = setInterval(() => {
-                // Organic speed ramp
                 let increment = 2;
-                if (percent >= 80 && percent <= 90) increment = 1; // linger at 88% like the screenshot!
+                if (percent >= 80 && percent <= 90) increment = 1; // linger at 88%
                 
                 percent += increment;
                 if (percent > 100) percent = 100;
@@ -2002,7 +2041,6 @@
                     progressFill.style.strokeDashoffset = offset;
                 }
                 
-                // Tick steps
                 if (percent >= 25) {
                     const step1 = document.getElementById('chkStep1');
                     if (step1) step1.classList.add('active');
@@ -2022,7 +2060,7 @@
                         navigateTo('dashboard');
                     }, 650);
                 }
-            }, 80); // ~4.5 seconds
+            }, 80);
         }
 
         function bindSurveyEvents() {
@@ -2069,7 +2107,6 @@
             const step = state.surveyStep;
             const q = QUESTIONS[step - 1];
 
-            // (1) Select option click
             if (q.type === 'select') {
                 const buttons = document.querySelectorAll('.choice-btn');
                 buttons.forEach(btn => {
@@ -2083,28 +2120,24 @@
                         setTimeout(() => {
                             const updatedAnswers = { ...state.answers };
                             updatedAnswers[q.key] = val;
-                            
                             state.answers = updatedAnswers;
 
                             if (step < 20) {
                                 state.surveyStep = step + 1;
                             } else {
-                                navigateTo('loading'); // Show 88% loading animation first!
+                                navigateTo('loading');
                             }
                         }, 550);
                     });
                 });
             }
 
-            // (2) Input text logic
             if (q.type === 'input') {
                 const customInput = document.getElementById('customInput');
                 const nextBtn = document.getElementById('btnNextStep');
                 
                 if (customInput) {
                     customInput.focus();
-                    
-                    // Move cursor to the end
                     const len = customInput.value.length;
                     customInput.setSelectionRange(len, len);
 
@@ -2149,14 +2182,13 @@
                             if (step < 20) {
                                 state.surveyStep = step + 1;
                             } else {
-                                navigateTo('loading'); // Show 88% loading animation first!
+                                navigateTo('loading');
                             }
                         }, 400);
                     });
                 }
             }
 
-            // (3) Prev Step Button
             const prevBtn = document.getElementById('btnPrevStep');
             if (prevBtn) {
                 prevBtn.addEventListener('click', () => {
@@ -2167,33 +2199,30 @@
             }
         }
 
-        // --- 8. BUSINESS GENERATOR ENGINE ---
+        // --- 8. BUSINESS GENERATOR ENGINE (Warm, Friendly, Extremely Natural Korean) ---
         function generateBusinessPlan() {
-            const ans = state.answers;
+            const ans = state.answers || {};
 
-            const domain = ans.domain || QUESTIONS[0].options[0];
-            const why1 = ans.why1 || QUESTIONS[1].options[0];
-            const scale = ans.scale || QUESTIONS[4].options[0];
-            const audience = ans.audience || QUESTIONS[5].options[0];
-            const pain = ans.pain || QUESTIONS[6].options[0];
-            const solution = ans.solution || QUESTIONS[10].options[0];
-            const asset = ans.asset || "노션 정리 역량";
-            const barrier = ans.barrier || "마케팅이 두려움";
-            const time = ans.time || QUESTIONS[14].options[0];
-            const revenue = ans.revenue || QUESTIONS[15].options[0];
-            const trust = ans.trust || QUESTIONS[16].options[0];
-            const budget = ans.budget || QUESTIONS[17].options[0];
-            const income = ans.income || QUESTIONS[18].options[0];
+            const domain = ans.domain || "AI 콘텐츠 제작 (블로그, 숏폼 자동제작 등)";
+            const why1 = ans.why1 || "직장 월급 외 추가 수입";
+            const scale = ans.scale || "1인 기업";
+            const audience = ans.audience || "1인 자영업자 사장님";
+            const pain = ans.pain || "단순 작업이 너무 많아 몸이 묶여 있음";
+            const solution = ans.solution || "자동으로 릴스 숏폼이 제작되는 템플릿";
+            const asset = ans.asset || "꼼꼼한 기획력";
+            const barrier = ans.barrier || "마케팅과 홍보가 두려움";
+            const time = ans.time || "하루 30분";
+            const revenue = ans.revenue || "정기 구독 서비스";
+            const trust = ans.trust || "무료 선체험판 배포";
+            const budget = ans.budget || "0원";
+            const income = ans.income || "월 200만 원";
 
-            // Core Keyword extraction
             const skillKeyword = asset.replace(/역량|기술|실력|능력|기본|수준|경험|공부|작성|력|번역/g, '').trim().substring(0, 3) || "스마트";
             
-            // Brand Name & Tagline customization
             let brandName = "";
             let slogan = "";
             let feasibilityScore = 78;
 
-            // Feasibility score calculations
             if (time.includes("15분")) feasibilityScore = 70;
             else if (time.includes("30분")) feasibilityScore = 85;
             else feasibilityScore = 95;
@@ -2206,23 +2235,22 @@
             if (feasibilityScore < 60) feasibilityScore = 60;
 
             if (domain.includes("콘텐츠")) {
-                brandName = `${skillKeyword}플릭스 (Flicks-${skillKeyword})`;
-                slogan = `당신의 독창적인 [${skillKeyword}] 지식을 AI 비디오 및 숏폼 큐레이션으로 결합하여 타겟고객을 100% 무인 확보하는 미디어 파이프라인.`;
+                brandName = `${skillKeyword}메이커 (${skillKeyword}-Maker)`;
+                slogan = `당신이 가진 소중한 [${skillKeyword}] 지식을 인공지능이 예쁜 글과 숏폼 영상으로 뚝딱 만들어, 자동으로 널리 알려주는 신비한 소문 상자.`;
             } else if (domain.includes("자동화")) {
-                brandName = `오토${skillKeyword} (Auto-${skillKeyword})`;
-                slogan = `수작업 노고를 제로화하는 n8n 무인 연동 매뉴얼 및 스마트 업무 최적화 솔루션.`;
+                brandName = `똑똑이 ${skillKeyword} (Auto-${skillKeyword})`;
+                slogan = `귀찮고 복잡한 컴퓨터 반복 작업을 클릭 한 번에 자동으로 척척 끝내주는, 나만의 성실한 가상 비서 시스템.`;
             } else if (domain.includes("챗봇")) {
-                brandName = `${skillKeyword}톡 (Talk-${skillKeyword})`;
-                slogan = `상담 리소스를 자동화해 고객과 24시간 실시간 지능 소통하는 맞춤 RAG 챗봇 허브.`;
+                brandName = `${skillKeyword}가이드 (${skillKeyword}-Guide)`;
+                slogan = `하루 종일 스마트폰을 보지 않아도, 똑똑한 인공지능이 24시간 내내 손님들에게 친절하게 대답하고 상담해주는 온라인 응대방.`;
             } else if (domain.includes("디자인")) {
                 brandName = `비주얼 ${skillKeyword} (Visual-${skillKeyword})`;
-                slogan = `브랜드 이미지, 상세페이지 에셋 및 SNS 배너용 AI 크리에이티브 지능 디자인 패키지.`;
+                slogan = `손재주가 없어도 괜찮아요! 인공지능 화가가 내 손님들이 한눈에 반할 멋진 홍보 그림과 소개 페이지를 알아서 그려주는 자동 아뜰리에.`;
             } else {
                 brandName = `${skillKeyword}라운지 (${skillKeyword}-Lounge)`;
-                slogan = `인건비와 공간 낭비를 제로화하는 모바일 결제 중심의 테크 기반 무인 공유 인프라.`;
+                slogan = `비싼 보증금이나 월세 없이, 손님이 모바일로 예약하고 문을 열며 알아서 머물다 가는 100% 무인 힐링 공간.`;
             }
 
-            // Dynamic BMC Variables
             let valueProp = "";
             let targetAudience = "";
             let marketingChannels = "";
@@ -2230,83 +2258,73 @@
             let revenueStreamsDetails = "";
             let scaleUpStrategy = "";
 
-            // Value Prop Mapping
-            valueProp = `고객이 겪는 <strong>"${pain}"</strong>의 불편을 당신의 강력한 필살기인 <strong>[${asset}]</strong>와 AI 융합 기술로 해결하고, <strong>[${trust}]</strong>를 신뢰 안전장치로 제공해 결제 전환을 단숨에 확보하는 혁신 대안.`;
+            valueProp = `평소 손님들이 겪던 <strong>"${pain}"</strong>라는 답답함을 해결하기 위해, 당신만의 필살기인 <strong>[${asset}]</strong>와 똑똑한 무료 AI 비서를 결합해 가치를 만듭니다. 손님들이 믿고 시작할 수 있도록 <strong>[${trust}]</strong>를 약속하여 지갑을 기쁘게 열도록 돕는 멋진 해결책입니다.`;
+            targetAudience = `주변의 <strong>[${audience}]</strong> 분들 중에서도, 특히 <strong>"${pain}"</strong> 때문에 밤낮으로 지치고 지갑 사정이나 절대적인 시간이 부족해 해결책을 찾지 못해 애태우던 정겨운 우리 이웃 손님들입니다.`;
 
-            // Target Audience mapping
-            targetAudience = `<strong>[${audience}]</strong> 계층으로, 평소 <strong>"${pain}"</strong> 때문에 고통받고 있으며 <strong>"${ans.custWhy1 || '자금/시간 부족'}"</strong>으로 직접 해결하지 못했던 초밀착 타겟층.`;
-
-            // Marketing Channels Mapping
             if (domain.includes("무인 매장")) {
-                marketingChannels = `당근마켓 지역 비즈광고, 네이버지도 플레이스 최적화 등록, 출입문에 스마트폰 스캔용 QR 할인 코드 배치.`;
+                marketingChannels = `동네 이웃들이 매일 보는 당근마켓 지역 소식 코너에 부담 없이 홍보를 올리고, 네이버 지도에 내 가게 주소를 이쁘게 등록하여 단골 손님을 모읍니다. 매장 입구에는 스마트폰 카메라로 비추면 바로 할인 예약이 열리는 신기한 QR 스티커를 부착합니다.`;
             } else {
-                marketingChannels = `유료 광고비 0원 오가닉 마케팅 (인스타그램 릴스 템플릿, 틱톡 숏폼), 타겟 오디언스 온라인 카페(네이버/다음)에 정보성 솔루션 무료 제공을 통한 유치.`;
+                marketingChannels = `돈 한 푼 들이는 광고 대신, 인스타그램이나 유튜브에 인공지능이 알아서 만든 짧고 재밌는 홍보 영상을 정기적으로 올려 사람들의 시선을 사로잡습니다. 또 타겟 사장님들이 모인 인터넷 카페나 단톡방에 찾아가 유용한 정보를 공짜로 나누어 주며 단골을 늘립니다.`;
             }
 
-            // Cost Structure Mapping based on Q18 budget
             if (budget.includes("0원")) {
-                costStructure = `고정비 월 0원 실현 플랜: Notion 무료 홈페이지 + n8n 클라우드 무료 요금제 + ChatGPT 무료 버전 조합. 마케팅비는 순수 유기적 SNS 숏폼 노출로 대체.`;
+                costStructure = `매달 나가는 고정 지출 0원 실현법: 무료 인터넷 홈페이지 제작 도구와 한글을 공짜로 받아주는 무료 인공지능 서비스들만 모아서 조립합니다. 홍보도 오직 돈이 들지 않는 SNS 숏폼 노출로만 대체하여 리스크가 전혀 없는 가장 안전한 구조입니다.`;
             } else if (budget.includes("5만 원")) {
-                costStructure = `월 고정비 48,000원 최적화 플랜: ChatGPT Plus 구독(월 2.7만원) + Make/n8n 스타터 플랜(월 1.2만원) + 노션 유료 도메인 연동(월 9천원). 고효율 1인 무인 시스템.`;
+                costStructure = `커피 몇 잔 값(한 달 약 4만 원 선)으로 누리는 초경량 자동화 플랜: 한 달 동안 24시간 쉬지 않고 일해줄 유료 인공지능 비서(예: ChatGPT 유료 버전)와 간단한 업무 연동 프로그램 구독료만 알뜰하게 지출하여 생산성을 극대화합니다.`;
             } else {
-                costStructure = `월 약 180,000원 투자 플랜: AI 코어 API 및 챗봇 구독(5만원) + 간편결제 시스템 수수료(월 2만원) + 로컬 매장 옥외형 스마트 간판/디바이스 관리 보조비(10만원).`;
+                costStructure = `실속형 소액 투자 구조 (한 달 약 15만 원 선): 핵심 기능을 구동할 인공지능 서비스 연동 요금(5만 원)과 손님들이 결제할 때 필요한 초간편 모바일 카드 결제 수수료(2만 원), 매장 현장에 설치할 모바일 자동 문 열림 스위치나 스마트 단말기 대여 비용 등으로 알차게 꾸립니다.`;
             }
 
-            // Revenue Streams calculations based on Target Dream Income
             let targetNum = 0;
-            let price = "월 29,000원";
+            let price = "한 달 29,000원";
             if (income.includes("50만 원")) {
                 targetNum = 17;
-                price = "월 29,000원";
+                price = "한 달 29,000원";
             } else if (income.includes("200만 원")) {
                 targetNum = 40;
-                price = "월 49,000원 또는 대행 건당 20만 원(월 10건)";
+                price = "한 달 49,000원 또는 한 건 대행당 20만 원";
             } else {
                 targetNum = 10;
-                price = "정기 대행 서비스 월 50만 원 B2B 리테이너 또는 컨설팅 구축 200만 원(월 2.5건)";
+                price = "정기 대행 서비스 한 달 50만 원 또는 맞춤형 컨설팅 설치 200만 원";
             }
 
-            revenueStreamsDetails = `<strong>[${revenue}]</strong> 수익 모델을 중심으로 하며, 단가는 <strong>${price}</strong>으로 정해 <strong>한 달에 단 ${targetNum}명</strong>의 고객만 지속 유치하여 목표 월 수익인 <strong>[${income}]</strong>을 완벽히 수취하는 경제 시스템.`;
+            revenueStreamsDetails = `손님이 한 번 만족하면 매달 꾸준히 결제하여 든든한 용돈이 되는 <strong>[${revenue}]</strong> 방식을 활용합니다. 결제 단가는 <strong>${price}</strong>으로 소소하게 책정하여, <strong>한 달에 단 ${targetNum}명의 단골 손님</strong>만 모으면 목표 월 수익인 <strong>[${income}]</strong>을 가볍게 달성하여 행복한 주머니를 완성합니다.`;
+            scaleUpStrategy = `초기에 1인 비즈니스로 쌓은 실제 성공 노하우를 바탕으로, '초보자도 따라 할 수 있는 PDF 전자책 가이드 안내서'를 제작해 복사기로 찍어내듯 디지털 파일로 24시간 자동 판매하여 추가 수입을 올립니다. 이후 나와 똑같은 고민을 하는 소상공인 사장님들에게 똑똑한 솔루션을 세팅해 주는 컨설팅으로 영역을 넓혀 갑니다.`;
 
-            // Scale-up Strategy Mapping
-            scaleUpStrategy = `초기 1인 실행 단계의 성과 데이터를 B2C 디지털 자산(n8n JSON 파일, e-Book 가이드 패키지) 전향 판매로 스케일업하고, 동일 동종 소상공인 대상의 무인화 전환 컨설팅 B2B 모델로 가맹 확장.`;
-
-            // Dynamic Obstacle Solver Advice
             let obstacleSolverText = "";
             const bar = barrier.toLowerCase();
             const skill = asset;
 
             if (bar.includes("코딩") || bar.includes("개발") || bar.includes("기술") || bar.includes("프로그램")) {
-                obstacleSolverText = `개발이나 코딩 지식이 없다고 주저할 필요는 전혀 없습니다! 요즘 1인 AI 비즈니스의 대세는 코드가 없는 <strong>'노코드(No-Code)'</strong> 기술입니다. <strong>ChatGPT</strong>에게 '내가 번역한 구글 시트 데이터를 자동으로 내 노션 데이터베이스로 예쁘게 보내는 n8n JSON 코드를 작성해 줘'라고 요청해서 노코드 툴에 붙여넣기만 하면 30초 만에 업무 시스템이 완성됩니다. 당신이 갖고 계신 강력한 필살기인 <strong>[${skill}]</strong>의 세련된 기획력에만 온전히 집중하세요!`;
+                obstacleSolverText = `컴퓨터 기술이나 프로그래밍 코드를 전혀 모른다고 해서 절대 기죽을 필요가 없어요! 요즘 1인 AI 비즈니스는 마우스 클릭만 할 줄 알면 누구나 다 만드는 <strong>'노코드(No-Code)'</strong> 세상입니다. <strong>ChatGPT</strong>에게 '내가 입력한 엑셀 장부 글자들을 자동으로 노션 메모장으로 예쁘게 보내줘'라고 한글로 부탁하면, 비서가 알아서 연결 주소를 다 짜줍니다. 당신은 오직 자신 있는 필살기인 <strong>[${skill}]</strong>(이)라는 꼼꼼한 기획 아이디어에만 즐겁게 집중하세요!`;
             } else if (bar.includes("마케팅") || bar.includes("영업") || bar.includes("홍보") || bar.includes("광고") || bar.includes("사람")) {
-                obstacleSolverText = `마케팅이 막막하고 두려우신 마음, 충분히 이해합니다. 하지만 초기에 유료 광고비는 단 1원도 필요 없습니다! <strong>"${audience}"</strong>들이 득실거리는 타겟 단톡방, 네이버 카페, 혹은 당근마켓 커뮤니티에 들어가 <strong>"당신이 평소 귀찮아하시던 ${pain} 문제를 무료로 3명만 자동화 대행해 드립니다"</strong>라고 진심 어린 글을 써보세요. 당신의 장점인 <strong>[${skill}]</strong>(으)로 꼼꼼하게 해결해 주면, 그 3명의 감사 후기와 입소문이 고객을 저절로 끌어당기는 자석 역할을 해줄 것입니다.`;
+                obstacleSolverText = `내 가게를 알리는 마케팅이 낯설고 부끄러운 것은 너무나 자연스러운 일이에요. 하지만 값비싼 광고비를 쓸 필요는 단 1원도 필요 없습니다! <strong>"${audience}"</strong> 사장님들이 자주 들락거리는 동네 단톡방이나 이웃 카페에 가서 <strong>"제가 가진 ${skill} 실력으로, 사장님의 ${pain} 문제를 딱 3명만 공짜로 대행 해결해 드리고 싶습니다!"</strong>라고 진심 어린 나눔의 글을 올려보세요. 그 3명이 고마워서 정성껏 써준 후기가 최고의 자석이 되어 다음 손님들을 끊임없이 몰고 올 것입니다.`;
             } else if (bar.includes("시간") || bar.includes("바쁨") || bar.includes("직장") || bar.includes("퇴근")) {
-                obstacleSolverText = `매일 소중하게 내어주신 가용 시간인 <strong>"${time.split(' (')[0]}"</strong>은 결코 적지 않은 시간입니다. 주중에는 오직 '일임형 자동화 시스템'을 세팅하는 데 집중하고, 주말에 구글 시트 행 7개에 다음 주 일주일치 콘텐츠나 데이터만 한 번에 밀어 넣어 두세요. <strong>n8n 크론독(Cron-Trigger)</strong>이 평일 매일 아침 자동으로 시트 데이터를 읽고, ChatGPT와 API를 돌려 SNS 자동 예약 발행과 뉴스레터 전송까지 다 마칩니다. 당신은 퇴근 후 저녁에 스마트폰 알람을 통해 그 결과만 5초 동안 쓱 확인하시면 끝납니다.`;
+                obstacleSolverText = `바쁜 하루 중에 약속하신 소중한 시간인 <strong>"${time.split(' (')[0]}"</strong>은 결코 적지 않은 엄청난 시간입니다. 평일 저녁이나 출퇴근 틈새 시간에 인공지능 비서에게 기본 반복 동작만 한 번 세팅해 두세요. 그 다음부턴 <strong>'크론 트리거(예약 타이머 기능)'</strong>라는 도구가 알아서 밤낮으로 작동하며 SNS 홍보 글 발행부터 손님 예약 확인까지 다 처리합니다. 당신은 퇴근 후 집에 돌아와 스마트폰 알림으로 결과만 5초 동안 쓱 확인하시고 편히 쉬시면 됩니다.`;
             } else {
-                obstacleSolverText = `초기 자금이 부족해도 AI 시대의 창업은 리스크 제로입니다! 구글 시트, Canva, Notion, n8n 클라우드 무료 요금제만 영리하게 이어 붙여도 고정비 0원짜리 자동화 매장을 방구석에 세팅할 수 있습니다. 자본이 아니라 당신이 가진 소중한 필살기인 <strong>[${skill}]</strong>(이)야말로 가장 큰 황금이자 독보적인 자산입니다. 한 단계씩 딛다 보면 <strong>"${barrier}"</strong>의 장벽은 눈 녹듯 사라질 것입니다.`;
+                obstacleSolverText = `초기 예산이 넉넉지 않아도 AI 시대의 창업은 실패 확률 0%입니다! 노션, 캔바, 구글 스프레드시트 등 우리가 일상에서 쓰는 무료 인터넷 서비스들만 조립해도 든든한 무인 매장을 방구석에 만들 수 있으니까요. 자본금이 아니라 당신의 숨은 보석 같은 필살기인 <strong>[${skill}]</strong>이야말로 그 누구도 빼앗아 갈 수 없는 가장 위대한 자산입니다. 한 걸음만 떼어보면 <strong>"${barrier}"</strong>의 장벽은 사르르 녹아 없어집니다.`;
             }
 
-            // Dynamic Action Timeline details based on Domain
             let day1Action = "";
             let day3Action = "";
             let day7Action = "";
 
             if (domain.includes("콘텐츠")) {
-                day1Action = `Notion 무료 버전을 개설하고, ChatGPT와 캔바(Canva) 일괄 제작 기능을 융합해 숏폼 및 릴스 제작용 카드뉴스 템플릿 20개를 15분 만에 자동 셋업합니다.`;
-                day3Action = `모바일 전용 링크트리 랜딩페이지를 제작해 프로필 링크에 걸고, 인스타그램/유튜브 쇼츠 채널에 요일별로 예약 발행 스케줄러(Meta Business Suite 무료)를 걸어 가동시킵니다.`;
-                day7Action = `구독료 수취를 위한 아임포트/토스페이먼츠 간편 1회성 결제 링크를 걸거나 e-메일 데이터 수집 폼(Stibee 등)을 연동하여 첫 머니 파이프라인 상용화를 완성합니다.`;
+                day1Action = `노션(Notion) 무료 메모장 화면에 나만의 홈피를 만들고, 인공지능 화가(캔바 Canva 등)를 이용해 숏폼 영상에 올릴 예쁜 카드뉴스 배경 20개를 15분 만에 뚝딱 준비합니다.`;
+                day3Action = `스마트폰 화면 전용 링크 주소를 만들어 프로필에 걸어두고, 인스타그램이나 유튜브 쇼츠 등 모바일 채널에 요일별 자동 홍보 영상 예약 업로드를 걸어 가동시킵니다.`;
+                day7Action = `손님들이 간편하게 용돈을 보낼 수 있는 간단한 Toss(토스) 송금 링크나 카드 간편 결제 링크를 걸어, 첫 머니 파이프라인의 안전한 가동을 개시합니다.`;
             } else if (domain.includes("자동화") || domain.includes("챗봇")) {
-                day1Action = `n8n.io 클라우드 무료 계정을 파고, 구글 시트와 챗GPT 및 슬랙을 API로 엮어 상담 내역이 자동으로 데이터베이스화되는 초간단 RAG 시나리오를 30분 만에 조립합니다.`;
-                day3Action = `소상공인 오픈채팅방이나 네이버 카페에 '1인 자영업 업무를 매일 1시간 줄여주는 AI 자동화 비서 프로토타입 체험단(3명 한정)'을 모집해 피드백을 모읍니다.`;
-                day7Action = `정식 대행 솔루션 플랜 요금표(월 유지 보수 및 건당 구축비)를 명시한 Notion 제안서를 발행하고 첫 결제 의뢰 계약을 안전하게 성사시킵니다.`;
+                day1Action = `무료 자동화 툴(n8n 클라우드 무료 요금제 등)에 가입하고, 손님의 문의가 들어오면 내 스마트폰이나 카카오톡으로 예약 알림이 띠링 울리는 초간단 비서 시나리오를 30분 만에 조립합니다.`;
+                day3Action = `소상공인 단톡방이나 단골 카페에 '자영업자 업무 시간을 하루 1시간 획기적으로 아껴주는 무료 비서 도우미 선착순 3명 모집!' 글을 올려 피드백을 모읍니다.`;
+                day7Action = `정식 예약 및 업무 대행 요금표(한 달 유지비 2만 원 또는 제작비 10만 원)를 적은 친절한 노션 안내서를 발행하고 첫 결제 의뢰 계약을 성사시킵니다.`;
             } else if (domain.includes("디자인")) {
-                day1Action = `Recraft.ai 또는 Midjourney 툴로 고품질 브랜드 시그니처 템플릿 세트를 기획하고, Notion 포트폴리오 1페이지를 구축합니다.`;
-                day3Action = `크몽(Kmong) 또는 숨고(Soomgo)에 서비스 카테고리를 등록하고, 첫 선착순 5명에게 '50% 반값 특별 프로모션 기획전' 제안 글을 발송 배포합니다.`;
-                day7Action = `결제가 완료된 즉시 구글 드라이브 폴더로 이미지가 자동 양도 전송되는 간편 전송 자동화 링크를 개설해 상용 런칭합니다.`;
+                day1Action = `무료 AI 그림 도구(Recraft, Midjourney 등)로 눈길을 사로잡을 나만의 브랜드 템플릿 예시본을 몇 개 그리고, 노션 포트폴리오 1장짜리 가게를 엽니다.`;
+                day3Action = `크몽(Kmong)이나 숨고(Soomgo) 같은 소상공인 외주 장터에 서비스 카테고리를 등록하고, '오픈 기념 선착순 5명 반값 특별 할인 혜택' 제안 글을 널리 소문냅니다.`;
+                day7Action = `결제가 성사되는 즉시, 구글 클라우드 폴더를 통해 예쁜 그림 파일이 손님 이메일로 자동 전송되는 스마트 간편 배송 시스템을 연결해 상용 개시합니다.`;
             } else {
-                day1Action = `무인 공유 룸/매장 전용 공간의 사진을 찍고, 네이버 플레이스 비즈니스 및 스페이스클라우드에 무료 매장 입점 신청을 올립니다.`;
-                day3Action = `매장 유리문 전면에 부착할 예약 전용 스마트 QR 코드 스티커 디자인을 출력해 붙이고, 당근마켓 지역 광고를 소액 등록(5천원) 가동합니다.`;
-                day7Action = `실시간 예약 완료 알림이 문자로 자동 송출되는 네이버 페이/카카오페이 모바일 결제 망 연동을 마치고, 첫 100% 무인 공간 대여 수익을 창출합니다.`;
+                day1Action = `무인 공유 룸/매장 전용 공간의 이쁜 사진을 촬영하고, 네이버 플레이스 지도 및 무료 공간 대여 사이트(스페이스클라우드 등)에 무료 가게 등록을 마칩니다.`;
+                day3Action = `매장 출입문 유리창에 손님이 비추기만 하면 자동으로 모바일 예약이 열리는 이쁜 네잎클로버 QR 코드 스탬프 스티커를 부착하고, 당근마켓 광고를 소액(5천 원) 노출시킵니다.`;
+                day7Action = `네이버페이나 카카오페이로 손님이 즉시 모바일 결제하면 실시간 출입문 임시 비밀번호가 문자로 자동 전송되는 간편 연동망을 켜서 첫 100% 무인 가게 수입을 만듭니다.`;
             }
 
             return {
@@ -2362,7 +2380,25 @@
             const circumference = 2 * Math.PI * radius; // 226.19
             const dashoffset = circumference - (plan.feasibilityScore / 100) * circumference;
 
+            // Safe String fallback variables to prevent JavaScript collapses on undefined values
+            const assetSafe = state.answers.asset || "기획과 실천력";
+            const timeSafe = state.answers.time || "하루 30분";
+            const barrierSafe = state.answers.barrier || "마케팅의 두려움";
+
             return `
+                <!-- 🍀 Success Banner with Cute Bear & Clover Illustration (Referencing user's upload) -->
+                <div class="premium-card" style="padding: 20px; border-color: var(--primary-light); background-color: #f7faf8; margin-bottom: 20px; text-align: center;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+                        <img src="images/success_clover_bear.png" alt="성공 축하 곰돌이와 네잎클로버" style="width: 170px; height: 170px; border-radius: 20px; box-shadow: var(--shadow-medium); object-fit: cover;" />
+                        <div>
+                            <h3 style="font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">🎉 기획서 발행 성공! 축하드려요! 🍀</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; max-width: 280px; margin: 0 auto;">
+                                귀여운 곰돌이들과 노란 병아리, 그리고 <strong>행운의 네잎클로버</strong>가 당신의 빛나는 앞날을 힘차게 응원합니다!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 🎯 Brand Identity Header -->
                 <div class="dashboard-welcome" style="margin-bottom: 20px;">
                     <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary-hover); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px;">AI 1인 창업 초정밀 사업화 기획서</div>
@@ -2382,9 +2418,9 @@
                         <div class="gauge-text">${plan.feasibilityScore}%</div>
                     </div>
                     <div>
-                        <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">비즈니스 실현 가능성 점수</h4>
+                        <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">나의 비즈니스 실현 가능성 점수</h4>
                         <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.45;">
-                            당신의 강력한 필살기 <strong>[${state.answers.asset.substring(0, 10)}]</strong>와 소중한 가용 시간 <strong>[${state.answers.time.split(' (')[0]}]</strong> 자원을 5Whys 심층 분석해 도출한 무결한 합격 점수입니다.
+                            당신의 강력한 필살기인 <strong>[${assetSafe.substring(0, 10)}]</strong>와 소중한 가용 시간 <strong>[${timeSafe.split(' (')[0]}]</strong> 자원을 5Whys 기법으로 분석한 안전 점수입니다.
                         </p>
                     </div>
                 </div>
@@ -2392,49 +2428,49 @@
                 <!-- 📋 Business Model Canvas Section -->
                 <div class="cards-headline" style="margin-bottom: 12px;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line></svg>
-                    초밀착 6-블록 비즈니스 모델 캔버스 (BMC)
+                    한눈에 쉽게 이해하는 내 사업 지도
                 </div>
 
                 <div class="business-canvas-grid">
                     <!-- Value Proposition -->
                     <div class="canvas-block">
-                        <span class="canvas-tag">가치 제안</span>
-                        <h4 class="canvas-title">핵심 해결 가치</h4>
+                        <span class="canvas-tag">내가 주는 진짜 가치</span>
+                        <h4 class="canvas-title">해결해 줄 문제와 핵심 가치</h4>
                         <p class="canvas-desc">${plan.valueProp}</p>
                     </div>
 
                     <!-- Target Customers -->
                     <div class="canvas-block">
-                        <span class="canvas-tag">핵심 고객</span>
-                        <h4 class="canvas-title">타겟 오디언스</h4>
+                        <span class="canvas-tag">소중한 손님들</span>
+                        <h4 class="canvas-title">내 대안을 찾아올 핵심 대상</h4>
                         <p class="canvas-desc">${plan.targetAudience}</p>
                     </div>
 
                     <!-- Revenue Stream -->
                     <div class="canvas-block">
-                        <span class="canvas-tag">수익 구조</span>
-                        <h4 class="canvas-title">매출 단가 설계</h4>
+                        <span class="canvas-tag">돈 버는 공식</span>
+                        <h4 class="canvas-title">수익 모델과 결제 목표 단가</h4>
                         <p class="canvas-desc">${plan.revenueStreamsDetails}</p>
                     </div>
 
                     <!-- Channels -->
                     <div class="canvas-block">
-                        <span class="canvas-tag">마케팅 채널</span>
-                        <h4 class="canvas-title">0원 고객 확보 채널</h4>
+                        <span class="canvas-tag">사업 소문내는 방법</span>
+                        <h4 class="canvas-title">유료 광고 없는 친근한 소문 채널</h4>
                         <p class="canvas-desc">${plan.marketingChannels}</p>
                     </div>
 
                     <!-- Cost Structure -->
                     <div class="canvas-block">
-                        <span class="canvas-tag">비용 구조</span>
-                        <h4 class="canvas-title">월 예상 고정비</h4>
+                        <span class="canvas-tag">알뜰하게 아끼는 비결</span>
+                        <h4 class="canvas-title">매달 지출할 최소 운영 예산</h4>
                         <p class="canvas-desc">${plan.costStructure}</p>
                     </div>
 
                     <!-- Scale-up -->
                     <div class="canvas-block">
-                        <span class="canvas-tag">성장 전략</span>
-                        <h4 class="canvas-title">B2B 스케일업 확장</h4>
+                        <span class="canvas-tag">더 큰 성장을 향한 지도</span>
+                        <h4 class="canvas-title">전자책 및 가맹점 확장성</h4>
                         <p class="canvas-desc">${plan.scaleUpStrategy}</p>
                     </div>
                 </div>
@@ -2442,7 +2478,7 @@
                 <!-- 🚀 3-Step Implementation Roadmap Section -->
                 <div class="cards-headline" style="margin-bottom: 12px;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                    실전 3단계 초고속 사업화 실행 계획서
+                    일단 시작해보는 초간단 7일 실천 플랜
                 </div>
 
                 <div class="roadmap-timeline">
@@ -2450,7 +2486,7 @@
                     <div class="roadmap-step">
                         <div class="roadmap-badge">1일</div>
                         <div class="roadmap-content">
-                            <h4>[1단계] MVP 구축 (최소 기능 제품 세팅)</h4>
+                            <h4>[1단계] 첫 간이 웹사이트 만들기</h4>
                             <p>${plan.day1Action}</p>
                         </div>
                     </div>
@@ -2459,7 +2495,7 @@
                     <div class="roadmap-step">
                         <div class="roadmap-badge" style="background-color: var(--primary-light);">3일</div>
                         <div class="roadmap-content">
-                            <h4>[2단계] 첫 타겟 고객 유치 마케팅 가동</h4>
+                            <h4>[2단계] 이웃 소문 내고 첫 단골 모집하기</h4>
                             <p>${plan.day3Action}</p>
                         </div>
                     </div>
@@ -2468,7 +2504,7 @@
                     <div class="roadmap-step">
                         <div class="roadmap-badge">7일</div>
                         <div class="roadmap-content">
-                            <h4>[3단계] 결제 연동 및 본격 상용 자동화</h4>
+                            <h4>[3단계] 결제 연결망 연동 및 문 열기</h4>
                             <p>${plan.day7Action}</p>
                         </div>
                     </div>
@@ -2477,12 +2513,12 @@
                 <!-- 🛡️ Personalized Obstacle Solver -->
                 <div class="cards-headline">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                    1:1 코치 처방전: 두려움 돌파 가이드
+                    1:1 따뜻한 코치의 두려움 돌파 처방전
                 </div>
                 <div class="obstacle-alert">
                     <h4>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        장벽인 "${state.answers.barrier.substring(0, 15)}" 해결 처방전
+                        "${barrierSafe.substring(0, 15)}"에 대한 맞춤형 조언
                     </h4>
                     <p>${plan.obstacleSolverText}</p>
                 </div>
@@ -2490,7 +2526,7 @@
                 <!-- 🗓️ Habit Tracker -->
                 <div class="cards-headline">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    창업 실천 데일리 트래커
+                    내 꿈을 가꾸는 든든한 하루 한 걸음 밭
                 </div>
 
                 <div class="dashboard-tracker-card">
@@ -2518,20 +2554,20 @@
 
                     <button class="complete-action-btn" id="btnCompleteToday" ${isTodayCompleted ? 'disabled' : ''}>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                        ${isTodayCompleted ? '오늘의 창업 활동 완료됨' : '오늘 하루, 한 걸음 걷기 완료'}
+                        ${isTodayCompleted ? '오늘 하루, 소중한 한 걸음 완료!' : '오늘 하루, 한 걸음 걷기 완료'}
                     </button>
                 </div>
 
-                <!-- 🔔 Smart Push Notification Card (inspired by right screenshot) -->
+                <!-- 🔔 Smart Push Notification Card -->
                 <div class="tracker-notification-card">
                     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                         <span class="notification-badge">스마트 실천 알람</span>
                     </div>
                     <h4 style="font-size: 1.05rem; font-weight: 800; color: var(--text-main); margin-top: 10px; margin-bottom: 6px; letter-spacing: -0.02em; line-height: 1.4;">
-                        루틴 알림 받으면 까먹지 않고 실천할 수 있어요
+                        루틴 알림을 켜고 매일 까먹지 않고 행동해 보세요!
                     </h4>
                     <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
-                        소중한 내 창업 루틴 절대 잊지 않게 도와줄게요. 매일 가용 시간인 [${state.answers.time.split(' (')[0]}]에 알림 푸시를 받아보세요.
+                        당신의 소중한 약속을 지켜드릴게요. 매일 정한 가용 시간인 [${timeSafe.split(' (')[0]}]에 맞춰 알림을 보내 드립니다.
                     </p>
                     
                     <div class="notification-previews">
@@ -2541,7 +2577,7 @@
                                 <span class="preview-time">7분 전</span>
                             </div>
                             <div class="preview-body">
-                                [눈 뜨자마자 15분 창업 ⏱️] 루틴을 할 시간이에요!
+                                [${timeSafe.split(' (')[0]} 창업 실천 ⏱️] 루틴을 실천할 시간이에요!
                             </div>
                         </div>
                         <div class="notification-preview-item">
@@ -2550,28 +2586,32 @@
                                 <span class="preview-time">15분 전</span>
                             </div>
                             <div class="preview-body">
-                                [🎯 ${plan.brandName}] 오늘 1단계 실천 루틴을 성공적으로 지키고 있어요 :) 오늘도 잊지 말고 파이팅!
+                                [🎯 ${plan.brandName}] 오늘 1단계 실천 약속을 정말 멋지게 지키셨습니다! 오늘도 수고하셨어요 :)
                             </div>
                         </div>
                     </div>
                     
                     <button class="complete-action-btn" id="btnEnableNotifications">
-                        알람을 켤래
+                        알람 켜기
                     </button>
                     <button class="nav-btn secondary" id="btnDisableNotifications" style="width: 100%; border: none; background: transparent; color: var(--text-muted); font-size: 0.8rem; padding: 6px; margin-top: 6px; box-shadow: none;">
-                        지금은 괜찮아
+                        지금은 괜찮아요
                     </button>
                 </div>
 
-                <!-- 🔄 Double Reset Action Toolbar -->
+                <!-- 📤 Share & Reset Action Toolbar -->
                 <div class="action-toolbar">
+                    <button class="complete-action-btn" id="btnSharePlan" style="background-color: var(--primary-hover); color: #ffffff; border-radius: var(--radius-md); box-shadow: 0 4px 14px rgba(18, 211, 121, 0.25);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                        기획서 친구에게 공유하기 🍀
+                    </button>
                     <button class="toolbar-btn re-diagnose" id="btnReDiagnose">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
-                        다른 아이디어로 다시 설계하기
+                        다른 아이디어로 다시 기획하기
                     </button>
                     <button class="toolbar-btn hard-reset" id="btnHardReset">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        모든 데이터 초기화
+                        모든 데이터 지우기 (초기화)
                     </button>
                 </div>
             `;
@@ -2592,7 +2632,7 @@
                     
                     state.streak = state.streak + 1;
                     state.completedCount = state.completedCount + 1;
-                    state.trackingHistory = updatedHistory; // Proxy triggers save and render
+                    state.trackingHistory = updatedHistory;
                 });
             }
 
@@ -2619,20 +2659,42 @@
                 });
             }
 
-            // 4. Push Alarms trigger (inspired by right screenshot)
+            // 4. Smart Sharing Button (Web Share API with Clipboard Copy Fallback)
+            const btnShare = document.getElementById('btnSharePlan');
+            if (btnShare) {
+                btnShare.addEventListener('click', () => {
+                    const shareText = `🍀 [Solo AI 코칭 센터] 🍀\n\n내 창업 브랜드: 🎉 ${plan.brandName} 🎉\n"${plan.slogan}"\n\n비즈니스 실현 가능성 점수: ${plan.feasibilityScore}%\n\n나만의 5Whys 창업 기획서를 무료로 분석받고 실천 루틴을 짜보세요! 👇\n${window.location.origin}${window.location.pathname}?v=${Date.now()}`;
+                    
+                    if (navigator.share) {
+                        navigator.share({
+                            title: `${plan.brandName} - Solo AI 창업 기획서`,
+                            text: shareText,
+                            url: window.location.origin + window.location.pathname
+                        }).catch(err => console.log('Share error:', err));
+                    } else {
+                        navigator.clipboard.writeText(shareText).then(() => {
+                            alert("📋 기획서 요약 내용과 주소가 클립보드에 복사되었습니다!\n\n카카오톡 대화방이나 블로그에 붙여넣기(Ctrl+V)하여 친구들에게 나만의 행운을 공유해 보세요! 🍀");
+                        }).catch(err => {
+                            alert("클립보드 복사에 실패했습니다. 기획서 내용을 직접 복사해 주세요.");
+                        });
+                    }
+                });
+            }
+
+            // 5. Push Alarms trigger
             const btnEnableNotifications = document.getElementById('btnEnableNotifications');
             if (btnEnableNotifications) {
                 btnEnableNotifications.addEventListener('click', () => {
+                    const timeSafe = state.answers.time || '30분';
                     if (!("Notification" in window)) {
-                        alert("🔔 알람 등록 완료! 매일 가용 시간인 [" + (state.answers.time || '30분').split(' (')[0] + "]에 기기 푸시 알림으로 코치 피드백을 전달해 드립니다.");
+                        alert("🔔 알람 등록 완료! 매일 약속한 시간인 [" + timeSafe.split(' (')[0] + "]에 기기 푸시 알림으로 코치 피드백을 전달해 드립니다.");
                         return;
                     }
 
                     Notification.requestPermission().then(permission => {
                         if (permission === "granted") {
-                            alert("🔔 실천 알람 설정이 성공적으로 켜졌습니다! 매일 정해진 시간인 [" + (state.answers.time || '30분').split(' (')[0] + "]에 기기 알림으로 코치 피드백을 전달해 드립니다.");
+                            alert("🔔 실천 알람 설정이 성공적으로 켜졌습니다! 매일 정해진 시간인 [" + timeSafe.split(' (')[0] + "]에 기기 알림으로 코치 피드백을 전달해 드립니다.");
                             
-                            // Send a mock immediate welcome notification
                             new Notification("Solo AI 코칭 센터", {
                                 body: `🔓 알람 등록 완료! [${plan.brandName}] 여정을 시작할 준비가 되셨습니다.`,
                                 icon: "data:image/svg+xml;utf8,<svg width='64' height='64' xmlns='http://www.w3.org/2000/svg'><circle cx='32' cy='32' r='30' fill='%2312d379'/><path d='M20 32l8 8 16-16' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"
@@ -2708,6 +2770,41 @@
         document.getElementById('btnResetDemo').addEventListener('click', () => {
             localStorage.removeItem(STORAGE_KEY);
             window.location.reload();
+        });
+
+        // Register PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('ServiceWorker registered successfully!', reg))
+                    .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+        }
+
+        // Handle PWA installation prompt for Android
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installCard = document.getElementById('pwaAndroidInstallCard');
+            if (installCard) installCard.style.display = 'flex';
+        });
+
+        // Delegation click listener for Android install button
+        document.body.addEventListener('click', (e) => {
+            if (e.target && e.target.id === 'btnInstallPwaAndroid') {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('PWA installation accepted by user');
+                        }
+                        deferredPrompt = null;
+                        const installCard = document.getElementById('pwaAndroidInstallCard');
+                        if (installCard) installCard.style.display = 'none';
+                    });
+                }
+            }
         });
 
         // --- 11. APPLICATION INITIALIZATION ---
