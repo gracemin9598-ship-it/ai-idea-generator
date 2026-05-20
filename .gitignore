@@ -1,0 +1,5 @@
+.gemini/*
+*.log
+scratch/*
+deploy.ps1
+deploy_utf8.ps1
